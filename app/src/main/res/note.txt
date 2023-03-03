@@ -1,0 +1,4 @@
+Check device information
+https://stackoverflow.com/questions/1995439/get-android-phone-model-programmatically
+- Xiaomi Redmi 2 perlu VectorDrawableCompat
+- Tapi di Huawei MediaPad 4.2.2 malah jadi masalah

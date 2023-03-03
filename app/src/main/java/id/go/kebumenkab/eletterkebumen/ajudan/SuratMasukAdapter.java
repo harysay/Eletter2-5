@@ -1,0 +1,491 @@
+package id.go.kebumenkab.eletterkebumen.ajudan;
+
+import android.content.Context;
+
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.view.HapticFeedbackConstants;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import id.go.kebumenkab.eletterkebumen.R;
+import id.go.kebumenkab.eletterkebumen.helper.CircleTransform;
+import id.go.kebumenkab.eletterkebumen.helper.Config;
+import id.go.kebumenkab.eletterkebumen.helper.PrefManager;
+import id.go.kebumenkab.eletterkebumen.model.SuratMasuk;
+import id.go.kebumenkab.eletterkebumen.network.AppController;
+
+/** **/
+
+public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.MyViewHolder>
+    implements Filterable, SwipeAndDragHelper.ActionCompletionContract {
+    private Context mContext;
+    private List<SuratMasuk> messages;
+    private List<SuratMasuk> messagesMaster;
+    private List<SuratMasuk> messagesFiltered;
+
+    private MessageAdapterListener listener;
+    private SparseBooleanArray selectedItems;
+
+    private ItemTouchHelper touchHelper;
+
+    // array used to perform multiple animation at once
+    private SparseBooleanArray animationItemsIndex;
+    private boolean reverseAllAnimations = false;
+
+    // index is used to animate only the selected row
+    // dirty fix, find a better solution
+    private static int currentSelectedIndex = -1;
+
+    public int getSize(){
+        return messages.size();
+    }
+
+    public void getMessageByStatus(CharSequence charSequence){
+        String status = charSequence.toString().trim();
+
+        if(status.length() > 0){
+            List<SuratMasuk> messageCategorized = new ArrayList<SuratMasuk>();
+
+            for(SuratMasuk row : messagesMaster){
+                if (row.getStatus().toLowerCase().contains(status.toLowerCase()) ) {
+                    Log.e("Filter", row.getFrom()+"/"+ row.getStatus()+"/"+ status);
+                    messageCategorized.add(row);
+                }
+            }
+
+            messagesFiltered = messageCategorized;
+        }else{
+            messagesFiltered = messagesMaster;
+        }
+
+         messages = messagesFiltered;
+         notifyDataSetChanged();
+    }
+
+    public void getMessageIsRead(){
+
+        List<SuratMasuk> messageCategorized = new ArrayList<SuratMasuk>();
+
+        for(SuratMasuk row : messagesMaster){
+            if (row.getIsread().toLowerCase().contains("1") ) {
+                Log.e("Filter", row.getFrom()+"/"+ row.getStatus());
+                messageCategorized.add(row);
+            }
+        }
+
+        messagesFiltered = messageCategorized;
+
+        messages = messagesFiltered;
+        notifyDataSetChanged();
+    }
+
+    public void getMessageUnRead(){
+
+        List<SuratMasuk> messageCategorized = new ArrayList<SuratMasuk>();
+
+        for(SuratMasuk row : messagesMaster){
+            if (row.getIsread().toLowerCase().contains("0") ) {
+                Log.e("Filter", row.getFrom()+"/"+ row.getStatus());
+                messageCategorized.add(row);
+            }
+        }
+
+        messagesFiltered = messageCategorized;
+
+        messages = messagesFiltered;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+
+                if (charString.isEmpty()) {
+                    messagesFiltered = messagesMaster;
+                } else {
+
+                    List<SuratMasuk> filteredList = new ArrayList<>();
+
+
+                    for (SuratMasuk row : messagesMaster) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+
+
+                       if (row.getFrom().toLowerCase().contains(charString.toLowerCase())
+                               || row.getSubject().toLowerCase().contains(charString.toLowerCase()) ) {
+                            Log.e("Filter", row.getFrom()+"/"
+                                    + row.getSubject()+"/"+ charString);
+
+                            filteredList.add(row);
+                        }
+                    }
+
+                    messagesFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = messagesFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                messages = (ArrayList<SuratMasuk>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    @Override
+    public void onViewMoved(int oldPosition, int newPosition) {
+            SuratMasuk target  =messages.get(oldPosition);
+            SuratMasuk suratMasuk = new SuratMasuk(target);
+
+            messages.remove(oldPosition);
+            messages.add(newPosition, suratMasuk);
+            notifyItemMoved(oldPosition, newPosition);
+
+            new Thread(new Task()).start();
+
+    }
+
+    class Task implements Runnable {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(2000);
+                sendOrderAjudan(messages);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                Log.d("Order", "selesai");
+            }
+
+        }
+    }
+
+    @Override
+    public void onViewSwiped(int position) {
+//        messages.remove(position);
+//        notifyItemRemoved(position);
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+        public TextView from, subject, message, iconText, timestamp, jenis_surat;
+        public ImageView iconImp, imgProfile;
+        public LinearLayout messageContainer;
+        public RelativeLayout iconContainer, iconBack, iconFront, layoutParent;
+
+        public MyViewHolder(View view) {
+            super(view);
+            from = (TextView) view.findViewById(R.id.from);
+            subject = (TextView) view.findViewById(R.id.txt_primary);
+            message = (TextView) view.findViewById(R.id.txt_secondary);
+            iconText = (TextView) view.findViewById(R.id.icon_text);
+            timestamp = (TextView) view.findViewById(R.id.timestamp);
+            jenis_surat = (TextView) view.findViewById(R.id.jumlah_koreksi);
+
+            iconBack = (RelativeLayout) view.findViewById(R.id.icon_back);
+            iconFront = (RelativeLayout) view.findViewById(R.id.icon_front);
+            iconImp = (ImageView) view.findViewById(R.id.icon_star);
+            imgProfile = (ImageView) view.findViewById(R.id.icon_profile);
+            messageContainer = (LinearLayout) view.findViewById(R.id.message_container);
+            iconContainer = (RelativeLayout) view.findViewById(R.id.icon_container);
+            view.setOnLongClickListener(this);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            listener.onRowLongClicked(getAdapterPosition());
+            view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+            return true;
+        }
+    }
+
+
+    public SuratMasukAdapter(Context mContext, List<SuratMasuk> messages, MessageAdapterListener listener) {
+        this.mContext = mContext;
+        this.messages = messages;
+        this.listener = listener;
+        this.messagesFiltered = messages;
+        this.messagesMaster = messages;
+        selectedItems = new SparseBooleanArray();
+        animationItemsIndex = new SparseBooleanArray();
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.message_list_row, parent, false);
+
+        return new MyViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        SuratMasuk message = messages.get(position);
+
+        holder.iconContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    touchHelper.startDrag(holder);
+                }
+                return false;
+            }
+        });
+
+        // displaying text view data
+        holder.from.setText(message.getFrom());
+        holder.subject.setText(message.getStatus()+" : "+message.getSubject());
+        holder.message.setText(message.getMessage());
+
+        long now = System.currentTimeMillis();
+        holder.timestamp.setText(DateUtils.getRelativeTimeSpanString(timeStringtoMilis(message.getTimestamp()), now, DateUtils.DAY_IN_MILLIS));
+
+        // displaying the first letter of From in icon text
+        holder.iconText.setText(message.getFrom().substring(0, 1));
+
+        // change the row state to activated
+        holder.itemView.setActivated(selectedItems.get(position, false));
+
+       /* if(message.getJenisTujuan().equalsIgnoreCase(Tag.TAG_TEMBUSAN)){
+            holder.jenis_surat.setText(message.getJenisTujuan());
+            holder.jenis_surat.setVisibility(View.VISIBLE);
+        }*/
+
+
+        // display profile image
+        applyProfilePicture(holder, message);
+
+        // apply click events
+        applyClickEvents(holder, position);
+    }
+
+    public void setTouchHelper(ItemTouchHelper touchHelper) {
+        this.touchHelper = touchHelper;
+    }
+
+    private void applyClickEvents(MyViewHolder holder, final int position) {
+        holder.iconContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onIconClicked(position);
+            }
+        });
+
+        holder.iconImp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onIconImportantClicked(position);
+            }
+        });
+
+        holder.messageContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onMessageRowClicked(position);
+            }
+        });
+
+        holder.messageContainer.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                listener.onRowLongClicked(position);
+                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+                return true;
+            }
+        });
+    }
+
+    private void applyProfilePicture(MyViewHolder holder, SuratMasuk message) {
+        if (!TextUtils.isEmpty(message.getPicture())) {
+            Glide.with(mContext).load(message.getPicture())
+                    .thumbnail(0.5f)
+                    .crossFade()
+                    .transform(new CircleTransform(mContext))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.imgProfile);
+            holder.imgProfile.setColorFilter(null);
+            holder.iconText.setVisibility(View.GONE);
+        } else {
+            holder.imgProfile.setImageResource(R.drawable.bg_circle);
+            holder.iconText.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+
+    @Override
+    public long getItemId(int position) {
+        return Long.parseLong(messages.get(position).getIdSurat());
+    }
+
+
+
+
+    @Override
+    public int getItemCount() {
+        return messagesFiltered.size();
+    }
+
+    public void toggleSelection(int pos) {
+        currentSelectedIndex = pos;
+        if (selectedItems.get(pos, false)) {
+            selectedItems.delete(pos);
+            animationItemsIndex.delete(pos);
+        } else {
+            selectedItems.put(pos, true);
+            animationItemsIndex.put(pos, true);
+        }
+        notifyItemChanged(pos);
+    }
+
+    public void clearSelections() {
+        reverseAllAnimations = true;
+        selectedItems.clear();
+        notifyDataSetChanged();
+    }
+
+    public int getSelectedItemCount() {
+        return selectedItems.size();
+    }
+
+    public List<Integer> getSelectedItems() {
+        List<Integer> items =
+                new ArrayList<>(selectedItems.size());
+        for (int i = 0; i < selectedItems.size(); i++) {
+            items.add(selectedItems.keyAt(i));
+        }
+        return items;
+    }
+
+
+
+    private void resetCurrentIndex() {
+        currentSelectedIndex = -1;
+    }
+
+    public interface MessageAdapterListener {
+        void onIconClicked(int position);
+
+        void onIconImportantClicked(int position);
+
+        void onMessageRowClicked(int position);
+
+        void onRowLongClicked(int position);
+    }
+
+    private long tampilkanWaktu (String timestamp){
+        long now = System.currentTimeMillis();
+        long monthsAgo      = timeStringtoMilis(timestamp);
+        return monthsAgo;
+    }
+
+    private long timeStringtoMilis(String time) {
+        long milis = 0;
+
+        try {
+            SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date 	= sd.parse(time);
+            milis 		= date.getTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return milis;
+    }
+
+
+    public void sendOrderAjudan(final List<SuratMasuk> listSuratMasuk) {
+
+        PrefManager prefManager = new PrefManager(mContext);
+        final String token = prefManager.getSessionToken();
+        if (token == null) {
+
+            Toast.makeText(mContext, "Token tidak ada", Toast.LENGTH_LONG).show();
+            return;
+        } else {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URL_AJUDAN_ORDER_MASUK,
+                    new com.android.volley.Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+                            Log.d("Login", response.toString());
+                            try {
+                                JSONObject obj = new JSONObject(response);
+                                Toast.makeText(mContext, obj.getString("pesan"), Toast.LENGTH_LONG).show();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new com.android.volley.Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                            Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    for (int i = 0; i < listSuratMasuk.size(); i++) {
+                        SuratMasuk suratMasuk = listSuratMasuk.get(i);
+                        params.put("history[" + suratMasuk.getIdHistory() + "]", String.valueOf(i+1));
+                        Log.d("histori", "history[" + suratMasuk.getIdHistory() + "]=" + String.valueOf(i+1));
+                    }
+
+                    return params;
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Authorization", token);
+                    return params;
+                }
+            };
+            AppController.getInstance().addToRequestQueue(stringRequest);
+        }
+    }
+}

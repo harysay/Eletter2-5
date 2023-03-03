@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:mContext="id.go.kebumenkab.eletterkebumen.activity.pns.DetailKonsep">
+
+    <item
+        android:id="@+id/action_download"
+        android:orderInCategory="100"
+        android:title="@string/action_download"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="101"
+        android:title="@string/action_pilih_tindakan"
+        app:showAsAction="always" >
+
+        <menu>
+    <item
+        android:id="@+id/action_tindaklanjuti"
+        android:orderInCategory="100"
+        android:title="@string/action_tindaklanjuti"
+        app:showAsAction="never|withText" />
+    <item
+        android:id="@+id/action_disposisi"
+        android:orderInCategory="101"
+        android:title="@string/action_disposisi"
+        app:showAsAction="never|withText" />
+        </menu>
+    </item>
+
+</menu>

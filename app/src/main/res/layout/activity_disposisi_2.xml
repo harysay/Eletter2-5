@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".activity.pns.DisposisiActivity">
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="18dp"
+        android:padding="@dimen/appbar_padding_top"
+        android:text="@string/message_tindakan" />
+
+
+    <LinearLayout
+        android:id="@+id/bottom_button"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/appbar_padding_top"
+        android:orientation="vertical"
+        android:background="#e1e1e1"
+
+        android:padding="@dimen/appbar_padding_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_pesan"/>
+
+        <EditText
+            android:id="@+id/pesan"
+            android:nextFocusDown="@id/passphrasebupati"
+            android:nextFocusRight="@id/passphrasebupati"
+            android:layout_marginTop="@dimen/appbar_padding_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3">
+
+        </EditText>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/appbar_padding_top"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/inputankhususbupati"
+            android:background="#e1e1e1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wajib memasukan PASSPHRASE di bawah ini"/>
+
+            <EditText
+                android:id="@+id/passphrasebupati"
+                android:nextFocusDown="@id/kirim"
+                android:nextFocusRight="@id/kirim"
+                android:layout_marginTop="@dimen/appbar_padding_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="3">
+
+            </EditText>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/kirim"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/appbar_padding_top"
+            android:background="@drawable/rounded"
+            android:textColor="@color/row_activated"
+            android:text="@string/action_disposisi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:nextFocusDown="@id/pesan"
+        android:nextFocusRight="@id/pesan"
+
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_button"
+        android:layout_below="@+id/title"
+        android:layout_marginBottom="0dp"
+        />
+
+
+
+</RelativeLayout>

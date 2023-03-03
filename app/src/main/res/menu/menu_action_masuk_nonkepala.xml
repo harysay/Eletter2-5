@@ -1,0 +1,47 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:mContext="id.go.kebumenkab.eletterkebumen.activity.pns.WebViewActivity">
+
+    <item
+        android:id="@+id/action_reload"
+        android:orderInCategory="100"
+        android:title="@string/action_reload"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/action_download"
+        android:orderInCategory="100"
+        android:title="@string/action_download"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_pilih_tindakan"
+        app:showAsAction="always" >
+
+        <menu>
+            <item
+                android:id="@+id/action_tindaklanjuti"
+                android:orderInCategory="100"
+                android:title="@string/action_tindaklanjuti"
+                app:showAsAction="never|withText" />
+            <item
+                android:id="@+id/action_disposisi"
+                android:orderInCategory="101"
+                android:title="@string/action_disposisi"
+                app:showAsAction="never|withText" />
+            <item
+                android:id="@+id/action_kembalikan"
+                android:orderInCategory="102"
+                android:title="@string/action_kembalikan"
+                app:showAsAction="never|withText" />
+            <item
+                android:id="@+id/action_arsip"
+                android:orderInCategory="103"
+                android:title="@string/action_arsip"
+                app:showAsAction="never|withText" />
+        </menu>
+    </item>
+</menu>

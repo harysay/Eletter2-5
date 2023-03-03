@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.pns.ArsipFragment">
+
+            <LinearLayout
+                android:id="@+id/disetujui_lurah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_setuju_white"
+                    android:padding="10dp"
+                    android:background="@drawable/bg_circle"
+                    />
+                <LinearLayout
+                    android:id="@+id/disetujui"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/msg_text_primary"
+                        android:text="@string/nav_setuju_lurah"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/msg_text_secondary"
+                        android:text="@string/ket_setuju"/>
+
+                </LinearLayout>
+            </LinearLayout>
+    </ScrollView>

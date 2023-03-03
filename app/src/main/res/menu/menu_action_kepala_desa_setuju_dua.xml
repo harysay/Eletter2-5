@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:mContext="id.go.kebumenkab.eletterkebumen.activity.pns.DetailKonsep">
+
+    <item
+        android:id="@+id/action_bersihkan"
+        android:orderInCategory="100"
+        android:title="@string/action_hilangkan_tandai"
+        app:showAsAction="always"
+        />
+
+</menu>

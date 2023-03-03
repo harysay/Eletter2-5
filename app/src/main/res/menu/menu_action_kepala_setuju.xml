@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:mContext="id.go.kebumenkab.eletterkebumen.activity.pns.DetailKonsep">
+
+    <item
+        android:id="@+id/action_koreksi"
+        android:icon="@drawable/ic_koreksi_white"
+        android:orderInCategory="100"
+        android:title="@string/action_koreksi"
+        app:showAsAction="always|withText" />
+
+
+    <item
+        android:id="@+id/action_setuju"
+        android:icon="@drawable/ic_setuju_white"
+        android:orderInCategory="100"
+        android:title="@string/action_setuju"
+        app:showAsAction="always|withText" />
+</menu>

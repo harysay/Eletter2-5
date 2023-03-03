@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/nav_profil">
+
+        <Preference
+            android:key="@string/title_profil"
+            android:summary="@string/title_profil_message"
+            android:title="@string/title_profil" />
+
+        <Preference
+            android:key="@string/title_logout"
+            android:summary="@string/title_logout_message"
+            android:title="@string/title_logout" />
+        <Preference
+            android:key="@string/title_gantipassword"
+            android:summary="@string/title_gantipassword_message"
+            android:title="@string/title_gantipassword" />
+    </PreferenceCategory>
+
+    <!--
+    <SwitchPreference
+        android:key="key_daynight"
+        android:title="Mode malam"
+        android:summary="Mengaktifkan mode malam"
+        />
+-->
+
+    <PreferenceCategory
+        android:key="@string/pref_header_about"
+        android:title="@string/pref_header_about">
+
+        <Preference
+            android:summary="@string/summary_about"
+            android:title="@string/title_about" />
+
+        <Preference
+            android:title="@string/title_mitra"
+            android:summary="@string/summary_mitra"/>
+
+        <Preference
+            android:key="@string/key_version"
+            android:title="@string/title_version" />
+
+        <Preference
+            android:key="@string/key_riwayat_dev"
+            android:summary="@string/summary_riwayat_dev"
+            android:title="@string/title_riwayat_dev" />
+
+        <Preference
+            android:key="@string/title_intro"
+            android:summary="@string/summary_intro"
+            android:title="@string/title_intro" />
+
+        <Preference
+            android:key="@string/title_domain"
+            android:summary="@string/summary_domain"
+            android:title="@string/title_domain" />
+
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/title_other">
+        <!-- preference opens url in browser -->
+
+        <!--
+        <Preference
+            android:summary="@string/summary_faq"
+            android:title="@string/title_faq">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/url_faq" />
+        </Preference>
+
+        <Preference android:title="@string/privacy_policy">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/url_privacy" />
+        </Preference>
+
+        <Preference android:title="@string/title_terms">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/url_terms" />
+        </Preference>
+
+        <Preference android:title="@string/title_terms">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/url_terms" />
+        </Preference>
+
+         -->
+
+        <Preference android:title="@string/title_download_book"
+            android:summary="@string/summary_download_book">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/url_download_book"
+                />
+        </Preference>
+
+        <Preference
+            android:key="@string/key_send_feedback"
+            android:summary="@string/summary_support"
+            android:title="@string/title_send_feedback" />
+
+
+        <Preference
+            android:key="@string/key_send_whatsapp"
+            android:summary="@string/summary_whatsapp"
+            android:title="@string/title_whatsapp" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

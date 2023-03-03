@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="id.go.kebumenkab.eletterkebumen">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- for android badge -->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" /> <!-- for Samsung badge -->
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" /> <!-- for htc badge -->
+    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" /> <!-- for apex badge -->
+    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" /> <!-- permission required to automatically restart a repeating alarm if the user reboots the device -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SET_ALARM" /> <!-- Permission untuk versi 9.0 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:name=".network.AppController"
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.DayNight"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".WebViewKoreksiActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.desa.KonfirmasiTandaTanganActivity"
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- untuk webview err_cleartext_not_permitted  minimum Android SDK 23 -->
+        <!-- largeHeap true untuk WelcomeActivity yang OutOfMemory pada Android SDK 7.0 Samsung S6 Edge -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.lurah.LoginLurahActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".intro.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.pns.DetailKonsep"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
+        <activity
+            android:name=".activity.pns.DetailPermintaanTandatangan"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
+        <activity
+            android:name=".ajudan.DetailKonsep"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:parentActivityName=".ajudan.Dashboard"
+            android:screenOrientation="portrait"
+            android:taskAffinity="">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.go.kebumenkab.eletterkebumen.ajudan.Dashboard" />
+        </activity>
+        <activity
+            android:name=".activity.pns.DetailSuratMasuk"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
+        <activity
+            android:name=".ajudan.DetailSuratMasuk"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
+        <activity
+            android:name=".activity.operator.DetailSuratMasuk"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
+        <activity
+            android:name=".activity.PengaturanActivity"
+            android:label="@string/title_activity_pengaturan"
+            android:parentActivityName=".activity.pns.Dashboard" />
+        <activity
+            android:name=".activity.desa.InfoDesaActivity"
+            android:label="@string/title_activity_pengaturan"
+            android:parentActivityName=".activity.desa.Dashboard" />
+        <activity
+            android:name=".activity.pns.WebViewActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="com.google.android.actions"
+                android:resource="@xml/provider_paths" />
+        </activity>
+        <activity
+            android:name=".activity.operator.PreviewActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="com.google.android.actions"
+                android:resource="@xml/provider_paths" />
+        </activity>
+        <activity
+            android:name=".activity.desa.WebViewDesaLurahActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="com.google.android.actions"
+                android:resource="@xml/provider_paths" />
+        </activity>
+        <activity
+            android:name=".ajudan.WebViewActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="com.google.android.actions"
+                android:resource="@xml/provider_paths" />
+        </activity>
+        <activity
+            android:name=".activity.LampiranActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="com.google.android.actions"
+                android:resource="@xml/provider_paths" />
+        </activity>
+        <activity
+            android:name=".activity.HistoriActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.desa.GantiPassword"
+            android:label="@string/title_gantipassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.pns.ArsipActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDisposisiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDisposisiDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDiajukanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDiajukanDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDisetujuiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDisetujuiDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.desa.ArsipDisetujuiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDikoreksiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDikoreksiDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDitelaahActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDitelaahDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDitindaklanjutiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipDitindaklanjutiDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipLainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arsip.ArsipLainDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.pns.ArsipKonsepActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.pns.Dashboard"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:finishOnTaskLaunch="true"
+            android:label="@string/title_activity_dashboard"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.operator.DashboardOperator"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:finishOnTaskLaunch="true"
+            android:label="@string/title_activity_dashboard"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.lurah.DashboardLurah"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:finishOnTaskLaunch="true"
+            android:label="@string/title_activity_dashboard"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.desa.Dashboard"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:finishOnTaskLaunch="true"
+            android:label="@string/title_activity_dashboard"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ajudan.Dashboard"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:finishOnTaskLaunch="true"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ProfilActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WebActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.pns.DisposisiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.pns.DisposisiLanjutanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.pns.DitandaiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NewsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_news"
+            android:theme="@style/FullscreenTheme" /> <!-- Service for checking notification -->
+        <service
+            android:name=".service.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service> <!-- Register the Alarm Receiver -->
+        <receiver android:name=".helper.MyStartServiceReceiver" />
+    </application>
+
+</manifest>

@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    // buildToolsVersion '27.0.3'
+    defaultConfig {
+        applicationId "id.go.kebumenkab.eletterkebumen"
+        minSdkVersion 19 // sebelumnya 16, diupgrade karena kebutuhan Firebase
+        targetSdkVersion 30
+        versionCode 60
+        versionName '2.3.01.B13012022'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+
+        debug {
+            minifyEnabled false  // shrink
+            shrinkResources false
+            // useProguard sudah dihapus
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled false
+            shrinkResources false
+            // useProguard sudah dihapus
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // ditambahkan 28-6-2021 karena muncul eror sebagai berikut
+    // Invoke-customs are only supported starting with android 0 --min-api 26
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    testImplementation 'junit:junit:4.12'
+
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.vectordrawable:vectordrawable:1.0.0'
+
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    // retrofit, gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+    // Glide image library
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
+    // https://firebase.google.com/support/release-notes/android#latest_sdk_versions
+    implementation 'com.google.firebase:firebase-core:20.0.0'
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
+    // Showcase
+    //implementation 'com.github.faruktoptas:FancyShowCaseView:1.0.1'
+    implementation 'com.android.volley:volley:1.1.0'
+    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
+
+    //Easy permissions for handling Run time permissions
+    implementation 'pub.devrel:easypermissions:0.2.0'
+
+}
+
+apply plugin: 'com.google.gms.google-services'

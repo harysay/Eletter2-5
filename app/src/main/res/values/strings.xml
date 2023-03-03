@@ -1,0 +1,759 @@
+<resources>
+    <string name="app_name">Eletter</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+    <string name="close">Tutup</string>
+    <string name="lihat">Lihat</string>
+    <string name="setuju">Setuju</string>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_home">Belum dibuka</string>
+    <string name="nav_sudahdibuka">Sudah dibuka</string>
+
+    <string name="nav_ajukan">Diajukan</string>
+    <string name="nav_koreksi">Dikoreksi</string>
+    <string name="nav_setuju">Disetujui</string>
+    <string name="nav_setuju_lurah">Layanan Mandiri Disetujui</string>
+    <string name="nav_kirim">Dikirim</string>
+    <string name="nav_telaah">Ditelaah</string>
+    <string name="nav_disposisi">Didisposisi</string>
+    <string name="nav_dikerjakan">Dikerjakan</string>
+    <string name="nav_ditindaklanjuti">Ditindaklanjuti</string>
+    <string name="nav_tembusan">Tembusan</string>
+    <string name="nav_about">Informasi</string>
+    <string name="nav_privasi">Privasi</string>
+    <string name="nav_profil">Profil</string>
+    <string name="nav_panduan">Panduan</string>
+    <string name="nav_keluar">Keluar (Log out)</string>
+    <string name="nav_settings">Pengaturan</string>
+    <string name="nav_about_us">Informasi</string>
+    <string name="nav_inbox">Semua Surat</string>
+    <string name="nav_internal">Internal</string>
+    <string name="nav_eksternal">Eksternal</string>
+    <string name="nav_lainnya">Lainnya</string>
+
+
+    <string name="ket_ajukan">Melihat surat yang pernah Anda ajukan</string>
+    <string name="ket_koreksi">Melihat surat yang pernah Anda koreksi</string>
+    <string name="ket_setuju">Melihat surat yang pernah Anda setujui</string>
+    <string name="ket_telaah">Melihat surat yang pernah Anda telaah</string>
+    <string name="ket_disposisi">Melihat surat yang pernah Anda disposisikan</string>
+    <string name="ket_kerjakan">Melihat surat yang pernah Anda kerjakan</string>
+    <string name="ket_tindaklanjuti">Melihat surat yang pernah Anda tindak lanjuti</string>
+    <string name="ket_tembusan">Melihat surat tembusan yang Anda terima</string>
+    <string name="ket_kirim">Melihat surat  yang Anda kirim</string>
+    <string name="ket_password">Masukkan kata sandi admin</string>
+    <string name="ket_lainnya">Melihat arsip lainnya</string>
+
+
+    <!-- TODO: Tombol aksi  -->
+
+    <string name="activity_title_about_us">Informasi</string>
+    <string name="activity_title_privacy_policy">Kebijakan Privasi</string>
+    <string name="action_clear_all">Clear All</string>
+    <string name="action_logout">Keluar</string>
+    <string name="action_mark_all_read">Mark All as Read</string>
+    <string name="privacy_policy">Kebijakan Privasi</string>
+
+    <string name="action_pilih_bulan">Pilih Bulan</string>
+    <string name="action_panduan">Panduan</string>
+    <string name="action_pilih_tanggal">Pilih Tanggal</string>
+    <string name="action_search">Cari</string>
+    <string name="action_delete">Hapus</string>
+    <string name="action_lampiran">Lampiran</string>
+    <string name="action_tandatangani">Tandai</string>
+    <string name="action_lihat">Lihat</string>
+    <string name="action_koreksi">Koreksi</string>
+    <string name="action_tandai">TANDAI</string>
+    <string name="action_hilangkan_tandai">BERSIHKAN TANDA</string>
+    <string name="action_ajukan">Ajukan</string>
+    <string name="action_setuju">Setuju</string>
+    <string name="action_arsip">Arsipkan</string>
+    <string name="action_kirim">Kirim</string>
+    <string name="action_beritandatangan">Tanda Tangani</string>
+    <string name="action_tutup">Tutup</string>
+    <string name="action_telaah">Telaah</string>
+    <string name="action_disposisi">Disposisi</string>
+    <string name="action_tarik">Tarik</string>
+    <string name="action_kerjakan">Kerjakan</string>
+    <string name="action_tindaklanjuti">Tindak Lanjuti</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="action_info">Info</string>
+    <string name="action_others">Info</string>
+    <string name="action_browser">Web Desa</string>
+    <string name="action_kembalikan">Telaahkan</string>
+    <string name="action_pilih_tindakan">Pilih Tindakan</string>
+    <string name="action_lupapassword">Lupa username password</string>
+    <string name="action_skip">Lain waktu</string>
+    <string name="action_lanjut">Selanjutnya</string>
+    <string name="action_download">Unduh</string>
+    <string name="action_reload">Reload</string>
+    <string name="action_bukaweb">Buka Eletter versi Web</string>
+
+    <string name="title_label_menu_utama">Menu Utama</string>
+    <string name="title_activity_welcome">Halaman Utama</string>
+    <string name="title_activity_riwayat">Riwayat</string>
+    <string name="title_activity_arsip">Arsip</string>
+    <string name="title_activity_detail">Detail</string>
+    <string name="title_activity_lihat">Lihat</string>
+    <string name="title_activity_lampiran">Lampiran</string>
+    <string name="title_activity_bawahan">Pilih Bawahan</string>
+    <string name="title_activity_tindakan">Pilih Tindakan</string>
+    <string name="title_activity_buat_surat">Buat Nota Dinas</string>
+    <string name="title_activity_ditandai">Konsep Siap Ditandatangani</string>
+
+    <string name="title_pesan">* Wajib memasukkan pesan disposisi di bawah ini.</string>
+
+    <string name="message_tindakan">* Wajib klik minimal salah satu tindakan di bawah ini.</string>
+    <string name="message_pilih_bawahan">* Wajib klik minimal salah satu pegawai di bawah ini.</string>
+    <string name="message_writefile">Dibutuhkan izin untuk menyimpan file.</string>
+    <string name="message_lihatlampiran">Lihat lampiran?</string>
+    <string name="message_username_diisi">Kolom username harus diisi</string>
+    <string name="message_password_diisi">Kolom password harus diisi</string>
+    <string name="message_token_tidakada">Token belum ada</string>
+    <string name="message_kurang_parameter">Kurang parameter yang dibutuhkan.</string>
+
+    <!-- Text untuk INTRO -->
+
+    <string name="next">LANJUT</string>
+    <string name="skip">TUTUP</string>
+    <string name="start">SELESAI</string>
+
+    <!-- Intro Slide -->
+
+    <string name="intro_1_title">Login</string>
+    <string name="intro_1_desc">Masukkan Username dan Password Anda</string>
+
+    <string name="intro_2_title">Konsep</string>
+    <string name="intro_2_desc">Anda akan menerima ajuan konsep surat dari bawahan.</string>
+
+    <string name="intro_3_title">Surat Masuk</string>
+    <string name="intro_3_desc">Anda akan menerima surat masuk dan disposisi di menu ini</string>
+    <string name="intro_3_desc_staf">Anda akan menerima disposisi di sini</string>
+
+    <string name="intro_4_title">Arsip</string>
+    <string name="intro_4_desc">Anda dapat melihat kembali aktivitas pengajuan, pengkoreksian, pendisposisian dan lainnya yang pernah
+    Anda lakukan</string>
+    <string name="intro_4_desc_desa">Anda dapat melihat kembali aktivitas yang pernah Anda lakukan</string>
+
+    <string name="intro_5_title">Pemberitahuan</string>
+    <string name="intro_5_desc">Menampilkan pemberitahuan terkait pengkoreksian surat yang pernah Anda ajukan.</string>
+
+    <string name="intro_6_title">Lainnya</string>
+    <string name="intro_6_desc">Profil Anda, informasi tentang aplikasi, dan pintasan Logout.</string>
+
+    <string name="intro_7_title">Detail</string>
+    <string name="intro_7_desc">Anda akan melihat detail surat atau konsep, Anda akan melihat tombol preview dan tombol histori</string>
+
+    <string name="intro_8_title">Preview</string>
+    <string name="intro_8_desc">Halaman ini menampilkan preview hasil surat atau konsep.</string>
+
+    <string name="intro_9_title">Histori</string>
+    <string name="intro_9_desc">Halaman ini menampilkan riwayat surat atau konsep</string>
+
+    <string name="intro_10_title">Notifikasi</string>
+    <string name="intro_10_desc">Aplikasi akan memberi notifikasi secara berkala</string>
+
+    <string name="intro_11_title">Pembaruan</string>
+    <string name="intro_11_desc">Perbarui aplikasi di Playstore untuk mendapatkan pembaruan fitur</string>
+
+    <string name="intro_12_title">Penandatanganan</string>
+    <string name="intro_12_desc">Klik tombol Tanda Tangani di pojok kanan atas dan masukkan passphrase sertifikat elektronik Anda</string>
+
+    <string name="intro_13_title">Web Desa</string>
+    <string name="intro_13_desc">Klik tombol Web di halaman utama, Anda akan diarahkan ke website desa Anda</string>
+
+
+    <string name="intro_14_title">Preview Konsep</string>
+    <string name="intro_14_desc">Melihat konsep surat, klik Tanda Tangani untuk menyetujuinya</string>
+
+    <string name="play_again_desc">Untuk melihat kembali, pilih menu samping "Panduan"</string>
+    <string name="play_again">Ulangi</string>
+    <string name="title_activity_pengaturan">Lainnya</string>
+
+    <!-- Strings related to Pengaturan -->
+
+    <string name="pref_title_ringtone">Suara</string>
+    <string name="pref_ringtone_silent">Senyap</string>
+
+    <string name="pref_title_notifications">Notifikasi</string>
+    <string name="summary_choose_ringtone">Pilih nada</string>
+    <string name="pref_header_about">Tentang</string>
+    <string name="title_about">Pengembang</string>
+    <string name="summary_about">Dinas Komunikasi dan Informatika Pemerintah Kabupaten Kebumen</string>
+    <string name="app_version">2.0.26122018</string>
+    <string name="title_mitra">Mitra</string>
+    <string name="summary_mitra">Balai Sertifikasi Elektronik (BSRE) - BSSN</string>
+
+    <string name="summary_support">Ingin mengirim laporan atau saran terkait aplikasi ini? Kami sangat senang menerimanya!</string>
+    <string name="summary_intro">Ulangi intro aplikasi</string>
+    <string name="summary_domain">Domain server aplikasi</string>
+    <string name="summary_whatsapp">Kontak via Whatsapp</string>
+    <string name="summary_riwayat_dev">Melihat riwayat pengembangan aplikasi</string>
+
+    <string name="title_send_feedback">Laporan dan Saran</string>
+    <string name="title_intro">Intro</string>
+    <string name="title_domain">Domain</string>
+    <string name="title_whatsapp">Customer Service</string>
+    <string name="title_riwayat_dev">Riwayat Pengembangan Aplikasi</string>
+    <string name="title_gantipassword">Ubah Password</string>
+
+
+    <string name="title_policy">Kebijakan</string>
+    <string name="title_other">Lainnya</string>
+    <string name="summary_download_book">Silakan klik untuk mendapatkan buku panduan.</string>
+
+    <string name="title_faq">FAQ</string>
+    <string name="summary_faq">Pertanyaan yang bisa membantu Anda.</string>
+    <string name="url_faq">https://www.eletter.kebumenkab.go.id/faq/</string>
+    <string name="url_privacy">https://www.eletter.kebumenkab.go.id/privacy-policy/</string>
+    <string name="title_terms">Syarat &amp; Ketentuan</string>
+
+    <string name="url_terms">https://www.eletter.kebumenkab.go.id/terms-of-service/</string>
+    <string name="title_version">Versi</string>
+    <string name="choose_email_client">Pilih aplikasi email</string>
+    <string name="title_gallery_storage">Default Storage</string>
+    <string name="title_new_notification_sound">Notifikasi surat terbaru</string>
+    <string name="title_vibrate">Getar</string>
+    <string name="summary_vibrate">Nyalakan getar</string>
+    <string name="notifications_new_message">notifications_new_message</string>
+    <string name="key_notifications_new_message_ringtone">key_notifications_new_message_ringtone</string>
+    <string name="key_vibrate">key_vibrate</string>
+    <string name="key_send_feedback">key_send_feedback</string>
+    <string name="key_send_whatsapp">key_send_whatsapp</string>
+    <string name="key_intro">key_intro</string>
+    <string name="key_version">key_version</string>
+    <string name="key_daynight">key_daynight</string>
+    <string name="key_riwayat_dev">key_riwayat_dev</string>
+    <string name="key_faq">key_faq</string>
+
+    <string name="title_download_book">Unduh Panduan</string>
+    <string name="url_download_book">http://eletter.kebumenkab.go.id/panduan/02_Android_Panduan_Pengguna_e_Letter.pdf</string>
+
+    <string name="msg_loading">Mohon menunggu...</string>
+    <string name="title_activity_dashboard">Dashboard</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="title_logout">Keluar (Log out)</string>
+    <string name="title_logout_message">Menghapus sesi login Anda.</string>
+
+    <string name="title_profil">Profil</string>
+    <string name="title_profil_message">Melihat profil Anda.</string>
+
+    <string name="title_ganti_password">Ganti Password</string>
+    <string name="title_gantipassword_message">Mengganti password Eletter Anda.</string>
+
+    <!-- Error  message -->
+    <string name="error_mintaupdate">Mohon maaf, aplikasi Eletter perlu pembaruan. Silakan klik Update.</string>
+
+    <string name="error_api">Mohon maaf, Pastikan koneksi internet Anda stabil atau silakan hubungi admin kami</string>
+    <string name="error_network">Mohon maaf, kami tidak bisa mengambil data, silakan periksa internet Anda. </string>
+    <string name="error_proses_text">Mohon maaf, hasil tidak bisa kami proses, silakan hubungi admin kami</string>
+    <string name="error_server">Mohon maaf, server kami dalam perbaikan </string>
+    <string name="error_message_nodata">Tidak ada data</string>
+    <string name="error_suratmasuk_empty">Tidak ada surat masuk</string>
+    <string name="error_konsep_empty">Tidak ada konsep surat</string>
+    <string name="error_notadinas_empty">Tidak ada nota dinas </string>
+    <string name="error_draft_empty">Tidak ada rancangan surat </string>
+    <string name="error_pemberitahuan_empty">Tidak ada pemberitahuan</string>
+    <string name="error_empty">Data tidak ditemukan.</string>
+    <string name="error_message_salahusernamepassword">Silakan periksa kembali Username dan password Anda</string>
+    <string name="error_empty_selected">Belum memilih bawahan.</string>
+    <string name="error_empty_message">Pesan masih kosong.</string>
+    <string name="error_empty_message_tindakan">Pesan masih kosong atau belum memilih tindakan.</string>
+
+
+    <!-- TODO: pesan dialog -->
+    <string name="message_dialog_arsipkan">Klik Arsipkan untuk mengarsipkan surat ini sekarang.</string>
+    <string name="message_dialog_ajukan">Klik Ajukan untuk mengajukan konsep ini sekarang.</string>
+    <string name="message_dialog_send_with_comment">Silakan isi pesan. Klik KIRIM untuk mengembalikan konsep ini kepada inisiator.</string>
+    <string name="message_dialog_setujui">Klik KIRIM untuk menyetujui konsep ini sekarang.</string>
+    <string name="message_dialog_telaah">Silakan tulis catatan telaah dan klik Telaah untuk menelaah surat ini.</string>
+    <string name="message_dialog_telaah_operator">Klik Telaah untuk menelaah surat ini.</string>
+    <string name="message_dialog_kerjakan">Klik Tindak Lanjuti bila Anda yang akan melaksanakannya.</string>
+    <string name="message_dialog_tindaklanjuti">Klik KIRIM bila Anda yang akan melaksanakannya.</string>
+    <string name="message_dialog_setujui_kirim">Masukkan PASSPHRASE sertifikat elektronik Anda. \n\nKlik TANDA TANGANI untuk menyetujui konsep surat.</string>
+    <string name="message_dialog_masukkan_pesan">Ketik pesan atau catatan di sini</string>
+    <string name="message_dialog_title_disposisi">Anda akan mendisposisi tugas kepada</string>
+    <string name="message_dialog_koreksi">Anda akan mengembalikan konsep kepada operator. Silakan masukkan catatan yang perlu diperbaiki.</string>
+    <string name="message_input_passphrase">Silakan masukkan passphrase Anda</string>
+
+    <string name="message_dialog_kembalikan">Anda akan mengembalikan surat masuk kepada atasan</string>
+    <string name="message_syarat_dan_ketentuan">Anda menyetujui Syarat dan Ketentuan Aplikasi</string>
+    <string name="message_ganti_password">Anda yakin mengubah password?</string>
+
+    <string name="message_dialog_penarikan">Anda akan menarik surat yang telah didisposisikan?</string>
+    <string name="message_dialog_penarikan_yangdikirim">Anda akan menarik surat yang telah dikirimkan?</string>
+    <string name="message_dialog_penarikan_pengembalian">Anda akan menarik surat yang dikembalikan oleh bawahan?</string>
+    <string name="message_dialog_tandai">Anda akan menandai surat ini untuk dikirim?</string>
+    <string name="message_dialog_bersihkantanda">Anda akan membatalkan tanda pada ajuan ini?</string>
+    <string name="message_dialog_hapus_pemberitahuan">Hapus pemberitahuan ini?</string>
+    <string name="message_dialog_sedangdikembangkan">Fitur ini sedang dikembangkan.</string>
+
+    <string name="message_silakan_hub_bagian_organisasi">Untuk PNS, silakan hubungi bagian organisasi atau BKD untuk mendapatkan akses.\n\nUntuk Kades silakan hubungi Diskominfo.</string>
+    <string name="message_silakan_tulisa_pesan_disini">Tambahkan pesan di sini bila perlu</string>
+    <string name="message_silakan_tulisa_pesan_disini_2">Silakan tambahkan pesan di sini</string>
+    <string name="message_minimal_8_karakter">Minimal inputan 8 karakter</string>
+
+    <string name="message_success">Proses Berhasil</string>
+    <string name="message_failed">Proses Gagal</string>
+    <string name="message_menghubung_ke_server">Mengontak ke server...</string>
+    <string name="message_silakan_ganti_password_desaonline">Demi keamanan akun Anda, silakan mengganti password Desa Online Anda. Perlu diketahui bahwa password ini bukan passphrase Anda.</string>
+
+    <string name="message_ada_lampiran">Surat ini memiliki lampiran.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tab_konsep">Konsep</string>
+    <string name="tab_masuk">Surat Masuk</string>
+    <string name="tab_pemberitahuan">Pemberitahuan</string>
+    <string name="tab_arsip">Arsip</string>
+    <string name="tab_nota">Nota Dinas</string>
+    <string name="tab_buatsurat">Buat Surat</string>
+    <string name="tab_permintaan_tandatangan">Permintaan Tanda Tangan</string>
+    <string-array name="nama_asisten">
+        <item>Asisten 1</item>
+        <item>Asisten 2</item>
+        <item>Asisten 3</item>
+    </string-array>
+    <string-array name="value_asisten">
+        <item>asisten1</item>
+        <item>asisten2</item>
+        <item>asisten3</item>
+    </string-array>
+    <string-array name="jenis_surat">
+        <item>Cuti</item>
+        <item>Nota Dinas</item>
+    </string-array>
+
+    <string name="title_activity_news">Informasi</string>
+    <string name="news_button">TUTUP</string>
+    <string name="tandatangani_button">Lihat Surat Siap Ditandatangani</string>
+    <string name="sign_button">Tanda Tangani Surat Ditandai</string>
+
+    <string name="subheading_pengirim">Pengirim</string>
+    <string name="subheading_identitas">Identitas</string>
+    <string name="subheading_disposisi">Penerima</string>
+    <string name="subheading_pesan">Pesan</string>
+    <string name="subheading_namasurat">Nama Surat</string>
+    <string name="subheading_arsip_suratmasuk">Surat Masuk</string>
+    <string name="subheading_arsip_konsep">Konsep</string>
+
+    <string name="title_activity_arsip_layanan_mandiri_disetujui">Layanan Mandiri Disetujui</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="faq">
+        <![CDATA[
+        <h2>FAQ (Frequently Asked Questions</h2>
+        <h3>Umum</h3>
+        <p>Apa itu aplikasi android Eletter Kebumen?</p>
+        <ul>
+            <li>Aplikasi android Eletter Kebumen adalah aplikasi android yang dikembangkan oleh Pemerintah Kabupaten Kebumen untuk keperluan pengelolaan penandatanganan dan pendistribusian surat menyurat di lingkungan Pemerintah Kabupaten Kebumen yang didukung dengan layanan sertifikat elektronik dari Badan Sertifikat Elektronik (BSrE).</li>
+        </ul>
+        <p>Siapa pengguna yang boleh menggunakan aplikasi android Eletter Kebumen ini?</p>
+        <ul>
+            <li>Bupati dan Wakil Bupati</li>
+            <li>PNS (Pejabat struktural dan staf)</li>
+            <li>Lurah</li>
+            <li>Kepala Desa</li>
+            <li>Operator Perangkat Daerah</li>
+        </ul>
+        <p>Apakah aplikasi ini sudah tersedia versi iOS?</p>
+        <ul>
+            <li>Saat ini BELUM TERSEDIA aplikasi Eletter Kebumen versi iOS.</li>
+        </ul>
+
+        <p>Apa syarat smartphone android yang akan menjalankan aplikasi ini?</p>
+        <ul>
+            <li>Minimal smartphone Android versi KITKAT atau yang lebih baru.</li>
+            <li>Terhubung ke INTERNET.</li>
+        </ul>
+
+        <h3>LOGIN</h3>
+        <p>Bagaimana cara masuk ke aplikasi Eletter?</p>
+        <ul>
+            <li>Untuk PNS menggunakan NIP</li>
+            <li>Untuk Lurah menggunakan NIP dan NIK</li>
+            <li>Untuk Kepala Desa menggunakan NIK</li>
+            <li>Untuk Operator Instansi menggunakan username yang dibuat admin instansi </li>
+        </ul>
+        <p>Bagaimana bila muncul pesan “username atau password Anda salah”</p>
+        <ul>
+            <li>Periksa kembali username dan password E-letter yang Anda inputkan sesuai akun yang telah dibuat.</li>
+            <li>Untuk PNS atau Lurah silakan hubungi Bagian organisasi atau Bagian Kepegawaian</li>
+            <li>Untuk Kepala Desa silakan menghubungi Dinas Komunikasi dan Informatika.</li>
+            <li>Untuk Operator instansi silakan hubungi admin instansi</li>
+        </ul>
+        <p>Bagaimana bila tidak ingat password?</p>
+        <ul>
+            <li>Untuk PNS atau Lurah silakan menghubungi Bagian Organisasi atau Bagian Kepegawaian</li>
+            <li>Untuk Kepala Desa silakan menghubungi Dinas Komunikasi dan Informatika</li>
+            <li>Untuk Operator Instansi silakan menghubungi admin instansi Anda.</li>
+        </ul>
+        <p>Muncul pesan “…silakan periksa internet Anda”?</p>
+        <ul>
+            <li>Bila menggunakan internet seluler, pastikan ikon internet seluler sudah diaktifkan dan kuota internet reguler Anda masih tersedia.</li>
+            <li>Bila menggunakan internet WiFi, pastikan ikon internet WiFi sudah diaktifkan dan WiFi Anda terhubung ke internet.</li>
+        </ul>
+        <p>Bagaimana bila belum bisa masuk aplikasi Eletter versi Android?</p>
+        <ul>
+            <li>Silakan sementara menggunakan versi web di browser laptop atau smartphone Anda, alamat web https://eletter.kebumenkab.go.id </li>
+        </ul>
+        <p>Bagaimana cara Logout?</p>
+        <ul>
+            <li>Silakan tekan tombol INFO, cari menu Keluar (Logout), tekan menu tersebut, pilih Logout</li>
+        </ul>
+
+        <p>Bagaimana cara update (memperbarui) aplikasi ke versi terbaru?</p>
+        <ul>
+            <li>Silakan buka Playstore, cari eletter kebumen, pilih yang sesuai.
+            Bila versi aplikasi Anda perlu diperbarui tombol BUKA/OPEN menjadi PERBARUI / UPDATE dan klik tombol tersebut.
+            Tunggu hingga instalasi pembaruan selesai.</li>
+        </ul>
+
+        <h3>DASHBOARD</h3>
+        <p>Apa itu Halaman Konsep?</p>
+        <ul>
+            <li>Halaman Konsep merupakan halaman yang memuat surat-surat yang belum ditandatangani. Konsep dibuat oleh operator dan diajukan secara berjenjang hingga pejabat penanda tangan. Konsep dapat diajukan ke atasan atau dapat dikoreksi agar diperbaiki oleh operator.</li>
+        </ul>
+
+        <p>Apa itu Halaman Surat Masuk?</p>
+        <ul>
+            <li>Halaman Surat Masuk merupakan halaman yang memuat surat-surat yang telah ditandatangani secara elektronik dan surat-surat fisik yang diupload secara manual ke server aplikasi Eletter Kebumen. Ada beberapa pilihan tindakan untuk surat masuk, yaitu ditindaklanjuti, diarsipkan, didisposisikan, atau ditelaahkan  (dikembalikan kepada atasan).</li>
+        </ul>
+
+        <p>Apa itu Halaman Pemberitahuan?</p>
+        <ul>
+            <li>Halaman Pemberitahuan merupakan halaman yang memuat pemberitahuan atau notifikasi terkait aktivitas koreksi ajuan konsep surat, pengembalian disposisi dari bawahan, atau penarikan disposisi surat oleh atasan.</li>
+        </ul>
+
+        <p>Apa itu Halaman Arsip?</p>
+        <ul>
+            <li>Halaman Arsip merupakan halaman yang memuat beberapa jenis arsip berdasarkan aktivitas yang telah dilakukan. Jenis arsip yang tampil bagi seorang pimpinan atau pejabat struktural antara lain arsip dikoreksi, diajukan, ditelaah, disetujui, ditindaklanjuti, didisposisikan, dan diarsipkan. Adapun bagi staf, jenis arsip yang tampil antara lain arsip ditindaklanjuti dan diarsipkan. </li>
+        </ul>
+
+        <p>Bagaimana cara melihat preview konsep surat yang belum ditandatangani?</p>
+        <ul>
+            <li>Lihat halaman detail surat, silakan tekan tombol lihat di bagian paling bawah surat untuk melihat di halaman penampil. </li>
+        </ul>
+
+        <p>Bagaimana cara melihat lampiran?</p>
+        <ul>
+            <li>Lihat halaman detail surat, bila surat memiliki lampiran maka tombol lampiran akan tampil di bagian paling bawah surat dan di samping tombol Lihat. Silakan tekan tombol lampiran untuk melihat di halaman penampil PDF. </li>
+        </ul>
+
+        <p>Bagaimana cara mengembalikan konsep surat yang perlu diperbaiki?</p>
+        <ul>
+            <li>Lihat halaman detail surat, tekan tombol Lihat. Setelah berada di halaman penampil surat tekan tombol KOREKSI di bagian pojok kanan atas aplikasi. Ketikkan pesan untuk memberikan arahan kepada operator lalu klik kirim.</li>
+        </ul>
+
+        <p>Bagaimana cara mengajukan konsep surat ke atasan?</p>
+        <ul>
+            <li>Buka Tab Halaman Konsep, pilih salah satu konsep surat untuk melihat halaman detail surat, tekan tombol Lihat. Setelah berada di halaman penampil surat tekan tombol AJUKAN di bagian pojok kanan atas aplikasi. Ketikkan pesan untuk memberikan informasi kepada atasan lalu klik kirim.</li>
+        </ul>
+
+        <p>Bagaimana cara melihat riwayat aktivitas pengelolaan konsep atau surat masuk?</p>
+        <ul>
+            <li>Buka Tab Halaman Konsep atau Tab Halaman Surat Masuk, pilih salah satu surat untuk melihat halaman detail surat, tekan tombol Riwayat di bagian paling bawah surat dan halaman riwayat akan ditampilkan.</li>
+        </ul>
+
+        <p>Bagaimana cara membagikan file PDF surat yang sudah ditandatangani?</p>
+        <ul>
+            <li>Buka Tab Halaman Surat Masuk, pilih salah satu surat untuk melihat halaman detail surat, tekan tombol Lihat di bagian paling bawah surat. Setelah halaman penampil PDF muncul tekan tombol Unduh di bagian pojok kanan atas.</li>
+        </ul>
+
+        <p>Apakah aplikasi akan memberitahu atau mengirim notifikasi bila ada konsep atau surat masuk yang belum dibuka?</p>
+        <ul>
+            <li>Iya. Secara periodik pada jam kerja, aplikasi akan mengecek apakah terdapat konsep surat atau surat masuk yang belum dibuka. Pada smartphone Android tertentu terkadang ada pembatasan notifikasi dan membutuhkan pengaturan khusus sehingga fitur ini tidak berjalan.</li>
+        </ul>
+
+        <h3>TANDA TANGAN, PASSPHRASE, DAN SERTIFIKAT ELEKTRONIK</h3>
+        <p>Siapa PENGGUNA yang dapat melakukan tanda tangan elektronik di aplikasi Eletter Kebumen?</p>
+        <ul>
+            <li>Pimpinan perangkat daerah, pejabat struktural, lurah, dan kepala desa yang telah melakukan penerbitan SERTIFIKAT ELEKTRONIK dan TERDAFTAR di sistem ESIGN.</li>
+            <li>Penerbitan sertifikat elektronik difasilitasi oleh Dinas Komunikasi dan Informatika </li>
+        </ul>
+
+        <p>Bagaimana cara pejabat penanda tangan surat memiliki sertifikat elektronik?</p>
+        <ul>
+            <li>Silakan berkoordinasi dengan Dinas Komunikasi dan Informatika, Bidang PDE (Pengelolaan Data Elektronik).</li>
+        </ul>
+
+        <p>Bagaimana cara saya MENANDATANGANI konsep surat di aplikasi Eletter?</p>
+        <ul>
+            <li>Buka Tab Halaman Konsep, pilih salah satu surat untuk melihat halaman detail surat, tekan tombol Lihat di bagian paling bawah surat. Setelah berada di halaman penampil surat tekan tombol KIRIM atau TANDA TANGANI di bagian pojok kanan atas aplikasi. Ketikkan PASSPHRASE Anda dengan benar dan tekan tombol Kirim.</li>
+        </ul>
+
+        <p>Apa itu PASSPHRASE?</p>
+        <ul>
+            <li>Passphrase adalah kata sandi sertifikat elektronik yang terdiri atas minimal 8 karakter dan dibuat ketika penerbitan sertifikat elektronik.</li>
+            <li>Passphrase bersifat rahasia dan tidak diperkenankan dibagikan kepada pihak lain.</li>
+        </ul>
+
+        <p>Bagaimana bila TIDAK INGAT PASSPHRASE?</p>
+        <ul>
+            <li>Silakan menghubungi Dinas Komunikasi dan Informatika, Bidang PDE (Pengelolaan Data Elektronik).</li>
+            <li>Berkas yang harus disiapkan antara lain SURAT LUPA PASSPHRASE yang dapat diunduh di halaman <a href="https://linktr.ee/programmerkebumen">https://linktr.ee/programmerkebumen</a> </li>
+        </ul>
+
+        <p>Bagaimana bila ingin MENGGANTI PASSPHRASE?</p>
+        <ul>
+            <li>Silakan menghubungi Dinas Komunikasi dan Informatika, Bidang PDE (Pengelolaan Data Elektronik).</li>
+            <li>Berkas yang harus disiapkan antara lain SURAT LUPA PASSPHRASE yang dapat diunduh di halaman <a href="https://linktr.ee/programmerkebumen">https://linktr.ee/programmerkebumen</a></li>
+        </ul>
+
+        <p>Saat menandatangani surat muncul pesan “Proses Signing Gagal: Internal Server Error 0"?</p>
+        <ul>
+            <li>Silakan menghubungi Dinas Komunikasi dan Informatika, Bidang PDE (Pengelolaan Data Elektronik).</li>
+        </ul>
+
+        <p>Saat menandatangani surat muncul pesan “Proses Signing Gagal: User tidak terdaftar 2011"?</p>
+        <ul>
+            <li>Silakan menghubungi Dinas Komunikasi dan Informatika, Bidang PDE (Pengelolaan Data Elektronik).</li>
+        </ul>
+
+        <p>Saat menandatangani surat muncul pesan “Proses Signing Gagal: Passphrase salah"?</p>
+        <ul>
+            <li>Pastikan passphrase Anda sesuai. Bila tidak ingat passphrase silakan menghubungi Dinas Komunikasi dan Informatika, Bidang PDE (Pengelolaan Data Elektronik).</li>
+        </ul>
+        ]]>
+    </string>
+
+    <string name="html_info">
+        <![CDATA[
+        
+        <h3>Riwayat Pengembangan</h3>
+        <p>2.3.01.B13012022 - Imanaji Hari Sayekti </p>
+        <ul>
+            <li> Perbaikan tidak bisa download pada Android 6 ke Atas</li>
+        </ul>
+
+        <p>2.2.21.B29122021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan bug</li>
+        </ul>
+
+        <p>2.2.20.B22122021 - @yusufmufti </p>
+        <ul>
+            <li> Fitur tandai tanda tangan untuk Kades</li>
+            <li> Fitur akses masuk dan telaah surat masuk untuk operator</li>
+        </ul>
+        <p>2.2.19.B20122021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan bug tanda tangan, koreksi, dan telaah</li>
+        </ul>
+        <p>2.2.18.B20122021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan bug Dashboard PNS</li>
+        </ul>
+        <p>2.2.17.B17122021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan bug Halaman Surat Masuk PNS</li>
+        </ul>
+        <p>2.2.16.B16122021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan bug tanda tangan Kades</li>
+        </ul>
+        <p>2.2.15.B14122021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan bug tanda tangan Lurah</li>
+        </ul>
+        <p>2.2.14.B13122021 - @yusufmufti </p>
+        <ul>
+            <li> Penambahan halaman FAQ</li>
+            <li> Perbaikan Dashboard, Halaman Konsep dan Halaman Arsip bagi Lurah</li>
+            <li> Penambahan menu koreksi bagi kades dan lurah</li>
+        </ul>
+        <p>2.2.13.B24112021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan notifikasi untuk kades</li>
+            <li> Perbaikan cek versi aplikasi untuk kades</li>
+            <li> Perbaikan tombol download file</li>
+        </ul>
+        <p>2.2.12.B10112021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan list surat masuk</li>
+            <li> Perbaikan halaman webview desa</li>
+            <li> Perbaikan info lampiran pada detail surat masuk</li>
+        </ul>
+        <p>2.2.10.B21102021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan tombol lampiran pada halaman detail arsip disposisi</li>
+            <li> Akun Kepala desa tidak perlu huruf "p" lagi.</li>
+        </ul>
+        <p>2.2.09.B09092021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan bug</li>
+        </ul>
+        <p>2.2.08.B06092021 - @yusufmufti </p>
+        <ul>
+            <li> Pembaruan Halaman Dasboard untuk Lurah</li>
+        </ul>
+        <p>2.2.07.B04062021 - @yusufmufti </p>
+        <ul>
+            <li> Penambahan halaman website desa pada akun Kepala Desa</li>
+            <li> Kepala desa sudah bisa akses arsip ditandatangani</li>
+            <li> Tombol Info Kepala desa berisi info aplikasi, profil, pintasan logout dan pintasan ubah password</li>
+            <li> Perbaikan UI halaman intro </li>
+        </ul>
+        <p>2.2.06.B31052021 - @yusufmufti </p>
+        <ul>
+            <li> Kepala desa sudah bisa akses konsep surat</li>
+            <li> Kepala desa sudah bisa akses arsip ditandatangani</li>
+            <li> Kepala desa sudah bisa tanda tangan</li>
+            <li> Kepala desa sudah bisa ganti password</li>
+            <li> Perbaikan bug resume pada halaman Konsep dan untuk staf</li>
+            <li> Perbaikan UI halaman intro </li>
+        </ul>
+        <p>2.2.05.B11052021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan UX surat didisposisikan</li>
+            <li> Kepala desa sudah bisa login</li>
+        </ul>
+        <p>2.2.04.B06052021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan Halaman PDF arsip ditindaklanjuti</li>
+            <li> Perbaikan Unduh File karena perubahan policy Google</li>
+        </ul>
+
+        <p>2.2.03.B14042021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan minor bug pada halaman Surat Masuk dan Konsep</li>
+            <li> Perbaikan UI halaman notifikasi</li>
+            <li> Dapat menampilkan karakter yang diinputkan pada kolom input passphrase</li>
+
+        </ul>
+        <p>2.2.02.B04042021 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan bug pada halaman Surat Masuk</li>
+            <li> Perbaikan cek notifikasi API lebih efisien</li>
+            <li> Penambahan tombol Unduh pada halaman Lihat Arsip Surat</li>
+            <li> Penambahan info riwayat pengembangan aplikasi</li>
+            <li> Menambah kata Log out untuk menu keluar</li>
+
+        </ul>
+
+        <p>2.2.01.B07012021 - @yusufmufti </p>
+        <ul>
+        <li> Penyempurnaan fitur penampil PDF yang lebih cepat</li>
+        <li> Perbaikan bug timeout pada arsip</li>
+        </ul>
+
+        <p></p>
+        <ul>
+
+        </ul>
+
+        <p>2.1.28.B18082020 - @yusufmufti </p>
+        <ul>
+        <li> Perbaikan UI, Pengecekan jabatan, dan pembaruan konfigurasi gradle</li>
+        </ul>
+
+        <p>2.1.27.B13082020 - @yusufmufti </p>
+        <ul>
+        <li> Perbaikan Bug Progress dialog pada Android versi 9 dan 10</li>
+        <li> Pengujian UI White</li>
+        </ul>
+
+        <p>2.1.26.B11082020 - @yusufmufti </p>
+        <ul>
+        <li> Perbaikan tampilkan surat</li>
+        </ul>
+
+        <p>2.1.25.B06082020 - @yusufmufti </p>
+        <ul>
+         <li> Perbaikan menampilkan surat</li>
+        </ul>
+
+         <p>2.1.24.B07072020 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan tampilan di halaman Riwayat surat</li>
+        </ul>
+
+         <p>2.1.23.B01022020 - @yusufmufti </p>
+        <ul>
+        <li> Pengecekan perubahan jabatan atau instansi secara otomatis</li>
+        <li> Perbaikan pengecekan surat yang belum dibuka</li>
+        <li> Perbaikan notifikasi</li>
+        </ul>
+
+        <p>2.1.22.B19092019 - @yusufmufti </p>
+        <ul>
+        <li> Perbaikan menu tarik terhadap disposisi yang ditelaahkan pada halaman pemberitahuan</li>
+        <li> Penyempurnaan halaman Arsip (Diajukan, Dikoreksi, Disetujui, Ditelaah, Didisposisi, Ditindaklanjuti, dan Arsip Lain) dalam pengambilan data secara paging agar tidak membuat beban berat bagi device.</li>
+        <li> Penambahan informasi penerima Disposisi dan statusnya sudah diproses atau belum pada halaman Arsip Disposisi.</li>
+        <li> Perbaikan notifikasi yang tidak muncul pada akun staf dan staf ahli bupati.</li>
+
+        </ul>
+
+        <p>2.1.21.B05182019 - @yusufmufti </p>
+        <ul>
+        <li> Perbaikan UI Login</li>
+        <li> Perbaikan tembusan agar dapat ditelaah</li>
+        <li> Penambahan fitur pencarian nama ketika akan mendisposisi</li>
+        <li> Perbaikan lihat unduhan agar kompatibel dengan SDK >= 24</li>
+        <li> Perubahan icon sukses proses</li>
+        <li> Mendukung lapor via Whatsapp</li>
+        <li> Perbaikan riwayat konsep surat</li>
+        <li> Perbaikan tombol kembali pada Detail konsep dan surat masuk
+        </ul>
+
+        <p>2.1.20.B17072019 - @yusufmufti </p>
+        <ul>
+        <li> Menambahkan dialog ketika ada lampiran</li>
+        <li> Menambahkan tombol unduh PDF</li>
+        </ul>
+
+        <p>2.1.19.B15072019 - @yusufmufti </p>
+        <ul>
+        <li> Perbaikan menu disposisi</li>
+        <li> Perbaikan menu ajuan</li>
+        <li> Penambahan pengecekan server maintenance</li>
+        </ul>
+
+        <p>2.1.18.B10072019 - @yusufmufti </p>
+        <ul>
+            <li> Perbaikan bug</li>
+        </ul>
+
+        <p>2.1.17.B09072019 - @yusufmufti </p>
+        <ul>
+        <li> Menggunakan sertifikat tanda tangan digital dari BSrE (BSSN)</li>
+        <li> Pimpinan dapat menandatangani beberapa konsep surat sekaligus</li>
+        <li> Konfirmasi SK penggunaan</li>
+        <li> Perbaikan notifikasi bunyi dan angka di beberapa device.</li>
+        <li> Setelah proses ajuan, koreksi, disposisi, telaah, tindak lanjuti, dan arsipkan muncul kotak pesan.</li>
+        <li> Format tanggal sudah diganti 24 jam, sebelumnya format 12 jam.</li>
+        <li> Sekda dapat mendisposisi langsung surat untuk Bupati dan Wakil Bupati tanpa menelaah.</li>
+
+        </ul>
+
+        <p>2.1.16.B17062019 - @yusufmufti </p>
+        <ul>
+        <li> diluncurkan versi beta.</li>
+        <li> Fitur uji coba menandatangani beberapa konsep sekaligus</li>
+        <li> Ukuran diperkecil</li>
+        <li> Perbaikan bug disposisi</li>
+        <li> Perbaikan bug ajudan</li>
+        </ul>
+
+        <p>Alpha Version</p>
+        <ul>
+        <li> 2.1.15.B10062019 - Uji Coba</li>
+        <li> 2.1.14.B09052019 - Uji Coba</li>
+        <li> 2.1.13.B25042019 - Uji Coba</li>
+        <li> 2.1.12.B22042019 - Uji Coba</li>
+        <li> 2.1.11.B10042019 - Uji Coba</li>
+        <li> 2.1.10.B08042019 - Uji Coba</li>
+        </ul>
+
+        ]]>
+    </string>
+    <string name="msg_token_fmt">"Firebase token Anda : "</string>
+
+</resources>

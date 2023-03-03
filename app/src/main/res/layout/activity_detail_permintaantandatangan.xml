@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.pns.DetailKonsep">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_subheading"
+            android:textColor="?android:attr/textColorPrimary"
+            android:text="@string/subheading_namasurat"
+            android:padding="@dimen/timestamp"/>
+
+
+        <RelativeLayout
+            android:id="@+id/icon_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_list_row"
+            android:paddingLeft="@dimen/timestamp"
+            android:paddingRight="@dimen/timestamp">
+
+            <TextView
+                android:id="@+id/subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/subject"
+                android:textSize="@dimen/msg_text_primary"
+                android:textStyle="bold" />
+            
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_subheading"
+            android:textColor="?android:attr/textColorPrimary"
+            android:text="@string/subheading_pengirim"
+            android:padding="@dimen/timestamp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/timestamp"
+            android:paddingLeft="@dimen/timestamp"
+            android:paddingRight="@dimen/timestamp">
+
+            <LinearLayout
+                android:id="@+id/message_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/from"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:textColor="@color/from"
+                    android:textSize="@dimen/msg_text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_instansi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="@dimen/msg_text_secondary" />
+
+                <TextView
+                    android:id="@+id/txt_tanggal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:textColor="@color/timestamp"
+                    android:textSize="@dimen/text_subheading" />
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+a
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_subheading"
+            android:textColor="?android:attr/textColorPrimary"
+
+            android:text="@string/subheading_pesan"
+            android:padding="@dimen/timestamp"/>
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_list_row"
+            android:paddingLeft="@dimen/timestamp"
+            android:paddingRight="@dimen/timestamp"
+            android:textColor="@color/subject"
+            android:textSize="@dimen/text_size_pesan" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/icon_list"
+            android:background="@color/row_activated" />
+
+        <!-- Inisiator -->
+
+        <!-- -->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/padding_list_row"
+            android:paddingLeft="@dimen/padding_list_row"
+            android:paddingRight="@dimen/padding_list_row"
+            >
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/icon_list"
+            android:background="@color/row_activated" />
+
+        <HorizontalScrollView
+
+                android:id="@+id/icon_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/padding_list_row"
+                android:paddingLeft="?listPreferredItemPaddingLeft"
+                android:paddingRight="?listPreferredItemPaddingRight">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/margin_button_detail_mail">
+
+                    <LinearLayout
+                        android:id="@+id/btn_lampiran"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:layout_marginLeft="@dimen/margin_tombol_action"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_button_detail_mail"
+                            android:layout_marginRight="@dimen/margin_button_detail_mail"
+                            android:fillAfter="false"
+                            android:fillEnabled="false">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_width_height"
+                                android:layout_height="@dimen/icon_width_height"
+                                android:src="@drawable/rounded" />
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerInParent="true"
+                                app:srcCompat="@drawable/ic_lampiran" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_button_detail_mail"
+                            android:text="@string/action_lampiran"
+                            android:textSize="@dimen/text_button_detail_mail" />
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/btn_telaah"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="@dimen/margin_tombol_action"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_button_detail_mail"
+                            android:layout_marginRight="@dimen/margin_button_detail_mail"
+                            android:fillAfter="false"
+                            android:fillEnabled="false">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_width_height"
+                                android:layout_height="@dimen/icon_width_height"
+                                android:src="@drawable/rounded" />
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                app:srcCompat="@drawable/ic_dibuka_white" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_button_detail_mail"
+                            android:text="@string/action_lihat"
+                            android:textSize="@dimen/text_button_detail_mail" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btn_riwayat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="@dimen/margin_tombol_action"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_button_detail_mail"
+                            android:layout_marginRight="@dimen/margin_button_detail_mail"
+                            android:fillAfter="false"
+                            android:fillEnabled="false">
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+    </LinearLayout>
+
+</ScrollView>
