@@ -230,6 +230,18 @@ public interface ApiInterface {
                                        @Path("id_surat") String id_surat,
                                        @Path("id_history") String id_history);
 
+    // Untuk disposisi surat khusus bupati wakil bupati
+    @FormUrlEncoded
+    @POST("index.php/disposisi/disposisi/{id_surat}/{id_history}")
+    Call<ResponStandar> sendDisposisiKhusus (@Header("Authorization") String authorization,
+                                       @Field("pesan") String pesan,
+                                       @Field("bawahan[]") ArrayList<String>  bawahan,
+                                       @Field("tindakan[]") ArrayList<String> tindakan,
+                                             @Field("passphrase") String passphrase,
+                                             @Field("sifat") String sifat,
+                                       @Path("id_surat") String id_surat,
+                                       @Path("id_history") String id_history);
+
     // Untuk disposisi surat
     @FormUrlEncoded
     @POST("index.php/suratinternalprocess/order_ajudan/")

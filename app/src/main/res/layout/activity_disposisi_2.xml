@@ -51,9 +51,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/appbar_padding_top"
             android:orientation="vertical"
-            android:visibility="gone"
             android:id="@+id/inputankhususbupati"
             android:background="#e1e1e1">
+            <TextView
+                android:id="@+id/txtView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilih sifat surat:" />
+
+            <Spinner
+                android:id="@+id/spinnersifatsurat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

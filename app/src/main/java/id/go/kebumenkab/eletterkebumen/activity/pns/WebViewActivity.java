@@ -204,9 +204,9 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
 
     public void initViews(){
         logger.d("LIFECYCLE", "Init View");
-        reload  = (Button)findViewById(R.id.reload);
-        webview = (WebView)findViewById(R.id.webview);
-        tvMessage = (TextView) findViewById(R.id.message);
+        reload  = findViewById(R.id.reload);
+        webview = findViewById(R.id.webview);
+        tvMessage = findViewById(R.id.message);
         progressBar     = findViewById(R.id.progressBar);
 
         webview.setWebChromeClient(new WebChromeClient());
@@ -430,17 +430,24 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
             /** KELUAR INTERNAL **/
         } else if(jenisSurat.equalsIgnoreCase(TAG_KELUARINTERNAL)) {
             jenisSurat      = TAG_KELUARINTERNAL;
-            if(koreksiLangsung.equalsIgnoreCase(TAG_KOREKSILANGSUNG)){
-                logger.d("Handler - Alur surat dan PDF", alurSurat + "/" + URL_PREVIEW + idSurat);
-                PdfWebViewClient pdfWebViewClient = new PdfWebViewClient(getApplicationContext(),
-                        webview, reload);
-                pdfWebViewClient.loadPdfUrl(URL_PREVIEW + idSurat+"?koreksi&token="+token);
-            }else {
+            if(alurSurat.equalsIgnoreCase("ajuan")) { //jika termasuk konsep surat
+                if (koreksiLangsung.equalsIgnoreCase(TAG_KOREKSILANGSUNG)) {
+                    logger.d("Handler - Alur surat dan PDF", alurSurat + "/" + URL_PREVIEW + idSurat);
+                    PdfWebViewClient pdfWebViewClient = new PdfWebViewClient(getApplicationContext(),
+                            webview, reload);
+                    pdfWebViewClient.loadPdfUrl(URL_PREVIEW + idSurat + "?koreksi&token=" + token);
+                } else {
+                    logger.d("Handler - Alur surat dan PDF", alurSurat + "/" + URL_PREVIEW + idSurat);
+                    PdfWebViewClient pdfWebViewClient = new PdfWebViewClient(getApplicationContext(),
+                            webview, reload);
+                    pdfWebViewClient.loadPdfUrl(URL_PREVIEW + idSurat);
+                    //                loadPDF(URL_PREVIEW+idSurat);
+                }
+            }else if(alurSurat.equalsIgnoreCase("telaah")||alurSurat.equalsIgnoreCase("disposisi")){
                 logger.d("Handler - Alur surat dan PDF", alurSurat + "/" + URL_PREVIEW + idSurat);
                 PdfWebViewClient pdfWebViewClient = new PdfWebViewClient(getApplicationContext(),
                         webview, reload);
                 pdfWebViewClient.loadPdfUrl(URL_PREVIEW + idSurat);
-//                loadPDF(URL_PREVIEW+idSurat);
             }
             /** MASUK EKSTERNAL **/
         } else if(jenisSurat.equalsIgnoreCase(TAG_MASUKEKSTERNAL)) {
@@ -485,7 +492,7 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
 
         logger.d("LIFECYCLE", "loadPDF");
 
-        logger.d("PDF", URL_PREVIEW+idSurat+"/ is Arsip: "+ String.valueOf(isArsip));
+        logger.d("PDF", URL_PREVIEW+idSurat+"/ is Arsip: "+ isArsip);
 
         webview.setWebViewClient(new WebViewClient() {
             @Override
@@ -519,7 +526,7 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
     public void loadPDFAplikasiLain(final String url){
 
         logger.d("LIFECYCLE", "loadPDFAplikasilain");
-        logger.d("PDF", ELETTER_PDF+idSurat+"/ is Arsip: "+ String.valueOf(isArsip));
+        logger.d("PDF", ELETTER_PDF+idSurat+"/ is Arsip: "+ isArsip);
 
         webview.setWebViewClient(new WebViewClient() {
             @Override
@@ -1204,12 +1211,12 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
         dialogBuilder.setTitle(stringStatus.toUpperCase());
 
         // Koreksi
-        final EditText edt = (EditText) dialogView.findViewById(R.id.edit);
+        final EditText edt = dialogView.findViewById(R.id.edit);
         edt.setSelection(edt.getText().length());
 
         // Passphrase
-        final TextInputLayout textInputLayout = (TextInputLayout) dialogView.findViewById(R.id.passphrase);
-        final EditText editTextPassphrase = (EditText)dialogView.findViewById(R.id.edit_passphrase);
+        final TextInputLayout textInputLayout = dialogView.findViewById(R.id.passphrase);
+        final EditText editTextPassphrase = dialogView.findViewById(R.id.edit_passphrase);
 
         String strTombolEksekusi = "Kirim";
 
@@ -1420,7 +1427,7 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                         @Override
                         public void onResponse(String response) {
 
-                            logger.d("Cek Delegasi Response", response.toString());
+                            logger.d("Cek Delegasi Response", response);
 
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
@@ -1566,7 +1573,7 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                 // input stream to read file - with 8k buffer
                 InputStream input = new BufferedInputStream(url.openStream(), 8192);
                 //Extract file name from URL
-                fileName = f_url[0].substring(f_url[0].lastIndexOf('/') + 1, f_url[0].length())+".pdf";
+                fileName = f_url[0].substring(f_url[0].lastIndexOf('/') + 1)+".pdf";
 
                 //Append timestamp to file name
                 // fileName = timestamp + "_" + fileName;
@@ -1575,7 +1582,7 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                 downloadedFile = externalCacheFile.toString();
                 OutputStream output = new FileOutputStream(externalCacheFile);
 
-                byte data[] = new byte[1024];
+                byte[] data = new byte[1024];
 
                 long total = 0;
 
@@ -1629,13 +1636,13 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
     private void Download(String... downloadUrl) throws MalformedURLException {
 
         String url ="";
-        url = new String(downloadUrl[0]);
+        url = downloadUrl[0];
         //String fileName = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date())+".pdf";
         //Extract file name from URL
         try  {
             URL myUrl = new URL(downloadUrl[0]);
 
-            String   fileName = downloadUrl[0].substring(downloadUrl[0].lastIndexOf('/') + 1, downloadUrl[0].length())+".pdf";
+            String   fileName = downloadUrl[0].substring(downloadUrl[0].lastIndexOf('/') + 1)+".pdf";
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url + ""));
             request.setTitle(fileName);
             request.setMimeType("application/pdf");
@@ -1661,8 +1668,8 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
         private static final String PDF_EXTENSION = ".pdf";
         private static final String PDF_VIEWER_URL = "https://docs.google.com/gview?embedded=true&url=";
 
-        private Context mContext;
-        private WebView mWebView;
+        private final Context mContext;
+        private final WebView mWebView;
         private boolean isLoadingPdfUrl;
 
         public PdfWebViewClient(Context context, WebView webView, Button reload)
@@ -1718,7 +1725,7 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
         @Override
         public void onReceivedError(WebView webView, int errorCode, String description, String failingUrl)
         {
-            handleError(errorCode, description.toString(), failingUrl);
+            handleError(errorCode, description, failingUrl);
         }
 
         @TargetApi(Build.VERSION_CODES.N)

@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,17 +52,20 @@ public class DisposisiLanjutanActivity extends AppBaseActivity implements Tindak
     private PrefManager prefManager;
     private String token;
 
+    private Spinner spSifatSurat;
     private Button kirim;
     private EditText editPesan,passPhraseInput;
     private LinearLayout inputKhusuBupati;
     private List<Bawahan> listBawahan  = new ArrayList<>();
     private List<Tindakan> listTindakan = new ArrayList<>();
-    private List<Tindakan> listTindakanAkanDikirim = new ArrayList<>();
+    private final List<Tindakan> listTindakanAkanDikirim = new ArrayList<>();
 
     private String idHistori;
     private String idSurat;
     private Logger logger;
     private NotifikasiDialog notifikasiDialog;
+    String[] sifat = {"Sangat Segera","Segera","Rahasia"};
+    ArrayAdapter<String> spinnerArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,17 +87,20 @@ public class DisposisiLanjutanActivity extends AppBaseActivity implements Tindak
         pDialog     = new ProgressDialog(this);
         pDialog.setMessage(getString(R.string.msg_loading));
 
-        editPesan = (EditText)findViewById(R.id.pesan);
+        editPesan = findViewById(R.id.pesan);
 
-        recyclerView = (RecyclerView) findViewById(R.id.listview);
+        recyclerView = findViewById(R.id.listview);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
 
-        kirim = (Button)findViewById(R.id.kirim);
-        inputKhusuBupati = (LinearLayout)findViewById(R.id.inputankhususbupati);
-        passPhraseInput = (EditText)findViewById(R.id.passphrasebupati);
+        kirim = findViewById(R.id.kirim);
+
+        inputKhusuBupati = findViewById(R.id.inputankhususbupati);
+        passPhraseInput = findViewById(R.id.passphrasebupati);
+        spSifatSurat = findViewById(R.id.spinnersifatsurat);
+
 
         Intent i = getIntent();
         listBawahan = (List<Bawahan>) i.getSerializableExtra("LIST");
@@ -111,6 +119,11 @@ public class DisposisiLanjutanActivity extends AppBaseActivity implements Tindak
 
         if(prefManager.getStatusJabatan().equalsIgnoreCase("bupati")||prefManager.getStatusJabatan().equalsIgnoreCase("wakilbupati")){
             inputKhusuBupati.setVisibility(View.VISIBLE);
+            spinnerArrayAdapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_spinner_dropdown_item, sifat);
+            spSifatSurat.setAdapter(spinnerArrayAdapter);
+        }else{
+            inputKhusuBupati.setVisibility(View.GONE);
         }
         logger.d("DP Lanjutan ID SURAT", idSurat);
         logger.d("DP Lanjutan ID HISTORI", idHistori);
@@ -230,18 +243,20 @@ public class DisposisiLanjutanActivity extends AppBaseActivity implements Tindak
             public void onClick(View view) {
                 String pesan = editPesan.getText().toString();
                 if(prefManager.getStatusJabatan().equalsIgnoreCase("bupati")||prefManager.getStatusJabatan().equalsIgnoreCase("wakilbupati")){
-                    passPhraseInput.getText().toString();
-                    logger.d("Disposisi", String.valueOf(listTindakanAkanDikirim.size()) + "/" + String.valueOf(pesan.length()));
+                    String ttd = passPhraseInput.getText().toString();
+                    String pesandispo = editPesan.getText().toString();
+                    String sifatdispo = spSifatSurat.getSelectedItem().toString();
+                    logger.d("Disposisi", listTindakanAkanDikirim.size() + "/" + pesan.length());
 
                     if (listTindakanAkanDikirim.size() == 0)
                         notifikasiDialog.showDialogError(8, "");
                     else if (pesan.length() == 0)
                         notifikasiDialog.showDialogError(8, "");
                     else
-                        postAksi(Tag.TAG_DISPOSISI, editPesan.getText().toString());
-//                        postAksiKhususBupati(Tag.TAG_DISPOSISI, editPesan.getText().toString());
+//                        postAksi(Tag.TAG_DISPOSISI, editPesan.getText().toString());
+                        postAksiKhusus(Tag.TAG_DISPOSISI, pesandispo,ttd,sifatdispo);
                 }else {
-                    logger.d("Disposisi", String.valueOf(listTindakanAkanDikirim.size()) + "/" + String.valueOf(pesan.length()));
+                    logger.d("Disposisi", listTindakanAkanDikirim.size() + "/" + pesan.length());
 
                     if (listTindakanAkanDikirim.size() == 0)
                         notifikasiDialog.showDialogError(8, "");
@@ -281,6 +296,71 @@ public class DisposisiLanjutanActivity extends AppBaseActivity implements Tindak
 
 
                 Call<ResponStandar>  call = apiService.sendDisposisi(token, pesan, bawahan, tindakan, idSurat, idHistori);
+
+                if (call != null) {
+                    showDialog();
+
+                    call.enqueue(new Callback<ResponStandar>() {
+                        @Override
+                        public void onResponse(Call<ResponStandar> call, Response<ResponStandar> response) {
+                            hideDialog();
+
+                            ResponStandar result = response.body();
+//                            logger.d("result disposisi", response.toString());
+//                            logger.d("status disposisi", result.getStatus());
+//                            logger.d("pesan disposisi", result.getPesan());
+
+
+                            // Tutup halaman dan buka halaman utama
+                            notifikasiDialog.showDialogError(9, "");
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponStandar> call, Throwable t) {
+                            hideDialog();
+                            logger.d("Error Failure", t.getMessage());
+
+                            if(!isFinishing()){
+                                notifikasiDialog.showDialogError(100, t.getLocalizedMessage());
+                            }
+
+
+
+                        }
+                    });
+                }
+            }
+        }else{
+            notifikasiDialog.showDialogError(1, "");
+        }
+    }
+    private void postAksiKhusus(final String statusSurat, final String pesan, final String ttd, final String sifat) {
+
+        boolean isConnected = NetworkUtil.cekInternet(getApplicationContext());
+
+        if(isConnected){
+            if(statusSurat.length()==0 || statusSurat.isEmpty()){
+                notifikasiDialog.showToast("Status surat: "+ statusSurat);
+            }else {
+                ApiInterface apiService =
+                        ApiClient.loginRequest(getApplicationContext()).create(ApiInterface.class);
+
+                logger.d("status surat", statusSurat+"/"+pesan);
+
+                ArrayList<String> bawahan = new ArrayList<>();
+                for(int i= 0; i<listBawahan.size();i++){
+                    bawahan.add(listBawahan.get(i).getNipBaru());
+                    logger.d("bawahan", listBawahan.get(i).getNipBaru());
+                }
+
+                ArrayList<String> tindakan = new ArrayList<>();
+                for(int i= 0; i<listTindakanAkanDikirim.size();i++){
+                    tindakan.add(listTindakanAkanDikirim.get(i).getIdSuratDisposisiTindakan());
+                    logger.d("id tindakan", listTindakanAkanDikirim.get(i).getTindakan());
+                }
+
+
+                Call<ResponStandar>  call = apiService.sendDisposisiKhusus(token,pesan,bawahan,tindakan,ttd,sifat,idSurat,idHistori);
 
                 if (call != null) {
                     showDialog();
