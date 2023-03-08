@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ import retrofit2.Response;
 import static android.view.View.GONE;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_AJUAN;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_ARSIP;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_ID_HISTORI;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_ID_SURAT;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_JENISARSIP;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_JENISPENERIMA;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_JENISTUJUAN;
@@ -51,6 +54,7 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
     private LinearLayout btn_riwayat;
     private LinearLayout btn_arsip;
     private LinearLayout btn_lampiran;
+    private LinearLayout btn_disposisi;
 
 
     private TextView tanggal, instansi, pengirim, subjek, pesan, pesan_atas;
@@ -151,6 +155,7 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
         btn_telaah          = (LinearLayout)findViewById(R.id.btn_telaah);
         btn_riwayat         = (LinearLayout)findViewById(R.id.btn_riwayat);
         btn_lampiran        = (LinearLayout)findViewById(R.id.btn_lampiran);
+        btn_disposisi       = (LinearLayout)findViewById(R.id.btn_disposisi);
 
         layoutPengirim      =  (RelativeLayout)findViewById(R.id.layout_pengirim);
 
@@ -161,6 +166,12 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
         btn_riwayat.setOnClickListener(this);
         btn_arsip.setOnClickListener(this);
         btn_lampiran.setOnClickListener(this);
+        btn_disposisi.setOnClickListener(this);
+
+        //Jika akun bupati dan wakil bupati menu disposisi muncul
+        if(prefManager.getStatusJabatan().equalsIgnoreCase("bupati")||prefManager.getStatusJabatan().equalsIgnoreCase("wakilbupati")){
+            btn_disposisi.setVisibility(View.VISIBLE);
+        }
 
         /** Bila  surat tersebut adalah tembusan maka tampilkan tombol arsip **/
         if(jenisSurat.equalsIgnoreCase(Tag.TAG_TEMBUSAN)){
@@ -188,6 +199,13 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
         switch (view.getId()) {
             case R.id.btn_lampiran:
                 lihatLampiran();
+                break;
+
+            case R.id.btn_disposisi:
+                Intent intentdispo = new Intent(getApplicationContext(), DisposisiActivity.class);
+                intentdispo.putExtra(TAG_ID_SURAT, idSurat);
+                intentdispo.putExtra(TAG_ID_HISTORI, idHistori);
+                startActivity(intentdispo);
                 break;
 
             case R.id.btn_telaah:
@@ -274,7 +292,7 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
                             strDeskripsi = "Deskripsi :  "+detail.getDeskripsiSurat();
 
                             for(int i=0; i< arrayTujuan.length -1 ; i++){
-                                stringTujuan += "\n\n"+String.valueOf(i+1)+". "+arrayTujuan[i].trim();
+                                stringTujuan += "\n\n"+ (i + 1) +". "+arrayTujuan[i].trim();
                             }
 
                             pesan.setText(strPesan);

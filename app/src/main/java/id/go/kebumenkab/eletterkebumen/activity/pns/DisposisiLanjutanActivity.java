@@ -371,7 +371,7 @@ public class DisposisiLanjutanActivity extends AppBaseActivity implements Tindak
                             hideDialog();
 
                             ResponStandar result = response.body();
-//                            logger.d("result disposisi", response.toString());
+                            logger.d("result disposisi", response +"bawahan="+bawahan);
 //                            logger.d("status disposisi", result.getStatus());
 //                            logger.d("pesan disposisi", result.getPesan());
 

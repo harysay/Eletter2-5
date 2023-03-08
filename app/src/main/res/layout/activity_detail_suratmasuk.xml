@@ -342,6 +342,46 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/btn_disposisi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_tombol_action"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:textColor="?android:attr/textColorPrimary">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_button_detail_mail"
+                        android:layout_marginRight="@dimen/margin_button_detail_mail"
+                        android:fillAfter="false"
+                        android:fillEnabled="false">
+
+                        <ImageView
+                            android:layout_width="@dimen/icon_width_height"
+                            android:layout_height="@dimen/icon_width_height"
+                            android:src="@drawable/rounded_default" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            app:srcCompat="@drawable/ic_disposisi_detail_white" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_button_detail_mail"
+                        android:text="Disposisi"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="@dimen/text_button_detail_mail" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/btn_riwayat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
