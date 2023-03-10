@@ -528,6 +528,11 @@
         <![CDATA[
         
         <h3>Riwayat Pengembangan</h3>
+        <p>2.4.01.B10032023 - Imanaji Hari Sayekti </p>
+        <ul>
+            <li> Tambah fitur disposisi bupati dan koreksi langsung surat konsep</li>
+        </ul>
+
         <p>2.3.01.B13012022 - Imanaji Hari Sayekti </p>
         <ul>
             <li> Perbaikan tidak bisa download pada Android 6 ke Atas</li>

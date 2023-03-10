@@ -31,7 +31,7 @@
         android:theme="@style/Theme.AppCompat.DayNight"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".WebViewKoreksiActivity"
+            android:name=".activity.pns.WebViewKoreksiActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -53,6 +53,7 @@
 
         <activity
             android:name=".activity.LoginActivity"
+            android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -64,6 +65,7 @@
         </activity>
         <activity
             android:name=".activity.lurah.LoginLurahActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -73,12 +75,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.pns.DetailKonsep"
+            android:exported="false"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:taskAffinity="" />
         <activity
             android:name=".activity.pns.DetailPermintaanTandatangan"
+            android:exported="false"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -96,18 +100,21 @@
         </activity>
         <activity
             android:name=".activity.pns.DetailSuratMasuk"
+            android:exported="false"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:taskAffinity="" />
         <activity
             android:name=".ajudan.DetailSuratMasuk"
+            android:exported="false"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:taskAffinity="" />
         <activity
             android:name=".activity.operator.DetailSuratMasuk"
+            android:exported="false"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -122,6 +129,7 @@
             android:parentActivityName=".activity.desa.Dashboard" />
         <activity
             android:name=".activity.pns.WebViewActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="com.google.android.actions"
@@ -136,6 +144,7 @@
         </activity>
         <activity
             android:name=".activity.desa.WebViewDesaLurahActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="com.google.android.actions"
@@ -143,6 +152,7 @@
         </activity>
         <activity
             android:name=".ajudan.WebViewActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="com.google.android.actions"
@@ -150,6 +160,7 @@
         </activity>
         <activity
             android:name=".activity.LampiranActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="com.google.android.actions"
@@ -157,6 +168,7 @@
         </activity>
         <activity
             android:name=".activity.HistoriActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.desa.GantiPassword"
@@ -164,57 +176,75 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.pns.ArsipActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDisposisiActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDisposisiDetail"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDiajukanActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDiajukanDetail"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDisetujuiActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDisetujuiDetail"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.desa.ArsipDisetujuiActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDikoreksiActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDikoreksiDetail"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDitelaahActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDitelaahDetail"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDitindaklanjutiActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipDitindaklanjutiDetail"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipLainActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".arsip.ArsipLainDetail"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.pns.ArsipKonsepActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.pns.Dashboard"
+            android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_dashboard"
@@ -230,6 +260,7 @@
         </activity>
         <activity
             android:name=".activity.operator.DashboardOperator"
+            android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_dashboard"
@@ -245,6 +276,7 @@
         </activity>
         <activity
             android:name=".activity.lurah.DashboardLurah"
+            android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_dashboard"
@@ -260,6 +292,7 @@
         </activity>
         <activity
             android:name=".activity.desa.Dashboard"
+            android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_dashboard"
@@ -275,6 +308,7 @@
         </activity>
         <activity
             android:name=".ajudan.Dashboard"
+            android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_dashboard"
@@ -289,21 +323,27 @@
         </activity>
         <activity
             android:name=".activity.ProfilActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WebActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.pns.DisposisiActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.pns.DisposisiLanjutanActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.pns.DitandaiActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.NewsActivity"
+            android:exported="false"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_news"
             android:theme="@style/FullscreenTheme" /> <!-- Service for checking notification -->

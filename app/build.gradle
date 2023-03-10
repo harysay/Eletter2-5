@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     // buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "id.go.kebumenkab.eletterkebumen"
         minSdkVersion 19 // sebelumnya 16, diupgrade karena kebutuhan Firebase
-        targetSdkVersion 30
-        versionCode 60
-        versionName '2.3.01.B13012022'
+        targetSdkVersion 31
+        versionCode 61
+        versionName '2.4.01.B10032023'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
     }

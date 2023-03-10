@@ -177,6 +177,9 @@ public class DisposisiLanjutanActivity extends AppBaseActivity implements Tindak
         if (pDialog.isShowing()) pDialog.dismiss();
     }
 
+    public void getSifatSurat(){
+
+    }
 
     public void showTindakanFromServer(){
         /** Mengambil daftar bawahan ke server **/

@@ -7,6 +7,7 @@ import id.go.kebumenkab.eletterkebumen.model.ResponDetailPermintaanTandatangan;
 import id.go.kebumenkab.eletterkebumen.model.ResponMessage;
 import id.go.kebumenkab.eletterkebumen.model.ResponStandar;
 import id.go.kebumenkab.eletterkebumen.model.ResponsePenerimaDispo;
+import id.go.kebumenkab.eletterkebumen.model.ResponseSifat;
 import id.go.kebumenkab.eletterkebumen.model.ResultArsipDiajukan;
 import id.go.kebumenkab.eletterkebumen.model.ResultArsipDikoreksi;
 import id.go.kebumenkab.eletterkebumen.model.ResultArsipDisetujui;
@@ -349,6 +350,9 @@ public interface ApiInterface {
 
     @GET("index.php/suratinternalget/tindakan")
     Call<ResultTindakan> getTindakan(@Header("Authorization") String authorization);
+
+    @GET("index.php/disposisi/sifat")
+    Call<ResponseSifat> getSifat(@Header("Authorization") String authorization);
 
     @FormUrlEncoded
     @POST("index.php/suratinternalprocess/disposisi/{id_surat}/{id_histori}/{nip_bawahan}")

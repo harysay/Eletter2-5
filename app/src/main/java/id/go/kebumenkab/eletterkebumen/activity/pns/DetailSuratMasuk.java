@@ -143,24 +143,24 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
 
     /**  Fungsi menghubungkan komponen di layout dengan activity**/
     public void setupView(){
-        tanggal             = (TextView)findViewById(R.id.txt_tanggal);
-        instansi            = (TextView)findViewById(R.id.txt_instansi);
-        pengirim            = (TextView)findViewById(R.id.from);
-        subjek              = (TextView)findViewById(R.id.subject);
-        pesan               = (TextView)findViewById(R.id.message);
-        t_nomor             = (TextView)findViewById(R.id.text_nomor);
-        t_deskripsi         = (TextView)findViewById(R.id.text_deskripsi);
-        pesan_atas               = (TextView)findViewById(R.id.pesan_atas); // untuk menampilkan ada info lampiran
+        tanggal             = findViewById(R.id.txt_tanggal);
+        instansi            = findViewById(R.id.txt_instansi);
+        pengirim            = findViewById(R.id.from);
+        subjek              = findViewById(R.id.subject);
+        pesan               = findViewById(R.id.message);
+        t_nomor             = findViewById(R.id.text_nomor);
+        t_deskripsi         = findViewById(R.id.text_deskripsi);
+        pesan_atas               = findViewById(R.id.pesan_atas); // untuk menampilkan ada info lampiran
 
-        btn_telaah          = (LinearLayout)findViewById(R.id.btn_telaah);
-        btn_riwayat         = (LinearLayout)findViewById(R.id.btn_riwayat);
-        btn_lampiran        = (LinearLayout)findViewById(R.id.btn_lampiran);
-        btn_disposisi       = (LinearLayout)findViewById(R.id.btn_disposisi);
+        btn_telaah          = findViewById(R.id.btn_telaah);
+        btn_riwayat         = findViewById(R.id.btn_riwayat);
+        btn_lampiran        = findViewById(R.id.btn_lampiran);
+        btn_disposisi       = findViewById(R.id.btn_disposisi);
 
-        layoutPengirim      =  (RelativeLayout)findViewById(R.id.layout_pengirim);
+        layoutPengirim      = findViewById(R.id.layout_pengirim);
 
         /** default tombol arsip  disembunyikan **/
-        btn_arsip         = (LinearLayout)findViewById(R.id.btn_arsip);
+        btn_arsip         = findViewById(R.id.btn_arsip);
 
         btn_telaah.setOnClickListener(this);
         btn_riwayat.setOnClickListener(this);
@@ -341,6 +341,9 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
                                 strLampiran = detail.getLampiran();
                                 btn_lampiran.setVisibility(View.VISIBLE);
                                 showLampiran();
+                            }
+                            if(detail.getIsHideSurat()==true){ //jika status true maka sembunyikan tombol lihat
+                                btn_telaah.setVisibility(GONE);
                             }
                         } else {
                             notifikasiDialog.showDialogError(2,"");

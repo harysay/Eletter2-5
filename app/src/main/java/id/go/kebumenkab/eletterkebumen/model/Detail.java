@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Detail {
 
+    @SerializedName("hide_surat")
+    @Expose
+    private boolean hideSurat;
     @SerializedName("id_surat")
     @Expose
     private String idSurat;
@@ -97,7 +100,13 @@ public class Detail {
         this.jenis_penerima = jenis_penerima;
     }
 
+    public boolean getIsHideSurat() {
+        return hideSurat;
+    }
 
+    public void setIsHideSurat(boolean hideSurat) {
+        this.hideSurat = hideSurat;
+    }
 
 
     public String getLampiran() {
