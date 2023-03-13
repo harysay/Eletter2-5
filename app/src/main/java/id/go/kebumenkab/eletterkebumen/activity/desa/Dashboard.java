@@ -68,7 +68,7 @@ public class Dashboard extends AppBaseActivity implements
     private  int pagePosition;
     public static  boolean allowRefresh;
 
-    private int[] imageResId = {
+    private final int[] imageResId = {
             R.drawable.ic_concept_white,
             R.drawable.ic_archive_white };
 
@@ -100,7 +100,7 @@ public class Dashboard extends AppBaseActivity implements
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         prefManager = new PrefManager(getApplicationContext());
@@ -114,10 +114,10 @@ public class Dashboard extends AppBaseActivity implements
 
         suratKonsepFragment = new SuratKonsepFragment();
 
-        viewPager = (ViewPager) findViewById(R.id.container);
+        viewPager = findViewById(R.id.container);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tab);
+        tabLayout = findViewById(R.id.tab);
         tabLayout.setupWithViewPager(viewPager);
 
         page = getIntent().getIntExtra(TAG_PAGE, 0);
@@ -150,8 +150,19 @@ public class Dashboard extends AppBaseActivity implements
             Intent downloader = new Intent(context, MyStartServiceReceiver.class);
             downloader.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
-                    PendingIntent.FLAG_CANCEL_CURRENT);
+            //untuk mengatasi error force close pada android 12 ke atas
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
+                        PendingIntent.FLAG_IMMUTABLE);
+            }
+            else
+            {
+                pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+            }
+
+//            pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
+//                    PendingIntent.FLAG_CANCEL_CURRENT);
             alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
             alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
@@ -177,7 +188,7 @@ public class Dashboard extends AppBaseActivity implements
     public static void setBadge(int position, String number){
         TabLayout.Tab tab = tabLayout.getTabAt(position);
         if(tab != null && tab.getCustomView() != null) {
-            TextView b = (TextView) tab.getCustomView().findViewById(R.id.badge);
+            TextView b = tab.getCustomView().findViewById(R.id.badge);
 
             if(b != null) {
                 b.setText(number);
@@ -315,7 +326,7 @@ public class Dashboard extends AppBaseActivity implements
 
                                 String version = pInfo.versionName;//Version Name
                                 int verCode = pInfo.versionCode;//Version Code
-                                logger.d("Info", version +"/"+ String.valueOf(verCode));
+                                logger.d("Info", version +"/"+ verCode);
                                 if(Integer.parseInt(sedangMaintenance) == 1) {
                                     tampilCekVersi(1, "Aplikasi sedang dalam proses maintenance");
                                 }else{

@@ -135,8 +135,19 @@ public class DashboardOperator extends AppBaseActivity implements
             Intent downloader = new Intent(context, MyStartServiceReceiver.class);
             downloader.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
-                    PendingIntent.FLAG_CANCEL_CURRENT);
+            //untuk mengatasi error force close pada android 12 ke atas
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
+                        PendingIntent.FLAG_IMMUTABLE);
+            }
+            else
+            {
+                pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+            }
+
+//            pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
+//                    PendingIntent.FLAG_CANCEL_CURRENT);
             alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
             alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,

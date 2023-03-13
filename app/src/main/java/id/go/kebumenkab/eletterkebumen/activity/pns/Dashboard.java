@@ -221,6 +221,7 @@ public class Dashboard extends AppBaseActivity implements
             Intent downloader = new Intent(context, MyStartServiceReceiver.class);
             downloader.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+            //untuk mengatasi error force close pada android 12 ke atas
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
                 pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
                         PendingIntent.FLAG_IMMUTABLE);
