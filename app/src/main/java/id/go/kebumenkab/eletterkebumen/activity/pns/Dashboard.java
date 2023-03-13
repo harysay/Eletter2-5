@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
 
+//import com.android.volley.BuildConfig;
 import com.google.android.material.tabs.TabLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -220,8 +221,17 @@ public class Dashboard extends AppBaseActivity implements
             Intent downloader = new Intent(context, MyStartServiceReceiver.class);
             downloader.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
-                    PendingIntent.FLAG_CANCEL_CURRENT);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
+                        PendingIntent.FLAG_IMMUTABLE);
+            }
+            else
+            {
+                pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+            }
+//            pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
+//                    PendingIntent.FLAG_CANCEL_CURRENT);
             alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
             alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
