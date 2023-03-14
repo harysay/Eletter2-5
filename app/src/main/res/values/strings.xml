@@ -528,6 +528,10 @@
         <![CDATA[
         
         <h3>Riwayat Pengembangan</h3>
+        <p>2.4.02.B13032023 - Imanaji Hari Sayekti </p>
+        <ul>
+            <li> Perbaikan force close pada android 12 ke atas saat masuk dashboard</li>
+        </ul>
         <p>2.4.01.B10032023 - Imanaji Hari Sayekti </p>
         <ul>
             <li> Tambah fitur disposisi bupati dan koreksi langsung surat konsep</li>
