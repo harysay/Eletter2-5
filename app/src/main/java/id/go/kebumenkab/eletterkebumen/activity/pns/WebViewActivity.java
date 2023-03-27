@@ -443,12 +443,19 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                     pdfWebViewClient.loadPdfUrl(URL_PREVIEW + idSurat);
                     //                loadPDF(URL_PREVIEW+idSurat);
                 }
-            }else if(alurSurat.equalsIgnoreCase("telaah")||alurSurat.equalsIgnoreCase("disposisi")){
+            } else { //'ajuan','koreksian','telaah','disposisi','tindaklanjuti','setujui','kirim','arsipkan','arsiplain','tarik'
                 logger.d("Handler - Alur surat dan PDF", alurSurat + "/" + URL_PREVIEW + idSurat);
                 PdfWebViewClient pdfWebViewClient = new PdfWebViewClient(getApplicationContext(),
                         webview, reload);
                 pdfWebViewClient.loadPdfUrl(URL_PREVIEW + idSurat);
             }
+            //ini asline yang dari mas yusuf
+//            else if(alurSurat.equalsIgnoreCase("telaah")||alurSurat.equalsIgnoreCase("disposisi")){ //'ajuan','koreksian','telaah','disposisi','tindaklanjuti','setujui','kirim','arsipkan','arsiplain','tarik'
+//                logger.d("Handler - Alur surat dan PDF", alurSurat + "/" + URL_PREVIEW + idSurat);
+//                PdfWebViewClient pdfWebViewClient = new PdfWebViewClient(getApplicationContext(),
+//                        webview, reload);
+//                pdfWebViewClient.loadPdfUrl(URL_PREVIEW + idSurat);
+//            }
             /** MASUK EKSTERNAL **/
         } else if(jenisSurat.equalsIgnoreCase(TAG_MASUKEKSTERNAL)) {
             jenisSurat      = TAG_MASUKEKSTERNAL;
