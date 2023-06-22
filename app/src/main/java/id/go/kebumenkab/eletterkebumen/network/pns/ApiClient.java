@@ -17,8 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-//    public static String DOMAIN = "https://eletter.kebumenkab.go.id";
-     public static String DOMAIN = "http://10.32.10.17/eletter2";
+    public static String DOMAIN = "https://eletter.kebumenkab.go.id";
+//     public static String DOMAIN = "http://10.32.10.17/eletter2";
+
     public static final String ELETTER_URL = DOMAIN + "/api/";
 
     public static final String ELETTER_PDF = DOMAIN + "/index.php/web/surat/view/index/";

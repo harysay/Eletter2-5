@@ -416,7 +416,7 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
 
 
             /** KELUAR EKSTERNAL **/
-        } else if(jenisSurat.equalsIgnoreCase(TAG_KELUAREKSTERNAL)) {
+        } else if(jenisSurat.equalsIgnoreCase(TAG_KELUAREKSTERNAL)) {//tujuan di luar e-letter masuk konsep
 
             jenisSurat      = TAG_KELUAREKSTERNAL;
 
@@ -428,7 +428,7 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
 
 
             /** KELUAR INTERNAL **/
-        } else if(jenisSurat.equalsIgnoreCase(TAG_KELUARINTERNAL)) {
+        } else if(jenisSurat.equalsIgnoreCase(TAG_KELUARINTERNAL)) { //sudah ditandatangani
             jenisSurat      = TAG_KELUARINTERNAL;
             if(alurSurat.equalsIgnoreCase("ajuan")) { //jika termasuk konsep surat
                 if (koreksiLangsung.equalsIgnoreCase(TAG_KOREKSILANGSUNG)) {
@@ -1029,7 +1029,6 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
 
         if(statusSurat.length()==0 || statusSurat.isEmpty()){
             // notifikasiDialog.showToast("Status surat kosong, "+ statusSurat);
-            return;
         }else {
             ApiInterface apiService =
                     ApiClient.loginRequest(getApplicationContext()).create(ApiInterface.class);

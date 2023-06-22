@@ -20,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClientDesa {
 
     public static String DOMAIN = "https://desaonline.kebumenkab.go.id";
+//    public static String DOMAIN = "http://10.28.11.38/desaonline_new/index.php";
     public static String LOGIN_URL = DOMAIN + "/api/";
 
     public static Retrofit getClient(Context context) {

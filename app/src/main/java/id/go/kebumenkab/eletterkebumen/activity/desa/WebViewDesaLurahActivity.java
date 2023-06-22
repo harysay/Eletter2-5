@@ -470,7 +470,7 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
                                     /** Hasil sukses **/
                                     // Tutup halaman webview
                                     String htmlString =  data.getData();
-                                    loadHTML(htmlString);
+                                    loadPDF(htmlString); //tadinya loadHTML(htmlString);
 
 
                                 }else{
@@ -631,11 +631,7 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
             ArrayList<String> infoDitandai = prefManager.ambilDataKonsepList();
             logger.d("ditandai", infoDitandai.toString() + "/" + id);
 
-            if (infoDitandai.contains(id)) {
-                return true;
-            } else {
-                return false;
-            }
+            return infoDitandai.contains(id);
 
         }
         return false;
@@ -779,8 +775,8 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
         private static final String PDF_EXTENSION = ".pdf";
         private static final String PDF_VIEWER_URL = "https://docs.google.com/gview?embedded=true&url=";
 
-        private Context mContext;
-        private WebView mWebView;
+        private final Context mContext;
+        private final WebView mWebView;
         private boolean isLoadingPdfUrl;
 
         public PdfWebViewClient(Context context, WebView webView, Button reload)
@@ -836,7 +832,7 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
         @Override
         public void onReceivedError(WebView webView, int errorCode, String description, String failingUrl)
         {
-            handleError(errorCode, description.toString(), failingUrl);
+            handleError(errorCode, description, failingUrl);
         }
 
         @TargetApi(Build.VERSION_CODES.N)
@@ -904,13 +900,13 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
     private void Download(String... downloadUrl) throws MalformedURLException {
 
         String url ="";
-        url = new String(downloadUrl[0]);
+        url = downloadUrl[0];
         //String fileName = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date())+".pdf";
         //Extract file name from URL
         try  {
              URL myUrl = new URL(downloadUrl[0]);
 
-            String   fileName = downloadUrl[0].substring(downloadUrl[0].lastIndexOf('/') + 1, downloadUrl[0].length())+".pdf";
+            String   fileName = downloadUrl[0].substring(downloadUrl[0].lastIndexOf('/') + 1)+".pdf";
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url + ""));
             request.setTitle(fileName);
             request.setMimeType("application/pdf");
