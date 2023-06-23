@@ -140,9 +140,9 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
 
     public void initViews(){
         logger.d("LIFECYCLE", "WebViewDesaLurah");
-        reload          = (Button)findViewById(R.id.reload);
-        webview         = (WebView)findViewById(R.id.webview);
-        tvMessage       = (TextView) findViewById(R.id.message);
+        reload          = findViewById(R.id.reload);
+        webview         = findViewById(R.id.webview);
+        tvMessage       = findViewById(R.id.message);
         progressBar     = findViewById(R.id.progressBar);
 
         webview.setWebChromeClient(new WebChromeClient());
@@ -187,7 +187,7 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
 
                if(getIntent().hasExtra("WEB")){
                    // Menampilkan halaman website desa
-                   loadWeb(prefManager.getUrlDesa());
+                   loadWeb("https://"+ prefManager.getUrlDesa());
                    getSupportActionBar().setTitle(getString(R.string.action_browser));
 
                }else{
@@ -268,7 +268,8 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
             }
         });
 
-        webview.loadUrl("https://"+ prefManager.getUrlDesa());
+//        webview.loadUrl("https://"+ prefManager.getUrlDesa());
+        webview.loadUrl(url);
 
     }
 
@@ -470,7 +471,7 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
                                     /** Hasil sukses **/
                                     // Tutup halaman webview
                                     String htmlString =  data.getData();
-                                    loadPDF(htmlString); //tadinya loadHTML(htmlString);
+                                    loadWeb(htmlString); //tadinya loadHTML(htmlString);
 
 
                                 }else{
@@ -554,7 +555,7 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
                                     hideDialog(1, 0,"");
 
                                     urlFile = data.getUrl();
-                                    loadPDF(urlFile);
+                                    loadWeb(urlFile);
 
 
                                 }else{
@@ -650,14 +651,14 @@ public class WebViewDesaLurahActivity extends AppBaseActivity implements EasyPer
         dialogBuilder.setTitle(stringStatus.toUpperCase());
 
         // Koreksi
-        final EditText edt = (EditText) dialogView.findViewById(R.id.edit);
+        final EditText edt = dialogView.findViewById(R.id.edit);
         edt.setInputType(InputType.TYPE_CLASS_TEXT);
         edt.setLines(3);
         edt.setSelection(edt.getText().length());
 
         // Passphrase
-        final TextInputLayout textInputLayout = (TextInputLayout) dialogView.findViewById(R.id.passphrase);
-        final EditText editTextPassphrase = (EditText)dialogView.findViewById(R.id.edit_passphrase);
+        final TextInputLayout textInputLayout = dialogView.findViewById(R.id.passphrase);
+        final EditText editTextPassphrase = dialogView.findViewById(R.id.edit_passphrase);
 
         String strTombolEksekusi = "Kirim";
 
