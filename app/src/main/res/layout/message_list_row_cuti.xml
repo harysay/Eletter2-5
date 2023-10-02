@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:id="@+id/icon_containercuti"
+        android:gravity="center"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/icon_frontcuti"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:fillAfter="false"
+            android:fillEnabled="false">
+
+            <ImageView
+                android:id="@+id/icon_profilecuti"
+                android:layout_width="@dimen/icon_width_height"
+                android:layout_height="@dimen/icon_width_height"
+                android:src="@drawable/bg_circle"/>
+
+            <TextView
+                android:id="@+id/icon_textcuti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/icon_text"
+                android:text=">>"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/message_containercuti"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/fromcuti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:paddingRight="10dp"
+            android:textStyle="bold"
+            android:textSize="@dimen/msg_text_primary"/>
+        <RelativeLayout
+            android:layout_marginTop="@dimen/appbar_padding_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_primarycuti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="@dimen/msg_text_secondary" />
+            <TextView
+                android:id="@+id/jumlah_koreksicuti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_tag"
+                android:background="@drawable/rounded_orange"
+                android:padding="@dimen/appbar_padding_tag"/>
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/txt_secondarycuti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:visibility="gone"
+            android:textSize="@dimen/msg_text_secondary" />
+        <TextView
+            android:id="@+id/timestampcuti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="@dimen/timestamp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/icon_starcuti"
+        android:layout_width="@dimen/icon_star"
+        android:layout_height="@dimen/icon_star"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:tint="@color/icon_tint_normal"
+        android:visibility="gone"/>
+
+</LinearLayout>

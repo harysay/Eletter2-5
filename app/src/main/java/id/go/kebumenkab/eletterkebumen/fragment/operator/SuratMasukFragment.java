@@ -43,6 +43,7 @@ import id.go.kebumenkab.eletterkebumen.helper.Logger;
 import id.go.kebumenkab.eletterkebumen.helper.PrefManager;
 import id.go.kebumenkab.eletterkebumen.helper.Tag;
 import id.go.kebumenkab.eletterkebumen.model.DataItem;
+import id.go.kebumenkab.eletterkebumen.model.Konsep;
 import id.go.kebumenkab.eletterkebumen.model.ResponseSuratMasukOperator;
 import id.go.kebumenkab.eletterkebumen.network.NetworkUtil;
 import id.go.kebumenkab.eletterkebumen.network.operator.ApiClient;
@@ -148,7 +149,7 @@ public class SuratMasukFragment extends Fragment implements
         return view;
     }
 
-    
+
 
 
     @Override
@@ -206,7 +207,7 @@ public class SuratMasukFragment extends Fragment implements
                     new Runnable() {
                         @Override
                         public void run() {
-                                getInbox();
+                            getInbox();
                         }
                     }
             );
@@ -218,7 +219,7 @@ public class SuratMasukFragment extends Fragment implements
 
     @Override
     public void onIconClicked(int position) {
-       //  toggleSelection(position);
+        //  toggleSelection(position);
     }
 
 
@@ -233,22 +234,22 @@ public class SuratMasukFragment extends Fragment implements
     @Override
     public void onMessageRowClicked(int position) {
 
-            DataItem message = messages.get(position);
+        DataItem message = messages.get(position);
 
-            messages.set(position, message);
-            mAdapter.notifyDataSetChanged();
+        messages.set(position, message);
+        mAdapter.notifyDataSetChanged();
 
-            Intent intentDetail = new Intent(SuratMasukFragment.this.getContext(), PreviewActivity.class);
-            intentDetail.putExtra("object", message);
-            intentDetail.putExtra("position", position);
-            intentDetail.putExtra(Tag.TAG_ID_SURAT, message.getIdSuratInternal());
-            intentDetail.putExtra(Tag.TAG_PESAN, message.getIdSuratInternal());
-            intentDetail.putExtra(TAG_PATH, message.getTelaah());
-            startActivity(intentDetail);
+        Intent intentDetail = new Intent(SuratMasukFragment.this.getContext(), PreviewActivity.class);
+        intentDetail.putExtra("object", message);
+        intentDetail.putExtra("position", position);
+        intentDetail.putExtra(Tag.TAG_ID_SURAT, message.getIdSuratInternal());
+        intentDetail.putExtra(Tag.TAG_PESAN, message.getIdSuratInternal());
+        intentDetail.putExtra(TAG_PATH, message.getTelaah());
+        startActivity(intentDetail);
 
-            DashboardOperator.setRefresh(true);
+        DashboardOperator.setRefresh(true);
 
-            // SuratMasukFragment.this.startActivityForResult(intentDetail, 1);
+        // SuratMasukFragment.this.startActivityForResult(intentDetail, 1);
     }
 
     @Override
@@ -351,7 +352,7 @@ public class SuratMasukFragment extends Fragment implements
                                 } else {
                                     swipeRefreshLayout.setRefreshing(false);
 
-                                   tampilError(true, 3,"");
+                                    tampilError(true, 3,"");
                                 }
                             }
                         });
@@ -392,7 +393,7 @@ public class SuratMasukFragment extends Fragment implements
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-       // inflater.inflate(R.menu.menu_main, menu);
+        // inflater.inflate(R.menu.menu_main, menu);
 
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.action_search)
@@ -424,7 +425,7 @@ public class SuratMasukFragment extends Fragment implements
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search:
-                 return true;
+                return true;
         }
         return false;
     }

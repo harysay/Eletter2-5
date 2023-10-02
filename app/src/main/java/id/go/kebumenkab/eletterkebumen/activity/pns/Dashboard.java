@@ -228,8 +228,7 @@ public class Dashboard extends AppBaseActivity implements
             }
             else
             {
-                pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
+                pendingIntent = PendingIntent.getBroadcast(context, 0, downloader, PendingIntent.FLAG_CANCEL_CURRENT| PendingIntent.FLAG_IMMUTABLE);
             }
 //            pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
 //                    PendingIntent.FLAG_CANCEL_CURRENT);

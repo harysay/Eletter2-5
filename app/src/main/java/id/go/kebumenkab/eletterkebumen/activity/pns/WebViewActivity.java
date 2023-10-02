@@ -1162,8 +1162,9 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                                     /** Tidak sukses **/
                                     if(data.getPesan().contains("telah")){
                                         hideDialog(0, 100, data.getPesan());
-                                    }else
-                                    hideDialog(0, 100, data.getPesan());
+                                    }else {
+                                        hideDialog(0, 100, data.getPesan());
+                                    }
                                 }
 
                             }else{

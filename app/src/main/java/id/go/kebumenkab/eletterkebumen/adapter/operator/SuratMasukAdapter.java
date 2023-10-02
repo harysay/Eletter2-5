@@ -50,7 +50,7 @@ import id.go.kebumenkab.eletterkebumen.network.AppController;
 /** **/
 
 public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.MyViewHolder>
-    implements Filterable {
+        implements Filterable {
     private Context mContext;
     private List<DataItem> messages;
     private List<DataItem> messagesMaster;
@@ -80,7 +80,7 @@ public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.My
 
             for(DataItem row : messagesMaster){
                 if (row.getNamaSurat().toLowerCase().contains(status.toLowerCase()) ) {
-                   messageCategorized.add(row);
+                    messageCategorized.add(row);
                 }
             }
 
@@ -89,8 +89,8 @@ public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.My
             messagesFiltered = messagesMaster;
         }
 
-         messages = messagesFiltered;
-         notifyDataSetChanged();
+        messages = messagesFiltered;
+        notifyDataSetChanged();
     }
 
 
@@ -117,8 +117,8 @@ public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.My
                         // here we are looking for name or phone number match
 
 
-                       if (row.getNamaSurat().toLowerCase().contains(charString.toLowerCase())
-                               || row.getPengirim().toLowerCase().contains(charString.toLowerCase()) ) {
+                        if (row.getNamaSurat().toLowerCase().contains(charString.toLowerCase())
+                                || row.getPengirim().toLowerCase().contains(charString.toLowerCase()) ) {
 
                             filteredList.add(row);
                         }

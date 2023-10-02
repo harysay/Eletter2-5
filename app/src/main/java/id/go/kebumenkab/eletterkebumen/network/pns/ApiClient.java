@@ -17,14 +17,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static String DOMAIN = "https://eletter.kebumenkab.go.id";
-//     public static String DOMAIN = "http://10.32.10.17/eletter2";
+//    public static String DOMAIN = "https://eletter.kebumenkab.go.id";
+//     public static String DOMAIN = "http://10.28.11.26/eletter2";
+    public static String DOMAIN = "http://103.147.218.90:8182/eletter";
+    public static String DOMAINCUTI = "http://103.147.218.90:8182";
 
     public static final String ELETTER_URL = DOMAIN + "/api/";
 
     public static final String ELETTER_PDF = DOMAIN + "/index.php/web/surat/view/index/";
     public static final String ELETTER_PDF_KONSEP = DOMAIN + "/index.php/viewer/konsep/";
     public static final String ELETTER_KOREKSI = DOMAIN + "/index.php/koreksi/koreksi/index/";
+
+    public static final String ELETTER_CUTI = DOMAINCUTI + "/eletter/cutionline/index.php/surat/preview/";
     public static final String ELETTER_PDFJS = DOMAIN + "/index.php/viewer/index/";
     public static final String ELETTER_PDFJS_LAMPIRAN = DOMAIN + "/index.php/viewer/lampiran/";
 
@@ -63,6 +67,28 @@ public class ApiClient {
 //                    .build();
             retrofit = new Retrofit.Builder()
                     .baseUrl(ELETTER_URL)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(okHttpClient)
+                    .build();
+        }
+        return retrofit;
+    }
+
+    public static Retrofit getDomainCuti() {
+
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build();
+
+        if (retrofit == null) {
+
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(DOMAINCUTI)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(okHttpClient)
                     .build();

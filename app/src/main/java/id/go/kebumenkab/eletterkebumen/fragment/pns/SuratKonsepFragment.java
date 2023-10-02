@@ -33,16 +33,21 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import id.go.kebumenkab.eletterkebumen.R;
 import id.go.kebumenkab.eletterkebumen.activity.pns.Dashboard;
 import id.go.kebumenkab.eletterkebumen.activity.pns.DetailKonsep;
+import id.go.kebumenkab.eletterkebumen.activity.pns.DetailKonsepCuti;
 import id.go.kebumenkab.eletterkebumen.activity.pns.DitandaiActivity;
 import id.go.kebumenkab.eletterkebumen.adapter.pns.KonsepAdapter;
+import id.go.kebumenkab.eletterkebumen.adapter.pns.KonsepCutiAdapter;
 import id.go.kebumenkab.eletterkebumen.helper.Logger;
 import id.go.kebumenkab.eletterkebumen.helper.PrefManager;
 import id.go.kebumenkab.eletterkebumen.helper.Tag;
+import id.go.kebumenkab.eletterkebumen.model.DataItemCuti;
 import id.go.kebumenkab.eletterkebumen.model.Konsep;
+import id.go.kebumenkab.eletterkebumen.model.KonsepCuti;
 import id.go.kebumenkab.eletterkebumen.model.ResultKonsep;
 import id.go.kebumenkab.eletterkebumen.network.pns.ApiClient;
 import id.go.kebumenkab.eletterkebumen.network.pns.ApiInterface;
@@ -53,7 +58,7 @@ import retrofit2.Response;
 
 
 public class SuratKonsepFragment extends Fragment implements
-        SwipeRefreshLayout.OnRefreshListener, KonsepAdapter.MessageAdapterListener{
+        SwipeRefreshLayout.OnRefreshListener, KonsepAdapter.MessageAdapterListener, KonsepCutiAdapter.MessageAdapterListenerCuti {
 
     private static final String STATUS = "status";
     private static final String DIBACA = "isRead";
@@ -61,14 +66,18 @@ public class SuratKonsepFragment extends Fragment implements
     private PrefManager prefManager;
 
     public static List<Konsep> konseps = new ArrayList<>();
-    private RecyclerView recyclerView;
+    public static List<DataItemCuti> konsepsCuti = new ArrayList<>();
+    public int jumlahBadgeKonsep,jumlahBadgeCuti, jumlahSemuaKonsep;
+    private RecyclerView recyclerView,recyclerViewCuti;
     public static KonsepAdapter mAdapter;
+    public static KonsepCutiAdapter mAdaptercuti;
     private SwipeRefreshLayout swipeRefreshLayout;
     private OnFragmentInteractionListener mListener;
 
     private SearchView searchView;
     private LinearLayout errorMessage;
-    private TextView errorText;
+    private LinearLayout listDataCuti;
+    private TextView headerList,errorText;
     private ImageView errorGambar;
 
     private Logger logger;
@@ -122,25 +131,40 @@ public class SuratKonsepFragment extends Fragment implements
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_konsep, container, false);
 
-        recyclerView        = (RecyclerView)view.findViewById(R.id.recycler_view);
-        swipeRefreshLayout  = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout);
+        recyclerView        = (RecyclerView)view.findViewById(R.id.recycler_view_konseppns);
+        recyclerViewCuti    = (RecyclerView)view.findViewById(R.id.recycler_view_konsep_cuti);
+
+        swipeRefreshLayout  = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout_konsep);
         errorMessage        = (LinearLayout) view.findViewById(R.id.error);
         errorText           = (TextView)view.findViewById(R.id.message_text);
         errorGambar         = (ImageView) view.findViewById(R.id.gambar);
         btnLihatTandai      = (Button)view.findViewById(R.id.btn_lihattandai);
+        listDataCuti        = (LinearLayout)view.findViewById(R.id.listCuti);
+        headerList          = (TextView)view.findViewById(R.id.header_surat_1);
+
+        //kondisi saat tidak ada cuti
+//        listDataCuti.setVisibility(View.GONE);
+//        headerList.setVisibility(View.GONE);
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
         mAdapter = new KonsepAdapter(getActivity().getApplicationContext(), konseps, this);
-
+        mAdaptercuti = new KonsepCutiAdapter(getActivity().getApplicationContext(), konsepsCuti, this);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         // recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
+
+        //untuk bagian cuti
+        RecyclerView.LayoutManager mLayoutManagerCuti = new LinearLayoutManager(getActivity());
+        recyclerViewCuti.setLayoutManager(mLayoutManagerCuti);
+        recyclerViewCuti.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewCuti.setAdapter(mAdaptercuti);
+
 
         btnLihatTandai.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,7 +226,8 @@ public class SuratKonsepFragment extends Fragment implements
                     new Runnable() {
                         @Override
                         public void run() {
-                            getInbox();
+                            getKonsep();
+                            getKonsepCuti();
                         }
                     }
             );
@@ -220,7 +245,8 @@ public class SuratKonsepFragment extends Fragment implements
                 new Runnable() {
                     @Override
                     public void run() {
-                            getInbox();
+                        getKonsep();
+                        getKonsepCuti();
                     }
                 }
         );
@@ -230,34 +256,51 @@ public class SuratKonsepFragment extends Fragment implements
         }
     }
 
+
+    //clik listerner untuk konsep surat biasa
     @Override
     public void onIconClicked(int position) {
        //  toggleSelection(position);
     }
-
     @Override
     public void onIconImportantClicked(int position) {
     }
-
     @Override
     public void onMessageRowClicked(int position) {
-
             Konsep konsep = konseps.get(position);
-//            konsep.setIsRead("1");
-//
-//            konseps.set(position, konsep);
-//            mAdapter.notifyDataSetChanged();
-
             Intent intentDetail = new Intent(SuratKonsepFragment.this.getContext(), DetailKonsep.class);
             intentDetail.putExtra("object", konsep);
             intentDetail.putExtra("position", position);
             startActivity(intentDetail);
-
             Dashboard.setRefresh(true);
+    }
+    @Override
+    public void onRowLongClicked(int position) {
+
+    }
+
+
+    //click listener untuk cuti
+    @Override
+    public void onIconClickedCuti(int position) {
+
+    }
+    @Override
+    public void onIconImportantClickedCuti(int position) {
+
+    }
+    @Override
+    public void onMessageRowClickedCuti(int position) {
+        DataItemCuti konsepcuti = konsepsCuti.get(position);
+        Intent intentDetail = new Intent(SuratKonsepFragment.this.getContext(), DetailKonsepCuti.class);
+        intentDetail.putExtra("object", konsepcuti);
+        intentDetail.putExtra("position", position);
+        startActivity(intentDetail);
+        Dashboard.setRefresh(true);
     }
 
     @Override
-    public void onRowLongClicked(int position) {
+    public void onRowLongClickedCuti(int position) {
 
     }
 
@@ -297,99 +340,80 @@ public class SuratKonsepFragment extends Fragment implements
     }
 
 
-
-
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
-
-    private void getInbox() {
+    private void refreshRecyclerView() {
+        mAdapter.notifyDataSetChanged();
+        mAdaptercuti.notifyDataSetChanged();
+    }
+    private void getKonsep() {
         swipeRefreshLayout.setRefreshing(true);
-        tampilError(false, 0,"");
+        tampilError(false, 0, "");
         recyclerView.setVisibility(View.GONE);
-
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
-
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         String authorization = prefManager.getSessionToken();
-
         logger.d("Token Eletter Konsep", authorization);
-
         Call<ResultKonsep> call = apiService.getKonsep(authorization);
-
+        // Menjalankan permintaan pertama
         call.enqueue(new Callback<ResultKonsep>() {
             @Override
             public void onResponse(Call<ResultKonsep> call, Response<ResultKonsep> response) {
                 final ResultKonsep result = response.body();
                 logger.d("hasil", response.toString());
-                if(result !=null) {
+                if (result != null) {
                     konseps.clear();
-
-
-
-                    if(allowUpdateUI) {
+                    if (allowUpdateUI) {
                         getActivity().runOnUiThread(new Runnable() {
-
                             @Override
                             public void run() {
-
                                 if (result.getStatus().equals(Tag.TAG_STATUS_SUKSES)) {
-
                                     List<Konsep> todos = result.getData();
-
-
+                                    jumlahBadgeKonsep = todos.size();
                                     if (todos.size() == 0) {
                                         tampilError(true, 5, "");
-                                        Dashboard.setBadge(0, String.valueOf(0));
+//                                        listDataCuti.setVisibility(View.GONE);
+                                        headerList.setVisibility(View.GONE);
+//                                        Dashboard.setBadge(0, String.valueOf(0));
+                                        updateBadge();
                                     } else {
-
                                         int jumlahDitandai = 0;
-
                                         for (Konsep konsep : todos) {
-
-                                            logger.d("hasil2", konsep.getIdSurat()+"/"+konsep.getSubject());
+                                            logger.d("hasil2", konsep.getIdSurat() + "/" + konsep.getSubject());
                                             konsep.setColor(R.color.colorAccent);
                                             logger.d("Respon", konsep.getFrom().toString());
-                                            if(konsep.getTandai().equals("1")){
+                                            if (konsep.getTandai().equals("1")) {
                                                 jumlahDitandai++;
                                             }
-
-                                            if(konsep.getTandai().equals("0")){
+                                            if (konsep.getTandai().equals("0")) {
                                                 konseps.add(konsep);
                                             }
-
                                         }
-
-                                        if(jumlahDitandai>0) btnLihatTandai.setVisibility(View.VISIBLE);
+                                        if (jumlahDitandai > 0) btnLihatTandai.setVisibility(View.VISIBLE);
                                         else btnLihatTandai.setVisibility(View.GONE);
-
                                         mAdapter.ambilKonsepBelumDitandai();
                                         mAdapter.notifyDataSetChanged();
-
-                                        Dashboard.setBadge(0, String.valueOf(todos.size()));
-
+//                                        Dashboard.setBadge(0, String.valueOf(todos.size()));
+                                        updateBadge();
                                     }
                                     recyclerView.setVisibility(View.VISIBLE);
                                     swipeRefreshLayout.setRefreshing(false);
 
                                 } else {
                                     swipeRefreshLayout.setRefreshing(false);
-
-                                    if(prefManager.getJabatan().toLowerCase().contains("lurah")){
+                                    if (prefManager.getJabatan().toLowerCase().contains("lurah")) {
                                         //Dashboard.setBadge(0, String.valueOf(0));
-                                    }else{
+                                    } else {
                                         Dashboard.setBadge(0, String.valueOf(0));
-
                                     }
-
                                     tampilError(true, 3, "");
                                 }
                             }
                         });
                     }
-                }else{
+                } else {
                     swipeRefreshLayout.setRefreshing(false);
                     tampilError(true, 3, "");
                 }
@@ -397,33 +421,307 @@ public class SuratKonsepFragment extends Fragment implements
 
             @Override
             public void onFailure(Call<ResultKonsep> call, Throwable t) {
-
                 swipeRefreshLayout.setRefreshing(false);
-
                 String errorType;
                 String errorDesc;
-
                 if (t instanceof IOException) {
                     errorType = "Timeout";
                     errorDesc = String.valueOf(t.getCause());
-                }
-                else if (t instanceof IllegalStateException) {
+                } else if (t instanceof IllegalStateException) {
                     errorType = "ConversionError";
                     errorDesc = String.valueOf(t.getCause());
                 } else {
                     errorType = "Other Error";
                     errorDesc = String.valueOf(t.getLocalizedMessage());
                 }
-
-
                 logger.d(errorType, errorDesc);
-
                 tampilError(true, 100, errorType);
-
-
             }
         });
     }
+
+    private void getKonsepCuti() {
+        swipeRefreshLayout.setRefreshing(true);
+        tampilError(false, 0, "");
+        recyclerViewCuti.setVisibility(View.GONE);
+        ApiInterface apiServiceCuti = ApiClient.getDomainCuti().create(ApiInterface.class);
+        String authorization = prefManager.getSessionToken();
+        logger.d("Token Eletter Konsep", authorization);
+        Call<KonsepCuti> callcuti = apiServiceCuti.getKonsepCuti(authorization);
+        callcuti.enqueue(new Callback<KonsepCuti>() {
+            @Override
+            public void onResponse(Call<KonsepCuti> call, Response<KonsepCuti> response) {
+                final KonsepCuti result = response.body();
+                logger.d("hasil", response.toString());
+                if (result != null) {
+                    konsepsCuti.clear();
+                    if (allowUpdateUI) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (result.isStatus()==true) {
+                                    List<DataItemCuti> todos = result.getData();
+                                    jumlahBadgeCuti = todos.size();
+                                    if (todos.size() == 0) {
+//                                        tampilError(true, 5, "");
+                                        listDataCuti.setVisibility(View.GONE);
+                                        headerList.setVisibility(View.GONE);
+//                                        Dashboard.setBadge(0, String.valueOf(0));
+                                        updateBadge();
+                                    } else {
+                                        int jumlahDitandai = 0;
+                                        for (DataItemCuti konsep : todos) {
+                                            logger.d("hasil2", konsep.getCutiId().toString() + "/" + konsep.getPemohon().getNama());
+//                                            konsep.setColor(R.color.colorAccent);
+                                            logger.d("Respon", konsep.getPemohon().getNama().toString());
+                                            konsepsCuti.add(konsep);
+                                        }
+                                        if (jumlahDitandai > 0) btnLihatTandai.setVisibility(View.VISIBLE);
+                                        else btnLihatTandai.setVisibility(View.GONE);
+                                        mAdaptercuti.ambilKonsepBelumDitandai();
+                                        mAdaptercuti.notifyDataSetChanged();
+//                                        Dashboard.setBadge(0, String.valueOf(todos.size()));
+                                        updateBadge();
+                                    }
+                                    recyclerViewCuti.setVisibility(View.VISIBLE);
+                                    swipeRefreshLayout.setRefreshing(false);
+
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                    if (prefManager.getJabatan().toLowerCase().contains("lurah")) {
+                                        //Dashboard.setBadge(0, String.valueOf(0));
+                                    } else {
+                                        Dashboard.setBadge(0, String.valueOf(0));
+                                    }
+                                    tampilError(true, 3, "");
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                    tampilError(true, 3, "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KonsepCuti> call, Throwable t) {
+                swipeRefreshLayout.setRefreshing(false);
+                String errorType;
+                String errorDesc;
+                if (t instanceof IOException) {
+                    errorType = "Timeout";
+                    errorDesc = String.valueOf(t.getCause());
+                } else if (t instanceof IllegalStateException) {
+                    errorType = "ConversionError";
+                    errorDesc = String.valueOf(t.getCause());
+                } else {
+                    errorType = "Other Error";
+                    errorDesc = String.valueOf(t.getLocalizedMessage());
+                }
+                logger.d(errorType, errorDesc);
+                tampilError(true, 100, errorType);
+            }
+        });
+    }
+
+    private void updateBadge() {
+        // Jumlahkan jumlahBadgeKonsep dan jumlahBadgeCuti
+        int totalBadge = jumlahBadgeKonsep + jumlahBadgeCuti;
+
+        // Set badge pada Dashboard
+        Dashboard.setBadge(0, String.valueOf(totalBadge));
+    }
+//    private void getInbox() {
+//        swipeRefreshLayout.setRefreshing(true);
+//        tampilError(false, 0,"");
+//        recyclerView.setVisibility(View.GONE);
+//
+//        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+//
+//        String authorization = prefManager.getSessionToken();
+//
+//        logger.d("Token Eletter Konsep", authorization);
+//
+//        Call<ResultKonsep> call = apiService.getKonsep(authorization);
+//
+////        final CountDownLatch latch = new CountDownLatch(2);
+//        call.enqueue(new Callback<ResultKonsep>() {
+//            @Override
+//            public void onResponse(Call<ResultKonsep> call, Response<ResultKonsep> response) {
+//                final ResultKonsep result = response.body();
+//                logger.d("hasil", response.toString());
+//                if(result !=null) {
+//                    konseps.clear();
+//                    if(allowUpdateUI) {
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                if (result.getStatus().equals(Tag.TAG_STATUS_SUKSES)) {
+//                                    List<Konsep> todos = result.getData();
+//                                    if (todos.size() == 0) {
+//                                        tampilError(true, 5, "");
+//                                        listDataCuti.setVisibility(View.GONE);
+//                                        headerList.setVisibility(View.GONE);
+//                                        Dashboard.setBadge(0, String.valueOf(0));
+//                                    } else {
+//                                        int jumlahDitandai = 0;
+//                                        for (Konsep konsep : todos) {
+//                                            logger.d("hasil2", konsep.getIdSurat()+"/"+konsep.getSubject());
+//                                            konsep.setColor(R.color.colorAccent);
+//                                            logger.d("Respon", konsep.getFrom().toString());
+//                                            if(konsep.getTandai().equals("1")){
+//                                                jumlahDitandai++;
+//                                            }
+//                                            if(konsep.getTandai().equals("0")){
+//                                                konseps.add(konsep);
+//                                            }
+//                                        }
+//                                        if(jumlahDitandai>0) btnLihatTandai.setVisibility(View.VISIBLE);
+//                                        else btnLihatTandai.setVisibility(View.GONE);
+//                                        mAdapter.ambilKonsepBelumDitandai();
+//                                        mAdapter.notifyDataSetChanged();
+//                                        Dashboard.setBadge(0, String.valueOf(todos.size()));
+//                                    }
+//                                    recyclerView.setVisibility(View.VISIBLE);
+//                                    swipeRefreshLayout.setRefreshing(false);
+//
+//                                } else {
+//                                    swipeRefreshLayout.setRefreshing(false);
+//                                    if(prefManager.getJabatan().toLowerCase().contains("lurah")){
+//                                        //Dashboard.setBadge(0, String.valueOf(0));
+//                                    }else{
+//                                        Dashboard.setBadge(0, String.valueOf(0));
+//                                    }
+//                                    tampilError(true, 3, "");
+//                                }
+//                            }
+//                        });
+//                    }
+//                }else{
+//                    swipeRefreshLayout.setRefreshing(false);
+//                    tampilError(true, 3, "");
+//                }
+////                latch.countDown();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResultKonsep> call, Throwable t) {
+//                swipeRefreshLayout.setRefreshing(false);
+//                String errorType;
+//                String errorDesc;
+//                if (t instanceof IOException) {
+//                    errorType = "Timeout";
+//                    errorDesc = String.valueOf(t.getCause());
+//                }
+//                else if (t instanceof IllegalStateException) {
+//                    errorType = "ConversionError";
+//                    errorDesc = String.valueOf(t.getCause());
+//                } else {
+//                    errorType = "Other Error";
+//                    errorDesc = String.valueOf(t.getLocalizedMessage());
+//                }
+//                logger.d(errorType, errorDesc);
+//                tampilError(true, 100, errorType);
+////                latch.countDown();
+//            }
+//        });
+//
+//        //enqueue call cuti
+//        ApiInterface apiServiceCuti = ApiClient.getDomainCuti().create(ApiInterface.class);
+//        Call<KonsepCuti> callcuti = apiServiceCuti.getKonsepCuti(authorization);
+//        callcuti.enqueue(new Callback<KonsepCuti>() {
+//            @Override
+//            public void onResponse(Call<KonsepCuti> callcuti, Response<KonsepCuti> response) {
+//                final KonsepCuti result = response.body();
+//                logger.d("hasil", response.toString());
+//                if(result !=null) {
+//                    konseps.clear();
+//                    if(allowUpdateUI) {
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                if (result.isStatus()==true) {
+//                                    List<DataItemCuti> todos = result.getData();
+//                                    if (todos.size() == 0) {
+//                                        tampilError(true, 5, "");
+//                                        listDataCuti.setVisibility(View.GONE);
+//                                        headerList.setVisibility(View.GONE);
+//                                        Dashboard.setBadge(0, String.valueOf(0));
+//                                    } else {
+//                                        int jumlahDitandai = 0;
+//                                        for (DataItemCuti konsep : todos) {
+//                                            logger.d("SiapaCuti", konsep.getPemohon().getNama()+"/"+konsep.getCutiId());
+//                                            logger.d("CutiApa", konsep.getCuti().getJenis().toString());
+//                                        }
+//                                        if(jumlahDitandai>0) btnLihatTandai.setVisibility(View.VISIBLE);
+//                                        else btnLihatTandai.setVisibility(View.GONE);
+//                                        mAdaptercuti.ambilKonsepBelumDitandai();
+//                                        mAdaptercuti.notifyDataSetChanged();
+//                                        Dashboard.setBadge(0, String.valueOf(todos.size()));
+//                                    }
+//                                    recyclerView.setVisibility(View.VISIBLE);
+//                                    swipeRefreshLayout.setRefreshing(false);
+//
+//                                } else {
+//                                    swipeRefreshLayout.setRefreshing(false);
+//
+//                                    if(prefManager.getJabatan().toLowerCase().contains("lurah")){
+//                                        //Dashboard.setBadge(0, String.valueOf(0));
+//                                    }else{
+//                                        Dashboard.setBadge(0, String.valueOf(0));
+//
+//                                    }
+//
+//                                    tampilError(true, 3, "");
+//                                }
+//                            }
+//                        });
+//                    }
+//                }else{
+//                    swipeRefreshLayout.setRefreshing(false);
+//                    tampilError(true, 3, "");
+//
+//                }
+////                latch.countDown();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<KonsepCuti> cutiCall, Throwable t) {
+//
+//                swipeRefreshLayout.setRefreshing(false);
+//
+//                String errorType;
+//                String errorDesc;
+//
+//                if (t instanceof IOException) {
+//                    errorType = "Timeout";
+//                    errorDesc = String.valueOf(t.getCause());
+//                }
+//                else if (t instanceof IllegalStateException) {
+//                    errorType = "ConversionError";
+//                    errorDesc = String.valueOf(t.getCause());
+//                } else {
+//                    errorType = "Other Error";
+//                    errorDesc = String.valueOf(t.getLocalizedMessage());
+//                }
+//
+//
+//                logger.d(errorType, errorDesc);
+//
+//                tampilError(true, 100, errorType);
+//
+//
+////                latch.countDown();
+//            }
+//        });
+//
+////        try {
+////            latch.await();
+////        } catch (InterruptedException e) {
+////            e.printStackTrace();
+////        }
+//    }
 
 
     @Override
@@ -491,7 +789,9 @@ public class SuratKonsepFragment extends Fragment implements
             public void run() {
 
                 // Stuff that updates the UI
-                getInbox();
+                refreshRecyclerView();
+                getKonsep();
+                getKonsepCuti();
                 // Toast.makeText(getActivity(), "Sedang mengambil data", Toast.LENGTH_SHORT).show();
             }
         });
@@ -580,8 +880,8 @@ public class SuratKonsepFragment extends Fragment implements
                     public void run() {
 
                         // Stuff that updates the UI
-                        getInbox();
-
+                        getKonsep();
+                        getKonsepCuti();
                         logger.d("OnResume","SuratKonsepFragment | allowUpdateUI "+ String.valueOf(allowUpdateUI));
                     }
                 });

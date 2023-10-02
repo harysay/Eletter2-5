@@ -3,6 +3,7 @@ package id.go.kebumenkab.eletterkebumen.network.pns;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.go.kebumenkab.eletterkebumen.model.KonsepCuti;
 import id.go.kebumenkab.eletterkebumen.model.ResponDetailPermintaanTandatangan;
 import id.go.kebumenkab.eletterkebumen.model.ResponMessage;
 import id.go.kebumenkab.eletterkebumen.model.ResponStandar;
@@ -64,6 +65,9 @@ public interface ApiInterface {
     // Untuk menampilkan surat yang belum diberi aksi
     @GET("index.php/suratinternalget/konsep")
     Call<ResultKonsep> getKonsep(@Header("Authorization") String authorization);
+
+    @GET("/eletter/cutionline/index.php/ajuancuti/api/index")
+    Call<KonsepCuti> getKonsepCuti(@Header("Authorization") String authorization);
 
     // Untuk menampilkan surat yang belum diberi aksi
     @Headers("Content-Type: application/json")
@@ -264,6 +268,20 @@ public interface ApiInterface {
                                    @Path("id_histori") String id_histori,
                                    @Field("passphrase") String pesan);
 
+    @FormUrlEncoded
+    @POST("/eletter/cutionline/index.php/surat/api/ttd")
+    Call<ResponStandar> sendSetujuCuti(@Header("Authorization") String authorization,
+                                      @Field("cuti_id") String id_surat,
+                                      @Field("history_id") String id_histori,
+                                      @Field("passphrase") String pesan);
+
+    @FormUrlEncoded
+    @POST("/eletter/cutionline/index.php/surat/api/aksi")
+    Call<ResponStandar> sendAksiCuti(@Header("Authorization") String authorization,
+                                        @Field("jenis") String jenis,
+                                       @Field("cuti_id") String id_cuti,
+                                       @Field("history_id") String id_history,
+                                       @Field("keterangan") String pesan);
     @GET("index.php/suratinternalprocess/kirim/{id_surat}/{id_histori}")
     Call<ResponStandar> sendKirim(@Header("Authorization") String authorization,
                                    @Path("id_surat") String id_surat,

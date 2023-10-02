@@ -15,6 +15,7 @@ public class Tag {
     public static String TAG_NEWS           = "news";
 
     public static String TAG_ALUR_SURAT    = "alur";
+    public static String TAG_CUTI_ID    = "cuti_id";
     public static String TAG_STATUS_SURAT  = "status";
     public static String TAG_STATUS_SUKSES = "success";
     public static String TAG_PESAN         = "pesan";
@@ -26,6 +27,11 @@ public class Tag {
     public static String TAG_SETUJU        = "setujui";
     public static String TAG_TANDAI        = "tandai";
     public static String TAG_KIRIM         = "kirim";
+
+    //konsepCuti
+    public static String TAG_PERUBAHAN       = "perubahan";
+    public static String TAG_TANGGUHKAN       = "tangguhkan";
+    public static String TAG_TOLAK       = "tolak";
 
     // Surat
 
@@ -44,6 +50,7 @@ public class Tag {
 
     public static String TAG_ID_SURAT      = "id_surat";
     public static String TAG_ID_HISTORI    = "id_histori";
+    public static String TAG_ID_HISTORI_CUTI    = "id_histori_cuti";
     public static String TAG_URL_PDF        =  "url";
 
     public static String TAG_JENISARSIP     = "jenis_arsip";
