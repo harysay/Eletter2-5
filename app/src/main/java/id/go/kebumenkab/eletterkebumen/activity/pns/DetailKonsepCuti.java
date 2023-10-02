@@ -335,13 +335,13 @@ public class DetailKonsepCuti extends AppBaseActivity implements View.OnClickLis
 
             } else if (statusCuti.equalsIgnoreCase(TAG_PERUBAHAN)) {
 
-              call = apiServiceCuti.sendAksiCuti(token,"4", idcuti, idhistoricuti, pesan); //4=perubahan
+              call = apiServiceCuti.sendAksiCuti(token,"perubahan", idcuti, idhistoricuti, pesan); //4=perubahan
             }else if (statusCuti.equalsIgnoreCase(TAG_TANGGUHKAN)) {
 
-                call = apiServiceCuti.sendAksiCuti(token,"5", idcuti, idhistoricuti, pesan); //4=perubahan
+                call = apiServiceCuti.sendAksiCuti(token,"ditangguhkan", idcuti, idhistoricuti, pesan); //5=ditangguhkan
             }else if (statusCuti.equalsIgnoreCase(TAG_TOLAK)) {
 
-                call = apiServiceCuti.sendAksiCuti(token,"6", idcuti, idhistoricuti, pesan); //4=perubahan
+                call = apiServiceCuti.sendAksiCuti(token,"ditolak", idcuti, idhistoricuti, pesan); //6=ditolak
             }
             else {
                 // notifikasiDialog.showToast( "Status surat: " + statusSurat);

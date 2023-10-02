@@ -104,7 +104,8 @@ public class LampiranCutiActivity extends AppCompatActivity implements EasyPermi
         isConnected = NetworkUtil.cekInternet(getApplicationContext());
 
         if(isConnected){
-             String url = "https://docs.google.com/gview?embedded=true&url="+ urlFileSurat;
+//             String url = "https://docs.google.com/gview?embedded=true&url="+ urlFileSurat;
+             String url = ApiClient.DOMAIN+"/cutionline/index.php/surat/view_lampiran?url="+urlFileSurat;
 //            String url = "https://eletter.kebumenkab.go.id/index.php/viewer/lampiran/"+namaFileSurat;
 //            String url = urlFileSurat;
 
@@ -250,7 +251,7 @@ public class LampiranCutiActivity extends AppCompatActivity implements EasyPermi
         try  {
             URL myUrl = new URL(downloadUrl[0]);
 
-            String   fileName = downloadUrl[0].substring(downloadUrl[0].lastIndexOf('/') + 1, downloadUrl[0].length())+".pdf";
+            String   fileName = downloadUrl[0].substring(downloadUrl[0].lastIndexOf('/') + 1, downloadUrl[0].length());
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url + ""));
             request.setTitle(fileName);
             request.setMimeType("application/pdf");
@@ -265,37 +266,6 @@ public class LampiranCutiActivity extends AppCompatActivity implements EasyPermi
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-
-
-    public void viewPDF(String fileName)
-    {
-
-        final ProgressDialog progressDialog = new ProgressDialog(LampiranCutiActivity.this);
-        progressDialog.setMessage("Sedang membuka file unduhan");
-        progressDialog.show();
-
-        File pdfFile = new File(fileName);
-        // Uri path = Uri.fromFile(pdfFile);
-
-        Uri pathURI = FileProvider.getUriForFile(LampiranCutiActivity.this,
-                getApplicationContext()
-                        .getPackageName()+".provider",
-                pdfFile);
-
-        Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-        pdfIntent.setDataAndType(pathURI, "application/pdf");
-        pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        try{
-            startActivity(pdfIntent);
-            progressDialog.dismiss();
-        }catch(ActivityNotFoundException e){
-            Toast.makeText(LampiranCutiActivity.this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
         }
     }
 
