@@ -52,6 +52,7 @@
                 android:gravity="center"
                 android:clickable="true"
                 android:onClick="bukaRiwayatDev"
+                android:textColor="@color/colorAccent"
                 android:text="Versi Aplikasi" />
 
         </RelativeLayout>
@@ -77,6 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text|textNoSuggestions"
+        android:hint="Masukan username di sini"
         android:padding="12dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -101,6 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
+        android:hint="Masukan password di sini"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:padding="12dp"/>

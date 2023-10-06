@@ -66,7 +66,7 @@ public interface ApiInterface {
     @GET("index.php/suratinternalget/konsep")
     Call<ResultKonsep> getKonsep(@Header("Authorization") String authorization);
 
-    @GET("/eletter/cutionline/index.php/ajuancuti/api/index")
+    @GET("/cutionline/index.php/ajuancuti/api/index")
     Call<KonsepCuti> getKonsepCuti(@Header("Authorization") String authorization);
 
     // Untuk menampilkan surat yang belum diberi aksi
@@ -269,14 +269,14 @@ public interface ApiInterface {
                                    @Field("passphrase") String pesan);
 
     @FormUrlEncoded
-    @POST("/eletter/cutionline/index.php/surat/api/ttd")
+    @POST("/cutionline/index.php/surat/api/ttd")
     Call<ResponStandar> sendSetujuCuti(@Header("Authorization") String authorization,
                                       @Field("cuti_id") String id_surat,
                                       @Field("history_id") String id_histori,
                                       @Field("passphrase") String pesan);
 
     @FormUrlEncoded
-    @POST("/eletter/cutionline/index.php/surat/api/aksi")
+    @POST("/cutionline/index.php/surat/api/aksi")
     Call<ResponStandar> sendAksiCuti(@Header("Authorization") String authorization,
                                         @Field("jenis") String jenis,
                                        @Field("cuti_id") String id_cuti,

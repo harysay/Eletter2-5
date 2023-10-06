@@ -17,10 +17,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-//    public static String DOMAIN = "https://eletter.kebumenkab.go.id";
-//     public static String DOMAIN = "http://10.28.11.26/eletter2";
-    public static String DOMAIN = "http://103.147.218.90:8182/eletter";
-    public static String DOMAINCUTI = "http://103.147.218.90:8182";
+    public static String DOMAIN = "https://eletter.kebumenkab.go.id";
+//     public static String DOMAIN = "http://10.28.11.26/eletter2"; //jika di lapotope lukman
+//    public static String DOMAIN = "http://103.147.218.90:8182/eletter";
+//    public static String DOMAINCUTI = "http://103.147.218.90:8182"; //jika di development
+//    public static final String ELETTER_CUTI = DOMAINCUTI + "/eletter/cutionline/index.php/surat/preview/"; //jika didevelopment
 
     public static final String ELETTER_URL = DOMAIN + "/api/";
 
@@ -28,7 +29,8 @@ public class ApiClient {
     public static final String ELETTER_PDF_KONSEP = DOMAIN + "/index.php/viewer/konsep/";
     public static final String ELETTER_KOREKSI = DOMAIN + "/index.php/koreksi/koreksi/index/";
 
-    public static final String ELETTER_CUTI = DOMAINCUTI + "/eletter/cutionline/index.php/surat/preview/";
+
+    public static final String ELETTER_CUTI = DOMAIN + "/cutionline/index.php/surat/preview/";
     public static final String ELETTER_PDFJS = DOMAIN + "/index.php/viewer/index/";
     public static final String ELETTER_PDFJS_LAMPIRAN = DOMAIN + "/index.php/viewer/lampiran/";
 
@@ -88,7 +90,7 @@ public class ApiClient {
                     .setLenient()
                     .create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(DOMAINCUTI)
+                    .baseUrl(DOMAIN)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(okHttpClient)
                     .build();

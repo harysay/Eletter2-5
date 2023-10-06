@@ -29,9 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".activity.pns.CutiLampiranActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activity.pns.WebViewKoreksiActivity"
             android:exported="false">

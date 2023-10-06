@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     // buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "id.go.kebumenkab.eletterkebumen"
         minSdkVersion 19 // sebelumnya 16, diupgrade karena kebutuhan Firebase
-        targetSdkVersion 31
+        targetSdkVersion 33
         multiDexEnabled true
         versionCode 66
         versionName '2.4.06.B02102023'
