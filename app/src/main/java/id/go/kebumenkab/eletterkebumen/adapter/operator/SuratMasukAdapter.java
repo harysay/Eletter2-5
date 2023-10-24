@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.HapticFeedbackConstants;
@@ -42,8 +41,7 @@ import id.go.kebumenkab.eletterkebumen.R;
 import id.go.kebumenkab.eletterkebumen.helper.CircleTransform;
 import id.go.kebumenkab.eletterkebumen.helper.Config;
 import id.go.kebumenkab.eletterkebumen.helper.PrefManager;
-import id.go.kebumenkab.eletterkebumen.helper.Tag;
-import id.go.kebumenkab.eletterkebumen.model.DataItem;
+import id.go.kebumenkab.eletterkebumen.model.DataItemSuratMasuk;
 import id.go.kebumenkab.eletterkebumen.model.SuratMasuk;
 import id.go.kebumenkab.eletterkebumen.network.AppController;
 
@@ -52,9 +50,9 @@ import id.go.kebumenkab.eletterkebumen.network.AppController;
 public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.MyViewHolder>
         implements Filterable {
     private Context mContext;
-    private List<DataItem> messages;
-    private List<DataItem> messagesMaster;
-    private List<DataItem> messagesFiltered;
+    private List<DataItemSuratMasuk> messages;
+    private List<DataItemSuratMasuk> messagesMaster;
+    private List<DataItemSuratMasuk> messagesFiltered;
 
     private MessageAdapterListener listener;
     private SparseBooleanArray selectedItems;
@@ -76,9 +74,9 @@ public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.My
         String status = charSequence.toString().trim();
 
         if(status.length() > 0){
-            List<DataItem> messageCategorized = new ArrayList<DataItem>();
+            List<DataItemSuratMasuk> messageCategorized = new ArrayList<DataItemSuratMasuk>();
 
-            for(DataItem row : messagesMaster){
+            for(DataItemSuratMasuk row : messagesMaster){
                 if (row.getNamaSurat().toLowerCase().contains(status.toLowerCase()) ) {
                     messageCategorized.add(row);
                 }
@@ -108,10 +106,10 @@ public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.My
                     messagesFiltered = messagesMaster;
                 } else {
 
-                    List<DataItem> filteredList = new ArrayList<>();
+                    List<DataItemSuratMasuk> filteredList = new ArrayList<>();
 
 
-                    for (DataItem row : messagesMaster) {
+                    for (DataItemSuratMasuk row : messagesMaster) {
 
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
@@ -134,7 +132,7 @@ public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.My
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                messages = (ArrayList<DataItem>) filterResults.values;
+                messages = (ArrayList<DataItemSuratMasuk>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
@@ -173,7 +171,7 @@ public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.My
     }
 
 
-    public SuratMasukAdapter(Context mContext, List<DataItem> messages, MessageAdapterListener listener) {
+    public SuratMasukAdapter(Context mContext, List<DataItemSuratMasuk> messages, MessageAdapterListener listener) {
         this.mContext = mContext;
         this.messages = messages;
         this.listener = listener;
@@ -193,7 +191,7 @@ public class SuratMasukAdapter extends RecyclerView.Adapter<SuratMasukAdapter.My
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        DataItem message = messages.get(position);
+        DataItemSuratMasuk message = messages.get(position);
 
         // displaying text view data
         holder.from.setText(message.getPengirim());

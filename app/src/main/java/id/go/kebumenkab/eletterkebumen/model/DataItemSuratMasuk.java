@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class DataItem implements Serializable {
+public class DataItemSuratMasuk implements Serializable {
 
 	@SerializedName("pengirim")
 	private String pengirim;

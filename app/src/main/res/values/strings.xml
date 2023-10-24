@@ -67,6 +67,7 @@
     <string name="action_tandatangani">Tandai</string>
     <string name="action_lihat">Lihat</string>
     <string name="action_koreksi">Koreksi</string>
+    <string name="action_ubahlangsung">Ubah\nLangsung</string>
     <string name="action_tandai">TANDAI</string>
     <string name="action_hilangkan_tandai">BERSIHKAN TANDA</string>
     <string name="action_ajukan">Ajukan</string>
@@ -79,7 +80,7 @@
     <string name="action_disposisi">Disposisi</string>
     <string name="action_tarik">Tarik</string>
     <string name="action_kerjakan">Kerjakan</string>
-    <string name="action_tindaklanjuti">Tindak Lanjuti</string>
+    <string name="action_tindaklanjuti">TindLanjut</string>
     <string name="action_settings">Pengaturan</string>
     <string name="action_info">Info</string>
     <string name="action_others">Info</string>
@@ -340,12 +341,12 @@
     <string name="subheading_pengirim">Pengirim</string>
     <string name="subheading_pemohoncuti">Pemohon</string>
     <string name="subheading_identitas">Identitas</string>
-    <string name="subheading_detailcuti">Detail Cuti</string>
+    <string name="subheading_detailcuti">Detail</string>
     <string name="subheading_disposisi">Penerima</string>
     <string name="subheading_pesan">Pesan</string>
     <string name="subheading_alasancuti">Alasan Cuti</string>
     <string name="subheading_namasurat">Nama Surat</string>
-    <string name="subheading_jeniscuti">Jenis Cuti</string>
+    <string name="subheading_jeniscuti">Jenis</string>
     <string name="subheading_arsip_suratmasuk">Surat Masuk</string>
     <string name="subheading_arsip_konsep">Konsep</string>
 

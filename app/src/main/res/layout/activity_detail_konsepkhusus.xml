@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_subheading"
-            android:text="@string/subheading_namasurat"
+            android:text="@string/subheading_jeniscuti"
             android:textColor="?android:attr/textColorPrimary"
             android:padding="@dimen/timestamp"/>
 
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_subheading"
-            android:text="@string/subheading_pengirim"
+            android:text="@string/subheading_pemohoncuti"
 
             android:textColor="?android:attr/textColorPrimary"
             android:padding="@dimen/timestamp"/>
@@ -98,7 +98,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textColor="@color/timestamp"
-                    android:textSize="@dimen/text_subheading" />
+                    android:textSize="@dimen/msg_text_secondary" />
 
             </LinearLayout>
 
@@ -107,23 +107,23 @@
         </RelativeLayout>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_subheading"
-            android:text="@string/subheading_pesan"
-            android:textColor="?android:attr/textColorPrimary"
-            android:padding="@dimen/timestamp"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="@dimen/text_subheading"-->
+<!--            android:text="@string/subheading_alasancuti"-->
+<!--            android:textColor="?android:attr/textColorPrimary"-->
+<!--            android:padding="@dimen/timestamp"/>-->
 
-        <TextView
-            android:id="@+id/message"
-            android:textColor="?android:attr/textColorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_list_row"
-            android:paddingLeft="@dimen/timestamp"
-            android:paddingRight="@dimen/timestamp"
-            android:textSize="@dimen/text_size_pesan" />
+<!--        <TextView-->
+<!--            android:id="@+id/message"-->
+<!--            android:textColor="?android:attr/textColorPrimary"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingBottom="@dimen/padding_list_row"-->
+<!--            android:paddingLeft="@dimen/timestamp"-->
+<!--            android:paddingRight="@dimen/timestamp"-->
+<!--            android:textSize="@dimen/text_size_pesan" />-->
         <!-- Inisiator -->
 
         <TextView
@@ -131,141 +131,18 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_subheading"
             android:textColor="?android:attr/textColorPrimary"
-            android:text="@string/subheading_identitas"
+            android:text="@string/subheading_detailcuti"
             android:padding="@dimen/timestamp"/>
 
-        <LinearLayout
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/padding_list_row"
-            android:paddingLeft="?listPreferredItemPaddingLeft"
-            android:paddingRight="?listPreferredItemPaddingRight"
-            >
-
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/bg_circle"/>
-            <TextView
-                android:id="@+id/text_inisiator"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detailRecyclerViewKonsepKhusus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/msg_text_primary"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="Inisiator:"/>
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/padding_list_row"
-            android:paddingLeft="?listPreferredItemPaddingLeft"
-            android:paddingRight="?listPreferredItemPaddingRight"
-            android:gravity="center_vertical"
-            >
-
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/bg_circle"/>
-            <TextView
-                android:id="@+id/text_nomor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/msg_text_primary"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="Nomor:"/>
-
-
-
-        </LinearLayout>
-        <!-- -->
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/padding_list_row"
-            android:paddingLeft="?listPreferredItemPaddingLeft"
-            android:paddingRight="?listPreferredItemPaddingRight"
-            >
-
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/bg_circle"/>
-            <TextView
-                android:id="@+id/text_tandatangan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/msg_text_primary"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="Tanda tangan:"/>
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/padding_list_row"
-            android:paddingLeft="?listPreferredItemPaddingLeft"
-            android:paddingRight="?listPreferredItemPaddingRight"
-            >
-
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/bg_circle"/>
-            <TextView
-                android:id="@+id/text_tujuan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/msg_text_primary"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="Tujuan:"/>
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/padding_list_row"
-            android:paddingLeft="@dimen/padding_list_row"
-            android:paddingRight="@dimen/padding_list_row"
-            >
-
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/bg_circle"/>
-            <TextView
-                android:id="@+id/text_deskripsi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/msg_text_primary"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="Deskripsi:"/>
-
-
-
-        </LinearLayout>
+                android:layout_height="wrap_content" />
+        </ScrollView>
 
         <HorizontalScrollView
 
@@ -322,10 +199,8 @@
                             android:textSize="@dimen/text_button_detail_mail" />
                     </LinearLayout>
 
-
-
                     <LinearLayout
-                        android:id="@+id/btn_telaah"
+                        android:id="@+id/btn_lihatcuti"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -362,9 +237,8 @@
 
                             android:textSize="@dimen/text_button_detail_mail" />
                     </LinearLayout>
-
                     <LinearLayout
-                        android:id="@+id/btn_riwayat"
+                        android:id="@+id/btn_tandatangani"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -388,7 +262,7 @@
                                 android:layout_width="25dp"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                app:srcCompat="@drawable/ic_history_white_24dp" />
+                                app:srcCompat="@drawable/ic_action_tandatangani" />
 
                         </RelativeLayout>
 
@@ -396,52 +270,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_button_detail_mail"
-                            android:text="Riwayat"
+                            android:text="Tandatangani"
                             android:textColor="?android:attr/textColorPrimary"
-
                             android:textSize="@dimen/text_button_detail_mail" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btn_editkoreksi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginLeft="@dimen/margin_tombol_action"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_button_detail_mail"
-                            android:layout_marginRight="@dimen/margin_button_detail_mail"
-                            android:fillAfter="false"
-                            android:fillEnabled="false">
-
-                            <ImageView
-                                android:layout_width="@dimen/icon_width_height"
-                                android:layout_height="@dimen/icon_width_height"
-                                android:src="@drawable/rounded_default" />
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                app:srcCompat="@drawable/ic_editkoreksi_putih" />
-
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_button_detail_mail"
-                            android:text="@string/action_ubahlangsung"
-                            android:textAlignment="center"
-                            android:textColor="?android:attr/textColorPrimary"
-
-                            android:textSize="@dimen/text_button_detail_mail" />
-                    </LinearLayout>
-
                 </LinearLayout>
             </HorizontalScrollView>
     </LinearLayout>

@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-import id.go.kebumenkab.eletterkebumen.model.DataItem;
+import id.go.kebumenkab.eletterkebumen.model.DataItemSuratMasuk;
 import id.go.kebumenkab.eletterkebumen.model.ResponStandar;
 import id.go.kebumenkab.eletterkebumen.model.ResultArsipDiajukan;
 import id.go.kebumenkab.eletterkebumen.model.ResultArsipDisetujui;
@@ -43,7 +43,7 @@ public class Logger {
         //Log.w(Tag.TAG_APLIKASI, title+ " : " + new Gson().toJson(response));
     }
 
-    public void w2(String title, List<DataItem> response){
+    public void w2(String title, List<DataItemSuratMasuk> response){
        //  Log.w(Tag.TAG_APLIKASI, title+ " : " + new Gson().toJson(response));
     }
 

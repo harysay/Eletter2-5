@@ -48,7 +48,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WebViewCutiActivity extends AppCompatActivity {
-    private String idCuti,idHistori,tokenDariActivity;
+//    private String idCuti,idHistori,tokenDariActivity;
+    private String urlPreview;
     private PrefManager prefManager;
     private NotifikasiDialog notifikasiDialog;
     private boolean isConnected;
@@ -115,11 +116,12 @@ public class WebViewCutiActivity extends AppCompatActivity {
         /*** Menerima parameter dari halaman sebelumnya untuk diproses pada pemanggilan API  **/
         logger.d("LIFECYCLE", "cek Intent" + getIntent().toString());
         intent = getIntent();
-        if(getIntent().getStringExtra(Tag.TAG_CUTI_ID) != null){
-            idCuti = getIntent().getStringExtra(Tag.TAG_CUTI_ID);
-            idHistori = getIntent().getStringExtra(Tag.TAG_ID_HISTORI_CUTI);
-            tokenDariActivity = getIntent().getStringExtra(Tag.SESSION_TOKEN);
-            URL_PREVIEW = ELETTER_CUTI;
+        if(getIntent().getStringExtra("urlpreview") != null){
+            urlPreview = getIntent().getStringExtra("urlpreview");
+//            idCuti = getIntent().getStringExtra("urlpreview");
+//            idHistori = getIntent().getStringExtra(Tag.TAG_ID_HISTORI_CUTI);
+//            tokenDariActivity = getIntent().getStringExtra(Tag.SESSION_TOKEN);
+            URL_PREVIEW = urlPreview;
             logger.d("URL Preview", URL_PREVIEW);
         }else{
             hideDialog(3, 0, "");
@@ -204,9 +206,9 @@ public class WebViewCutiActivity extends AppCompatActivity {
 
     public void prosesPDF(){
         logger.d("LIFECYCLE", "proses PDF");
-            logger.d("HandlerURLPreview", URL_PREVIEW+idCuti);
+            logger.d("HandlerURLPreview", URL_PREVIEW);
             PdfWebViewClient pdfWebViewClient = new PdfWebViewClient(getApplicationContext(), webview, reload);
-            pdfWebViewClient.loadPdfUrl(URL_PREVIEW+idCuti);
+            pdfWebViewClient.loadPdfUrl(URL_PREVIEW);
 //                loadPDF(URL_PREVIEW+idSurat);
     }
     private class PdfWebViewClient extends WebViewClient

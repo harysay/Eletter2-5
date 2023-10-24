@@ -3,7 +3,9 @@ package id.go.kebumenkab.eletterkebumen.network.pns;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.go.kebumenkab.eletterkebumen.model.KonsepCuti;
+//import id.go.kebumenkab.eletterkebumen.model.KonsepCuti;
+import id.go.kebumenkab.eletterkebumen.model.KonsepKhusus;
+import id.go.kebumenkab.eletterkebumen.model.KonsepKhususDetail;
 import id.go.kebumenkab.eletterkebumen.model.ResponDetailPermintaanTandatangan;
 import id.go.kebumenkab.eletterkebumen.model.ResponMessage;
 import id.go.kebumenkab.eletterkebumen.model.ResponStandar;
@@ -66,8 +68,27 @@ public interface ApiInterface {
     @GET("index.php/suratinternalget/konsep")
     Call<ResultKonsep> getKonsep(@Header("Authorization") String authorization);
 
-    @GET("/cutionline/index.php/ajuancuti/api/index")
-    Call<KonsepCuti> getKonsepCuti(@Header("Authorization") String authorization);
+    //ini untuk fragmen konsep yang dibagi menjadi 2
+//    @GET("/cutionline/index.php/ajuancuti/api/index") //ini untuk konsep cuti awal permintaan bupati
+//    Call<KonsepCuti> getKonsepCuti(@Header("Authorization") String authorization);
+    @GET("/eletter/api/index.php/konsepkhusus/index")
+    Call<KonsepKhusus> getKonsepKhusus(@Header("Authorization") String authorization);
+    @GET("/eletter/api/index.php/konsepkhusus/get/{id}")
+    Call<KonsepKhususDetail> getKonsepKhususDetail(@Header("Authorization") String authorization,
+                                                   @Path("id") String id);
+    @FormUrlEncoded
+    @POST("/eletter/api/index.php/konsepkhusus/aksi/{idkhusus}/{idaksi}")
+    Call<ResponStandar> sendAksiKonsepKhusus(@Header("Authorization") String authorization,
+                                     @Path("idkhusus") String idkonsepkhusus,
+                                     @Path("idaksi") String idaksikhusus,
+                                     @Field("message") String pesan);
+    @FormUrlEncoded
+    @POST("/eletter/api/index.php/konsepkhusus/ttd/{idkhusus}")
+    Call<ResponStandar> sendTandaTanganiKonsepKhusus(@Header("Authorization") String authorization,
+                                             @Path("idkhusus") String idkonsepkhusus,
+                                             @Field("passphrase") String pesan);
+
+
 
     // Untuk menampilkan surat yang belum diberi aksi
     @Headers("Content-Type: application/json")

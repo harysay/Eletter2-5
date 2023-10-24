@@ -150,7 +150,7 @@ public class PreviewActivity extends AppBaseActivity
         /*** Menerima parameter dari halaman sebelumnya untuk diproses pada pemanggilan API  **/
 
         logger.d("LIFECYCLE", "cek Intent" + getIntent().toString());
-        logger.d("DataItem", getIntent().getStringExtra(TAG_PATH));
+        logger.d("DataItemSuratMasuk", getIntent().getStringExtra(TAG_PATH));
 
         intent = getIntent();
 
@@ -353,8 +353,9 @@ public class PreviewActivity extends AppBaseActivity
                                     /** Tidak sukses **/
                                     if(data.getPesan().contains("telah")){
                                         hideDialog(0, 100, data.getPesan());
-                                    }else
-                                    hideDialog(0, 100, data.getPesan());
+                                    }else {
+                                        hideDialog(0, 100, data.getPesan());
+                                    }
                                 }
 
                             }else{

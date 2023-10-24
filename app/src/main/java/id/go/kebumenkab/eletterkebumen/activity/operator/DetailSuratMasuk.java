@@ -25,7 +25,7 @@ import id.go.kebumenkab.eletterkebumen.helper.Logger;
 import id.go.kebumenkab.eletterkebumen.helper.NotifikasiDialog;
 import id.go.kebumenkab.eletterkebumen.helper.PrefManager;
 import id.go.kebumenkab.eletterkebumen.helper.Tag;
-import id.go.kebumenkab.eletterkebumen.model.DataItem;
+import id.go.kebumenkab.eletterkebumen.model.DataItemSuratMasuk;
 import id.go.kebumenkab.eletterkebumen.model.Detail;
 import id.go.kebumenkab.eletterkebumen.model.ResultDetail;
 import id.go.kebumenkab.eletterkebumen.network.pns.ApiClient;
@@ -121,7 +121,7 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
     private void cekIntent(){
 
         Intent intent = getIntent();
-        DataItem suratMasuk = (DataItem) intent.getSerializableExtra("object");
+        DataItemSuratMasuk suratMasuk = (DataItemSuratMasuk) intent.getSerializableExtra("object");
         idSurat         = suratMasuk.getIdSuratInternal();
         tautan_telaah   = suratMasuk.getTelaah();
         dataPengirim    = suratMasuk.getPengirim();

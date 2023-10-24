@@ -36,14 +36,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import id.go.kebumenkab.eletterkebumen.R;
 import id.go.kebumenkab.eletterkebumen.activity.operator.DashboardOperator;
-import id.go.kebumenkab.eletterkebumen.activity.operator.DetailSuratMasuk;
 import id.go.kebumenkab.eletterkebumen.activity.operator.PreviewActivity;
 import id.go.kebumenkab.eletterkebumen.adapter.operator.SuratMasukAdapter;
 import id.go.kebumenkab.eletterkebumen.helper.Logger;
 import id.go.kebumenkab.eletterkebumen.helper.PrefManager;
 import id.go.kebumenkab.eletterkebumen.helper.Tag;
-import id.go.kebumenkab.eletterkebumen.model.DataItem;
-import id.go.kebumenkab.eletterkebumen.model.Konsep;
+import id.go.kebumenkab.eletterkebumen.model.DataItemSuratMasuk;
 import id.go.kebumenkab.eletterkebumen.model.ResponseSuratMasukOperator;
 import id.go.kebumenkab.eletterkebumen.network.NetworkUtil;
 import id.go.kebumenkab.eletterkebumen.network.operator.ApiClient;
@@ -52,7 +50,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_ARSIP;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_PATH;
 
 
@@ -65,7 +62,7 @@ public class SuratMasukFragment extends Fragment implements
     private PrefManager prefManager;
     private String strJabatan;
 
-    private static List<DataItem> messages = new ArrayList<>();
+    private static List<DataItemSuratMasuk> messages = new ArrayList<>();
     private RecyclerView recyclerView;
     public static SuratMasukAdapter mAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -226,7 +223,7 @@ public class SuratMasukFragment extends Fragment implements
 
     @Override
     public void onIconImportantClicked(int position) {
-        DataItem message = messages.get(position);
+        DataItemSuratMasuk message = messages.get(position);
         messages.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -234,7 +231,7 @@ public class SuratMasukFragment extends Fragment implements
     @Override
     public void onMessageRowClicked(int position) {
 
-        DataItem message = messages.get(position);
+        DataItemSuratMasuk message = messages.get(position);
 
         messages.set(position, message);
         mAdapter.notifyDataSetChanged();
@@ -329,14 +326,14 @@ public class SuratMasukFragment extends Fragment implements
 
                                 if (result.getStatus().equals(Tag.TAG_STATUS_SUKSES)) {
 
-                                    List<DataItem> todos = result.getData();
+                                    List<DataItemSuratMasuk> todos = result.getData();
 
                                     if (todos.size() == 0) {
                                         tampilError(true, 5,"");
 
                                     } else {
-                                        for (DataItem message : todos) {
-                                            logger.d("DataItem", message.getNamaSurat().toString()+"/"+message.getTelaah());
+                                        for (DataItemSuratMasuk message : todos) {
+                                            logger.d("DataItemSuratMasuk", message.getNamaSurat().toString()+"/"+message.getTelaah());
 
                                             messages.add(message);
 
@@ -502,7 +499,7 @@ public class SuratMasukFragment extends Fragment implements
         builder.show();
     }
 
-    public static void updateDataList(List<DataItem> arrayList){
+    public static void updateDataList(List<DataItemSuratMasuk> arrayList){
         messages = arrayList;
         mAdapter.notifyDataSetChanged();
     }

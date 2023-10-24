@@ -13,7 +13,7 @@ import java.util.List;
 import id.go.kebumenkab.eletterkebumen.activity.pns.Dashboard;
 import id.go.kebumenkab.eletterkebumen.activity.lurah.DashboardLurah;
 import id.go.kebumenkab.eletterkebumen.activity.operator.DashboardOperator;
-import id.go.kebumenkab.eletterkebumen.model.DataItem;
+import id.go.kebumenkab.eletterkebumen.model.DataItemSuratMasuk;
 import id.go.kebumenkab.eletterkebumen.model.KonsepDesa;
 import id.go.kebumenkab.eletterkebumen.model.Notif;
 import id.go.kebumenkab.eletterkebumen.model.ResponseSuratMasukOperator;
@@ -93,7 +93,7 @@ public class MyStartServiceReceiver extends BroadcastReceiver {
 
                     if (result.getStatus().equals(Tag.TAG_STATUS_SUKSES)) {
 
-                        List<DataItem> todos = result.getData();
+                        List<DataItemSuratMasuk> todos = result.getData();
                         jumlahNotifikasi += todos.size();
 
                         if (jumlahNotifikasi > 0) {

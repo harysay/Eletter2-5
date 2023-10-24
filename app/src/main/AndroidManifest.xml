@@ -89,7 +89,7 @@
             android:screenOrientation="portrait"
             android:taskAffinity="" />
         <activity
-            android:name=".activity.pns.DetailKonsepCuti"
+            android:name=".activity.pns.DetailKonsepKhusus"
             android:excludeFromRecents="true"
             android:exported="false"
             android:launchMode="singleTask"

@@ -6,16 +6,16 @@ import com.google.gson.annotations.SerializedName;
 public class ResponseSuratMasukOperator{
 
 	@SerializedName("data")
-	private List<DataItem> data;
+	private List<DataItemSuratMasuk> data;
 
 	@SerializedName("status")
 	private String status;
 
-	public void setData(List<DataItem> data){
+	public void setData(List<DataItemSuratMasuk> data){
 		this.data = data;
 	}
 
-	public List<DataItem> getData(){
+	public List<DataItemSuratMasuk> getData(){
 		return data;
 	}
 

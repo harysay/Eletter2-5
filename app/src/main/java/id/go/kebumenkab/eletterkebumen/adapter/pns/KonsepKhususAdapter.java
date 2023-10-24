@@ -1,9 +1,6 @@
 package id.go.kebumenkab.eletterkebumen.adapter.pns;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -18,11 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,18 +23,16 @@ import java.util.Date;
 import java.util.List;
 
 import id.go.kebumenkab.eletterkebumen.R;
-import id.go.kebumenkab.eletterkebumen.helper.CircleTransform;
-import id.go.kebumenkab.eletterkebumen.model.DataItemCuti;
-import id.go.kebumenkab.eletterkebumen.model.Konsep;
+import id.go.kebumenkab.eletterkebumen.model.DataItemKonsepKhusus;
 
 /** **/
 
-public class KonsepCutiAdapter extends RecyclerView.Adapter<KonsepCutiAdapter.MyViewHolder>
+public class KonsepKhususAdapter extends RecyclerView.Adapter<KonsepKhususAdapter.MyViewHolder>
     implements Filterable {
     private Context mContext;
-    private List<DataItemCuti> konseps;
-    private List<DataItemCuti> messagesMaster;
-    private List<DataItemCuti> messagesFiltered;
+    private List<DataItemKonsepKhusus> konseps;
+    private List<DataItemKonsepKhusus> messagesMaster;
+    private List<DataItemKonsepKhusus> messagesFiltered;
 
     private MessageAdapterListenerCuti listener;
     private SparseBooleanArray selectedItems;
@@ -61,9 +52,9 @@ public class KonsepCutiAdapter extends RecyclerView.Adapter<KonsepCutiAdapter.My
 
     public void ambilKonsepBelumDitandai(){
 
-        List<DataItemCuti> konsepCategorized = new ArrayList<DataItemCuti>();
+        List<DataItemKonsepKhusus> konsepCategorized = new ArrayList<DataItemKonsepKhusus>();
 
-        for(DataItemCuti row : messagesMaster){
+        for(DataItemKonsepKhusus row : messagesMaster){
             konsepCategorized.add(row);
 //            if (row.getTandai().toLowerCase().contains("0") ) {
 //                Log.e("Filter", row.getFrom()+"/"+ row.getStatus());
@@ -85,12 +76,12 @@ public class KonsepCutiAdapter extends RecyclerView.Adapter<KonsepCutiAdapter.My
                 if (charString.isEmpty()) {
                     messagesFiltered = messagesMaster;
                 } else {
-                    List<DataItemCuti> filteredList = new ArrayList<>();
-                    for (DataItemCuti row : messagesMaster) {
-                       if (row.getPemohon().getNama().toLowerCase().contains(charString.toLowerCase())
-                               || row.getCuti().getJenis().toLowerCase().contains(charString.toLowerCase()) ) {
-                            Log.e("Filter", row.getPemohon().getNama()+"/"
-                                    + row.getCuti().getJenis()+"/"+ charString);
+                    List<DataItemKonsepKhusus> filteredList = new ArrayList<>();
+                    for (DataItemKonsepKhusus row : messagesMaster) {
+                       if (row.getAppName().toLowerCase().contains(charString.toLowerCase())
+                               || row.getTitle2().toLowerCase().contains(charString.toLowerCase()) ) {
+                            Log.e("Filter", row.getAppName()+"/"
+                                    + row.getTitle()+"/"+ charString);
 
                             filteredList.add(row);
                         }
@@ -105,7 +96,7 @@ public class KonsepCutiAdapter extends RecyclerView.Adapter<KonsepCutiAdapter.My
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                konseps = (ArrayList<DataItemCuti>) filterResults.values;
+                konseps = (ArrayList<DataItemKonsepKhusus>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
@@ -143,7 +134,7 @@ public class KonsepCutiAdapter extends RecyclerView.Adapter<KonsepCutiAdapter.My
     }
 
 
-    public KonsepCutiAdapter(Context mContext, List<DataItemCuti> konseps, MessageAdapterListenerCuti listener) {
+    public KonsepKhususAdapter(Context mContext, List<DataItemKonsepKhusus> konseps, MessageAdapterListenerCuti listener) {
 
         this.mContext = mContext;
         this.konseps = konseps;
@@ -163,23 +154,21 @@ public class KonsepCutiAdapter extends RecyclerView.Adapter<KonsepCutiAdapter.My
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        DataItemCuti konsep = konseps.get(position);
+        DataItemKonsepKhusus konsep = konseps.get(position);
 
         // displaying text view data
-        holder.from.setText(properCase(konsep.getPemohon().getNama()));
-        holder.subject.setText(konsep.getCuti().getMulaiCuti()+" s.d "+ konsep.getCuti().getSelesaiCuti());
-        holder.message.setText(konsep.getPemohon().getUnitKerja());
+        holder.from.setText(properCase(konsep.getAppName()));
+        holder.subject.setText(konsep.getTitle());
+        holder.message.setText(konsep.getTitle2());
 
-        holder.jumlah_koreksi.setText(konsep.getCuti().getJenis());
-        holder.jumlah_koreksi.setVisibility(View.VISIBLE);
-
-//        if(konsep.getPernahDikoreksi().equals("0"))  holder.jumlah_koreksi.setVisibility(View.GONE);
+        holder.jumlah_koreksi.setText(konsep.getId());
+        holder.jumlah_koreksi.setVisibility(View.INVISIBLE);
 
         long now = System.currentTimeMillis();
-        holder.timestamp.setText(konsep.getPemohon().getUnitKerja());
+        holder.timestamp.setText(DateUtils.getRelativeTimeSpanString(timeStringtoMilis(konsep.getCreatedAt()), now, DateUtils.DAY_IN_MILLIS));
 
         // displaying the first letter of From in icon text
-        holder.iconText.setText(konsep.getPemohon().getNama().substring(0, 1).toUpperCase());
+        holder.iconText.setText(konsep.getAppName().substring(0, 1).toUpperCase());
 
         // change the row state to activated
         holder.itemView.setActivated(selectedItems.get(position, false));
@@ -238,7 +227,7 @@ public class KonsepCutiAdapter extends RecyclerView.Adapter<KonsepCutiAdapter.My
 
     @Override
     public long getItemId(int position) {
-        return Long.parseLong(konseps.get(position).getCutiId());
+        return Long.parseLong(konseps.get(position).getId());
     }
     @Override
     public int getItemCount() {
@@ -289,5 +278,19 @@ public class KonsepCutiAdapter extends RecyclerView.Adapter<KonsepCutiAdapter.My
         void onMessageRowClickedCuti(int position);
 
         void onRowLongClickedCuti(int position);
+    }
+
+    private long timeStringtoMilis(String time) {
+        long milis = 0;
+
+        try {
+            SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date 	= sd.parse(time);
+            milis 		= date.getTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return milis;
     }
 }

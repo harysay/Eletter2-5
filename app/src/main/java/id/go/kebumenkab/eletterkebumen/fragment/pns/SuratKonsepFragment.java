@@ -33,21 +33,20 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 import id.go.kebumenkab.eletterkebumen.R;
 import id.go.kebumenkab.eletterkebumen.activity.pns.Dashboard;
 import id.go.kebumenkab.eletterkebumen.activity.pns.DetailKonsep;
-import id.go.kebumenkab.eletterkebumen.activity.pns.DetailKonsepCuti;
+import id.go.kebumenkab.eletterkebumen.activity.pns.DetailKonsepKhusus;
 import id.go.kebumenkab.eletterkebumen.activity.pns.DitandaiActivity;
 import id.go.kebumenkab.eletterkebumen.adapter.pns.KonsepAdapter;
-import id.go.kebumenkab.eletterkebumen.adapter.pns.KonsepCutiAdapter;
+import id.go.kebumenkab.eletterkebumen.adapter.pns.KonsepKhususAdapter;
 import id.go.kebumenkab.eletterkebumen.helper.Logger;
 import id.go.kebumenkab.eletterkebumen.helper.PrefManager;
 import id.go.kebumenkab.eletterkebumen.helper.Tag;
-import id.go.kebumenkab.eletterkebumen.model.DataItemCuti;
+import id.go.kebumenkab.eletterkebumen.model.DataItemKonsepKhusus;
 import id.go.kebumenkab.eletterkebumen.model.Konsep;
-import id.go.kebumenkab.eletterkebumen.model.KonsepCuti;
+import id.go.kebumenkab.eletterkebumen.model.KonsepKhusus;
 import id.go.kebumenkab.eletterkebumen.model.ResultKonsep;
 import id.go.kebumenkab.eletterkebumen.network.pns.ApiClient;
 import id.go.kebumenkab.eletterkebumen.network.pns.ApiInterface;
@@ -58,7 +57,7 @@ import retrofit2.Response;
 
 
 public class SuratKonsepFragment extends Fragment implements
-        SwipeRefreshLayout.OnRefreshListener, KonsepAdapter.MessageAdapterListener, KonsepCutiAdapter.MessageAdapterListenerCuti {
+        SwipeRefreshLayout.OnRefreshListener, KonsepAdapter.MessageAdapterListener, KonsepKhususAdapter.MessageAdapterListenerCuti {
 
     private static final String STATUS = "status";
     private static final String DIBACA = "isRead";
@@ -66,11 +65,14 @@ public class SuratKonsepFragment extends Fragment implements
     private PrefManager prefManager;
 
     public static List<Konsep> konseps = new ArrayList<>();
-    public static List<DataItemCuti> konsepsCuti = new ArrayList<>();
+//    public static List<DataItemCuti> konsepsCuti = new ArrayList<>();
+public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
+    public static List<DataItemKonsepKhusus> konsepsKhusus = new ArrayList<>();
     public int jumlahBadgeKonsep,jumlahBadgeCuti, jumlahSemuaKonsep;
     private RecyclerView recyclerView,recyclerViewCuti;
     public static KonsepAdapter mAdapter;
-    public static KonsepCutiAdapter mAdaptercuti;
+//    public static KonsepCutiAdapter mAdaptercuti;
+    public static KonsepKhususAdapter mAdaptercuti;
     private SwipeRefreshLayout swipeRefreshLayout;
     private OnFragmentInteractionListener mListener;
 
@@ -152,7 +154,7 @@ public class SuratKonsepFragment extends Fragment implements
         swipeRefreshLayout.setOnRefreshListener(this);
 
         mAdapter = new KonsepAdapter(getActivity().getApplicationContext(), konseps, this);
-        mAdaptercuti = new KonsepCutiAdapter(getActivity().getApplicationContext(), konsepsCuti, this);
+        mAdaptercuti = new KonsepKhususAdapter(getActivity().getApplicationContext(), konsepsCuti, this);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -165,7 +167,6 @@ public class SuratKonsepFragment extends Fragment implements
         recyclerViewCuti.setLayoutManager(mLayoutManagerCuti);
         recyclerViewCuti.setItemAnimator(new DefaultItemAnimator());
         recyclerViewCuti.setAdapter(mAdaptercuti);
-
 
         btnLihatTandai.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,7 +181,6 @@ public class SuratKonsepFragment extends Fragment implements
 
         return view;
     }
-
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
@@ -247,7 +247,6 @@ public class SuratKonsepFragment extends Fragment implements
                     @Override
                     public void run() {
                         getKonsep();
-//                        getKonsepCuti();
                     }
                 }
         );
@@ -280,7 +279,6 @@ public class SuratKonsepFragment extends Fragment implements
 
     }
 
-
     //click listener untuk cuti
     @Override
     public void onIconClickedCuti(int position) {
@@ -292,8 +290,8 @@ public class SuratKonsepFragment extends Fragment implements
     }
     @Override
     public void onMessageRowClickedCuti(int position) {
-        DataItemCuti konsepcuti = konsepsCuti.get(position);
-        Intent intentDetail = new Intent(SuratKonsepFragment.this.getContext(), DetailKonsepCuti.class);
+        DataItemKonsepKhusus konsepcuti = konsepsCuti.get(position);
+        Intent intentDetail = new Intent(SuratKonsepFragment.this.getContext(), DetailKonsepKhusus.class);
         intentDetail.putExtra("object", konsepcuti);
         intentDetail.putExtra("position", position);
         startActivity(intentDetail);
@@ -304,7 +302,6 @@ public class SuratKonsepFragment extends Fragment implements
     public void onRowLongClickedCuti(int position) {
 
     }
-
 
     public void tampilError(boolean param, int kode, String pesan){
 
@@ -355,6 +352,7 @@ public class SuratKonsepFragment extends Fragment implements
         swipeRefreshLayout.setRefreshing(true);
         tampilError(false, 0, "");
         recyclerView.setVisibility(View.GONE);
+        recyclerViewCuti.setVisibility(View.GONE);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         String authorization = prefManager.getSessionToken();
         logger.d("Token Eletter Konsep", authorization);
@@ -380,7 +378,8 @@ public class SuratKonsepFragment extends Fragment implements
                                         headerList.setVisibility(View.GONE);
 //                                        Dashboard.setBadge(0, String.valueOf(0));
 //                                        updateBadge();
-                                        getKonsepCuti();
+//                                        getKonsepCuti();
+                                        getKonsepKhusus();
                                     } else {
                                         int jumlahDitandai = 0;
                                         for (Konsep konsep : todos) {
@@ -401,7 +400,8 @@ public class SuratKonsepFragment extends Fragment implements
                                         listDataKonsep.setVisibility(View.VISIBLE);
 //                                        Dashboard.setBadge(0, String.valueOf(todos.size()));
 //                                        updateBadge();
-                                        getKonsepCuti();
+//                                        getKonsepCuti();
+                                        getKonsepKhusus();
                                     }
                                     recyclerView.setVisibility(View.VISIBLE);
                                     swipeRefreshLayout.setRefreshing(false);
@@ -446,92 +446,91 @@ public class SuratKonsepFragment extends Fragment implements
         return jumlahBadgeKonsep;
     }
 
-    private int getKonsepCuti() {
-            swipeRefreshLayout.setRefreshing(true);
-            tampilError(false, 0, "");
-            recyclerViewCuti.setVisibility(View.GONE);
-            ApiInterface apiServiceCuti = ApiClient.getDomainCuti().create(ApiInterface.class);
-            String authorization = prefManager.getSessionToken();
-            logger.d("Token Eletter Konsep", authorization);
-            Call<KonsepCuti> callcuti = apiServiceCuti.getKonsepCuti(authorization);
-            callcuti.enqueue(new Callback<KonsepCuti>() {
-                @Override
-                public void onResponse(Call<KonsepCuti> call, Response<KonsepCuti> response) {
-                    final KonsepCuti result = response.body();
-                    logger.d("hasil", response.toString());
-                    if (result != null) {
-                        konsepsCuti.clear();
-                        if (allowUpdateUI) {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (result.isStatus() == true) {
-                                        List<DataItemCuti> todos = result.getData();
-                                        jumlahBadgeCuti = todos.size();
-                                        if (todos.size() == 0) {
+
+    private int getKonsepKhusus() {
+        swipeRefreshLayout.setRefreshing(true);
+        tampilError(false, 0, "");
+        recyclerViewCuti.setVisibility(View.GONE);
+        ApiInterface apiServiceCuti = ApiClient.getDomainCuti().create(ApiInterface.class);
+        String authorization = prefManager.getSessionToken();
+        logger.d("Token Eletter Konsep", authorization);
+        Call<KonsepKhusus> callkonsepkhusus = apiServiceCuti.getKonsepKhusus(authorization);
+        callkonsepkhusus.enqueue(new Callback<KonsepKhusus>() {
+            @Override
+            public void onResponse(Call<KonsepKhusus> call, Response<KonsepKhusus> response) {
+                final KonsepKhusus result = response.body();
+                logger.d("hasil", response.toString());
+                if (result != null) {
+                    konsepsCuti.clear();
+                    if (allowUpdateUI) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (result.getStatus().equals("success")) {
+                                    List<DataItemKonsepKhusus> todos = result.getData();
+                                    jumlahBadgeCuti = todos.size();
+                                    if (todos.size() == 0) {
 //                                        tampilError(true, 5, "");
-                                            listDataCuti.setVisibility(View.GONE);
-                                            headerList.setVisibility(View.GONE);
+                                        listDataCuti.setVisibility(View.GONE);
+                                        headerList.setVisibility(View.GONE);
 //                                        Dashboard.setBadge(0, String.valueOf(0));
-                                            updateBadge();
-                                        } else {
-                                            int jumlahDitandai = 0;
-                                            for (DataItemCuti konsep : todos) {
-                                                logger.d("hasil2", konsep.getCutiId().toString() + "/" + konsep.getPemohon().getNama());
-//                                            konsep.setColor(R.color.colorAccent);
-                                                logger.d("Respon", konsep.getPemohon().getNama().toString());
-                                                konsepsCuti.add(konsep);
-                                            }
-                                            if (jumlahDitandai > 0)
-                                                btnLihatTandai.setVisibility(View.VISIBLE);
-                                            else btnLihatTandai.setVisibility(View.GONE);
-                                            mAdaptercuti.ambilKonsepBelumDitandai();
-                                            mAdaptercuti.notifyDataSetChanged();
-                                            listDataCuti.setVisibility(View.VISIBLE);
-//                                        Dashboard.setBadge(0, String.valueOf(todos.size()));
-                                            updateBadge();
-                                        }
-                                        recyclerViewCuti.setVisibility(View.VISIBLE);
-                                        swipeRefreshLayout.setRefreshing(false);
-
+                                        updateBadge();
                                     } else {
-                                        swipeRefreshLayout.setRefreshing(false);
-                                        if (prefManager.getJabatan().toLowerCase().contains("lurah")) {
-                                            //Dashboard.setBadge(0, String.valueOf(0));
-                                        } else {
-                                            Dashboard.setBadge(0, String.valueOf(0));
+                                        int jumlahDitandai = 0;
+                                        for (DataItemKonsepKhusus konsep : todos) {
+                                            logger.d("hasil2", konsep.getId() + "/" + konsep.getAppName());
+                                            konsepsCuti.add(konsep);
                                         }
-                                        tampilError(true, 3, "");
+                                        if (jumlahDitandai > 0)
+                                            btnLihatTandai.setVisibility(View.VISIBLE);
+                                        else btnLihatTandai.setVisibility(View.GONE);
+                                        mAdaptercuti.ambilKonsepBelumDitandai();
+                                        mAdaptercuti.notifyDataSetChanged();
+                                        listDataCuti.setVisibility(View.VISIBLE);
+//                                        Dashboard.setBadge(0, String.valueOf(todos.size()));
+                                        updateBadge();
                                     }
-                                }
-                            });
-                        }
-                    } else {
-                        swipeRefreshLayout.setRefreshing(false);
-                        tampilError(true, 3, "");
-                    }
-                }
+                                    recyclerViewCuti.setVisibility(View.VISIBLE);
+                                    swipeRefreshLayout.setRefreshing(false);
 
-                @Override
-                public void onFailure(Call<KonsepCuti> call, Throwable t) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    String errorType;
-                    String errorDesc;
-                    if (t instanceof IOException) {
-                        errorType = "Timeout";
-                        errorDesc = String.valueOf(t.getCause());
-                    } else if (t instanceof IllegalStateException) {
-                        errorType = "ConversionError";
-                        errorDesc = String.valueOf(t.getCause());
-                    } else {
-                        errorType = "Other Error";
-                        errorDesc = String.valueOf(t.getLocalizedMessage());
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                    if (prefManager.getJabatan().toLowerCase().contains("lurah")) {
+                                        //Dashboard.setBadge(0, String.valueOf(0));
+                                    } else {
+                                        Dashboard.setBadge(0, String.valueOf(0));
+                                    }
+                                    tampilError(true, 3, "");
+                                }
+                            }
+                        });
                     }
-                    logger.d(errorType, errorDesc);
-                    tampilError(true, 100, errorType);
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                    tampilError(true, 3, "");
                 }
-            });
-            return jumlahBadgeCuti;
+            }
+
+            @Override
+            public void onFailure(Call<KonsepKhusus> call, Throwable t) {
+                swipeRefreshLayout.setRefreshing(false);
+                String errorType;
+                String errorDesc;
+                if (t instanceof IOException) {
+                    errorType = "Timeout";
+                    errorDesc = String.valueOf(t.getCause());
+                } else if (t instanceof IllegalStateException) {
+                    errorType = "ConversionError";
+                    errorDesc = String.valueOf(t.getCause());
+                } else {
+                    errorType = "Other Error";
+                    errorDesc = String.valueOf(t.getLocalizedMessage());
+                }
+                logger.d(errorType, errorDesc);
+                tampilError(true, 100, errorType);
+            }
+        });
+        return jumlahBadgeCuti;
     }
 
     private void updateBadge() {
@@ -591,10 +590,6 @@ public class SuratKonsepFragment extends Fragment implements
 
         return false;
     }
-
-
-
-
 
 
     @Override

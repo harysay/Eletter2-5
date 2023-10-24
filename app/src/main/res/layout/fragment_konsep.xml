@@ -72,7 +72,7 @@
                     android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ajuan Cuti"
+                    android:text="Ajuan Khusus"
                     android:textColor="#000000"
                     android:textAlignment="center"
                     android:layout_gravity="center"

@@ -105,9 +105,9 @@ public class LampiranCutiActivity extends AppCompatActivity implements EasyPermi
 
         if(isConnected){
 //             String url = "https://docs.google.com/gview?embedded=true&url="+ urlFileSurat;
-             String url = ApiClient.DOMAIN+"/cutionline/index.php/surat/view_lampiran?url="+urlFileSurat;
+//             String url = ApiClient.DOMAIN+"/cutionline/index.php/surat/view_lampiran?url="+urlFileSurat;
 //            String url = "https://eletter.kebumenkab.go.id/index.php/viewer/lampiran/"+namaFileSurat;
-//            String url = urlFileSurat;
+            String url = urlFileSurat;
 
             PdfWebViewClientLampiran pdfWebViewClient = new PdfWebViewClientLampiran(getApplicationContext(), webview);
             pdfWebViewClient.loadPdfUrl(url);
