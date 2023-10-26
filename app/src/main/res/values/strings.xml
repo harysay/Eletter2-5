@@ -67,7 +67,7 @@
     <string name="action_tandatangani">Tandai</string>
     <string name="action_lihat">Lihat</string>
     <string name="action_koreksi">Koreksi</string>
-    <string name="action_ubahlangsung">Ubah\nLangsung</string>
+    <string name="action_ubahlangsung">Edit\nLangsung</string>
     <string name="action_tandai">TANDAI</string>
     <string name="action_hilangkan_tandai">BERSIHKAN TANDA</string>
     <string name="action_ajukan">Ajukan</string>
@@ -536,6 +536,10 @@
         <![CDATA[
         
         <h3>Riwayat Pengembangan</h3>
+        <p>2.4.07.B25102023 - Imanaji Hari Sayekti </p>
+        <ul>
+            <li> Penambahan fitur ttd konsep khusus dari beberapa aplikasi masuk ke e-letter untuk pejabat penandatangan</li>
+        </ul>
         <p>2.4.06.B02102023 - Imanaji Hari Sayekti </p>
         <ul>
             <li> Penambahan fitur ttd cuti di konsep untuk pejabat penandatangan</li>

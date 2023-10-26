@@ -172,6 +172,11 @@ public class LampiranCutiActivity extends AppCompatActivity implements EasyPermi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_action_arsip, menu);
+        MenuItem itemToHide = menu.findItem(R.id.action_download);
+        if (itemToHide != null) {
+            // Sembunyikan item
+            itemToHide.setVisible(false);
+        }
         return true;
     }
 

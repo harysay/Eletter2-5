@@ -84,6 +84,9 @@ public class NotifikasiDialog {
         }else if(i==12){
             pesan = "Ganti password lain waktu";
         }
+        else if(i==13){
+            pesan = "Proses Gagal: "+pesan;
+        }
 
         tvMessage.setText(pesan);
 

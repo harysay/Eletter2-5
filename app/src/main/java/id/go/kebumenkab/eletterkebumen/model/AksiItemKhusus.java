@@ -2,7 +2,9 @@ package id.go.kebumenkab.eletterkebumen.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AksiItemKhusus {
+import java.io.Serializable;
+
+public class AksiItemKhusus implements Serializable {
 
 	@SerializedName("aksi_id")
 	private int aksiId;

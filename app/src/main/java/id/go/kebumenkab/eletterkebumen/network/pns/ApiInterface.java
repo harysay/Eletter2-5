@@ -71,19 +71,19 @@ public interface ApiInterface {
     //ini untuk fragmen konsep yang dibagi menjadi 2
 //    @GET("/cutionline/index.php/ajuancuti/api/index") //ini untuk konsep cuti awal permintaan bupati
 //    Call<KonsepCuti> getKonsepCuti(@Header("Authorization") String authorization);
-    @GET("/eletter/api/index.php/konsepkhusus/index")
+    @GET("/api/index.php/konsepkhusus/index")
     Call<KonsepKhusus> getKonsepKhusus(@Header("Authorization") String authorization);
-    @GET("/eletter/api/index.php/konsepkhusus/get/{id}")
+    @GET("/api/index.php/konsepkhusus/get/{id}")
     Call<KonsepKhususDetail> getKonsepKhususDetail(@Header("Authorization") String authorization,
                                                    @Path("id") String id);
     @FormUrlEncoded
-    @POST("/eletter/api/index.php/konsepkhusus/aksi/{idkhusus}/{idaksi}")
+    @POST("/api/index.php/konsepkhusus/aksi/{idkhusus}/{idaksi}")
     Call<ResponStandar> sendAksiKonsepKhusus(@Header("Authorization") String authorization,
                                      @Path("idkhusus") String idkonsepkhusus,
                                      @Path("idaksi") String idaksikhusus,
                                      @Field("message") String pesan);
     @FormUrlEncoded
-    @POST("/eletter/api/index.php/konsepkhusus/ttd/{idkhusus}")
+    @POST("/api/index.php/konsepkhusus/ttd/{idkhusus}")
     Call<ResponStandar> sendTandaTanganiKonsepKhusus(@Header("Authorization") String authorization,
                                              @Path("idkhusus") String idkonsepkhusus,
                                              @Field("passphrase") String pesan);

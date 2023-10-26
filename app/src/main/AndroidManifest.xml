@@ -38,7 +38,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.pns.WebViewCutiActivity"
+            android:name=".activity.pns.WebViewKonsepKhususActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data

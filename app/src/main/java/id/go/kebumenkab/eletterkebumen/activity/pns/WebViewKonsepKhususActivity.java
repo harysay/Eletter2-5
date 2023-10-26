@@ -1,9 +1,19 @@
 package id.go.kebumenkab.eletterkebumen.activity.pns;
+
 import static id.go.kebumenkab.eletterkebumen.helper.AppBaseActivity.FINISH_ALL_ACTIVITIES_ACTIVITY_ACTION;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_DISPOSISI;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_HAPUS;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_KELUARINTERNAL;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_KEMBALIKAN;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_KOREKSI;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_PENARIKAN;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_PENARIKAN_SURAT;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_PENGEMBALIAN;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_PERMINTAANTANDATANGAN;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_SETUJU;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_TANDAI;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_TELAAH;
-import static id.go.kebumenkab.eletterkebumen.network.pns.ApiClient.ELETTER_CUTI;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_TEMBUSAN;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -17,6 +27,7 @@ import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -39,6 +50,9 @@ import id.go.kebumenkab.eletterkebumen.helper.Logger;
 import id.go.kebumenkab.eletterkebumen.helper.NotifikasiDialog;
 import id.go.kebumenkab.eletterkebumen.helper.PrefManager;
 import id.go.kebumenkab.eletterkebumen.helper.Tag;
+import id.go.kebumenkab.eletterkebumen.model.AksiItemKhusus;
+import id.go.kebumenkab.eletterkebumen.model.DataItemSuratMasuk;
+import id.go.kebumenkab.eletterkebumen.model.KonsepKhususDetail;
 import id.go.kebumenkab.eletterkebumen.model.ResponStandar;
 import id.go.kebumenkab.eletterkebumen.network.NetworkUtil;
 import id.go.kebumenkab.eletterkebumen.network.pns.ApiClient;
@@ -47,7 +61,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WebViewCutiActivity extends AppCompatActivity {
+public class WebViewKonsepKhususActivity extends AppCompatActivity {
 //    private String idCuti,idHistori,tokenDariActivity;
     private String urlPreview;
     private PrefManager prefManager;
@@ -60,6 +74,7 @@ public class WebViewCutiActivity extends AppCompatActivity {
     private TextView tvMessage;
     private Intent intent;
     private String URL_PREVIEW;
+    String token,idAksiKhusus,idkonsepkhusus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +83,8 @@ public class WebViewCutiActivity extends AppCompatActivity {
         logger.d("LIFECYCLE", "onCreate");
         prefManager         = new PrefManager(this);
         logger.d("Jabatan", prefManager.getStatusJabatan());
-        notifikasiDialog    = new NotifikasiDialog(getApplicationContext(), WebViewCutiActivity.this);
+        token = prefManager.getSessionToken();
+        notifikasiDialog    = new NotifikasiDialog(getApplicationContext(), WebViewKonsepKhususActivity.this);
         isConnected         = NetworkUtil.cekInternet(getApplicationContext());
         setContentView(R.layout.activity_webview_cuti);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -97,7 +113,7 @@ public class WebViewCutiActivity extends AppCompatActivity {
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                prosesPDF();
+                prosesPDF();
             }
         });
 
@@ -118,9 +134,7 @@ public class WebViewCutiActivity extends AppCompatActivity {
         intent = getIntent();
         if(getIntent().getStringExtra("urlpreview") != null){
             urlPreview = getIntent().getStringExtra("urlpreview");
-//            idCuti = getIntent().getStringExtra("urlpreview");
-//            idHistori = getIntent().getStringExtra(Tag.TAG_ID_HISTORI_CUTI);
-//            tokenDariActivity = getIntent().getStringExtra(Tag.SESSION_TOKEN);
+            idkonsepkhusus = getIntent().getStringExtra("idkonsepkhusus");
             URL_PREVIEW = urlPreview;
             logger.d("URL Preview", URL_PREVIEW);
         }else{
@@ -340,15 +354,166 @@ public class WebViewCutiActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_action_permintaan_tandatangan, menu);
+//        if (aksiItemKhususes != null && !aksiItemKhususes.isEmpty()){
+//            // Menambahkan item menu sesuai dengan jumlah objek aksi
+//            for (AksiItemKhusus aksi : aksiItemKhususes) {
+////                menu.add(Menu.NONE, aksi.getAksiId(), Menu.NONE, aksi.getLabel())
+////                        .setIcon(R.drawable.ic_concept_white)
+////                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+//                MenuItem menuItem = menu.add(Menu.NONE, aksi.getAksiId(), Menu.NONE, aksi.getLabel());
+//                menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//            }
+//        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // Tindakan yang diambil ketika tombol panah kembali diklik
                 finish(); // Menutup Activity saat tombol panah diklik
                 return true;
+            case R.id.action_tandatangani:
+                // Tanda tangani
+                showDialogAksi(Tag.TAG_PERMINTAANTANDATANGAN);
+                break;
+            case R.id.action_reload:
+                if(isConnected)  {
+                    prosesPDF();
+                } else{
+                    hideDialog(0, 1, "");
+                    webview.setVisibility(View.GONE);
+                    reload.setVisibility(View.VISIBLE);
+                }
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+        return false;
+    }
+
+    public void showDialogAksi(final String stringStatus) {
+
+        /**  Membuat alert dialog untuk konfirmasi aksi sebelum dilanjutkan **/
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_input_message, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setTitle(stringStatus.toUpperCase());
+
+        // Koreksi
+        final EditText edt = dialogView.findViewById(R.id.edit);
+        edt.setSelection(edt.getText().length());
+
+        // Passphrase
+        final TextInputLayout textInputLayout = dialogView.findViewById(R.id.passphrase);
+        final EditText editTextPassphrase = dialogView.findViewById(R.id.edit_passphrase);
+
+        String strTombolEksekusi = "Kirim";
+
+        if(stringStatus.equalsIgnoreCase(TAG_PERMINTAANTANDATANGAN)) {
+            /**  sembunyikan inputan **/
+            editTextPassphrase.setVisibility(View.VISIBLE);
+            textInputLayout.setVisibility(View.VISIBLE);
+
+            strTombolEksekusi = "TANDA TANGANI";
+
+            /** Pesan di dalam kotak dialog dibedakan dengan jenis surat **/
+            dialogBuilder.setMessage(getString(R.string.message_dialog_setujui_kirim));
+        }
+        dialogBuilder.setPositiveButton(strTombolEksekusi, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                String pesan        = edt.getText().toString();
+                String myPassphrase = editTextPassphrase.getText().toString();
+                if(myPassphrase.length()< 7){
+                    notifikasiDialog.showDialogError(6, "");
+                }else{
+                    postAksi(stringStatus, myPassphrase);
+                }
+            }
+        });
+        dialogBuilder.setNegativeButton("Tutup", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                /** Tutup dialog **/
+                dialog.cancel();
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+    }
+
+    private void postAksi(final String statusKhusus, final String pesan) {
+
+        if(statusKhusus.length()==0 || statusKhusus.isEmpty()){
+            // notifikasiDialog.showToast("Status surat kosong, "+ statusSurat);
+        }else {
+            ApiInterface apiServiceCuti = ApiClient.getDomainCuti().create(ApiInterface.class);
+            Call<ResponStandar> call = null;
+            logger.d("status_surat", statusKhusus+"/"+pesan+"/");
+            if (statusKhusus.equalsIgnoreCase(Tag.TAG_PERMINTAANTANDATANGAN)) {
+                call = apiServiceCuti.sendTandaTanganiKonsepKhusus(token, idkonsepkhusus, pesan);
+            }
+//            else {
+//                // notifikasiDialog.showToast( "Status surat: " + statusSurat);
+//                call = apiServiceCuti.sendAksiKonsepKhusus(token,idkonsepkhusus, idAksiKhusus, pesan);
+//            }
+
+            if (call != null) {
+                showDialog();
+                call.enqueue(new Callback<ResponStandar>() {
+                    @Override
+                    public void onResponse(Call<ResponStandar> call, Response<ResponStandar> response) {
+                        ResponStandar data = response.body();
+                        logger.w4("ResTandatanganiCuti ", response);
+                        if(data!=null){
+                            if(data.getStatus().equals(Tag.TAG_STATUS_SUKSES)){
+                                /** Hasil sukses **/
+                                logger.d("debug_eletter", "proses "+ statusKhusus+" Berhasil");
+                                // Tutup halaman dan buka halaman utama
+                                logger.d("debug WebView", " "+ statusKhusus+" Selesai");
+                                // Tutup halaman webview
+
+                                Intent i = new Intent(getApplicationContext(), Dashboard.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
+                                closeAllActivities();
+                                startActivity(i);
+                                hideDialog(1, 100, data.getPesan());
+                                // keluar
+                            }else{
+                                /** Tidak sukses **/
+                                hideDialog(0, 100, data.getPesan());
+//                                notifikasiDialog.showDialogError(13, data.getPesan());
+                            }
+                        }else{
+                            logger.d("debug_eletter", "data kosong");
+//                            notifikasiDialog.showDialogError(4, data.getPesan());
+                            hideDialog(0, 100, data.getPesan());
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResponStandar> call, Throwable t) {
+                        notifikasiDialog.showDialogError(10, t.getLocalizedMessage());
+                        logger.d("debug_eletter", "failure " + t.getMessage());
+                        hideDialog(0, 100, t.getMessage());
+                    }
+                });
+
+            }else{
+                logger.d("debug_eletter", "call is null");
+                notifikasiDialog.showDialogError(10, "Null Retrofit Builder");
+
+            }
+        }
+    }
+
+    protected void closeAllActivities(){
+        sendBroadcast(new Intent(FINISH_ALL_ACTIVITIES_ACTIVITY_ACTION));
     }
 
 }

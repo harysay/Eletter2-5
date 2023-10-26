@@ -2,7 +2,9 @@ package id.go.kebumenkab.eletterkebumen.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class KonsepKhususDetail{
+import java.io.Serializable;
+
+public class KonsepKhususDetail implements Serializable {
 
 	@SerializedName("message")
 	private String message;

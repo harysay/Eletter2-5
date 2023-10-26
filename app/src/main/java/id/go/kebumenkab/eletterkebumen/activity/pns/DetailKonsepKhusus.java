@@ -80,6 +80,7 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
     DetailItemKhususAdapter detailAdapter;
     ArrayList<DetailItemKhusus> detailItems = new ArrayList<>();
     List<AksiItemKhusus> aksiItemKhususes;
+    KonsepKhususDetail konsepsKhusus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,10 +157,6 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
         btn_tandatangani.setOnClickListener(this);
         btn_lampiran.setOnClickListener(this);
 
-        //penambahan syarat untuk bupati, wakil dan sekda tidak ada menu koreksi
-//        if(prefManager.getStatusJabatan().equalsIgnoreCase("bupati")||prefManager.getStatusJabatan().equalsIgnoreCase("wakilbupati")||prefManager.getStatusJabatan().equalsIgnoreCase("sekda")){
-//            btn_tolakcuti.setVisibility(View.GONE);
-//        }
 
     }
 
@@ -211,8 +208,9 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.btn_lihatcuti:
                 /**  Dikirimkan ke WebView  Activity **/
-                Intent intent = new Intent(getApplicationContext(), WebViewCutiActivity.class);
+                Intent intent = new Intent(getApplicationContext(), WebViewKonsepKhususActivity.class);
                 intent.putExtra("urlpreview", strUrlFile );
+                intent.putExtra("idkonsepkhusus", idkonsepkhusus );
                 /**  Pindah halaman **/;
                 startActivity(intent);
                 break;
@@ -343,7 +341,7 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
                             }else{
                                 /** Tidak sukses **/
                                 hideDialog();
-                                notifikasiDialog.showDialogError(10, data.getPesan());
+                                notifikasiDialog.showDialogError(13, data.getPesan());
                             }
                         }else{
                             logger.d("debug_eletter", "data kosong");
@@ -388,6 +386,7 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
                 final KonsepKhususDetail result = response.body();
                 logger.d("hasil", response.toString());
                 if (result != null) {
+                    konsepsKhusus = result;
                     List<DetailItemKhusus> todos = result.getDatadetailkhusus().getDetail();
                     subjek.setText(getJenis(result.getDatadetailkhusus().getTitle()));
                     instansi.setText(result.getDatadetailkhusus().getTitle2());
@@ -435,12 +434,9 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
         Matcher matcher = pattern.matcher(lengkap);
         String textInSquareBrackets="",textInParentheses="",dateRange ="";
         if (matcher.find()) {
-            textInSquareBrackets = matcher.group(1); // Akan menghasilkan "Cuti Besar"
-            textInParentheses = matcher.group(2);   // Akan menghasilkan "Agung Widyamaka"
-            dateRange = matcher.group(3);           // Akan menghasilkan "2023-11-01 s.d. 2023-11-05"
-            System.out.println("Teks di dalam kurung siku: " + textInSquareBrackets);
-            System.out.println("Teks di dalam kurung (): " + textInParentheses);
-            System.out.println("Rentang tanggal: " + dateRange);
+//            textInSquareBrackets = matcher.group(1); // Akan menghasilkan "Kalimat 1"
+            textInParentheses = matcher.group(2);   // Akan menghasilkan "Kalimat 2"
+//            dateRange = matcher.group(3);           // Akan menghasilkan "Kalimat 3"
         }
         return textInParentheses;
     }

@@ -192,7 +192,7 @@ public class DashboardLurah extends AppBaseActivity implements
             else
             {
                 pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
+                        PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             }
 //            pendingIntent = PendingIntent.getBroadcast(context, 0, downloader,
 //                    PendingIntent.FLAG_CANCEL_CURRENT);

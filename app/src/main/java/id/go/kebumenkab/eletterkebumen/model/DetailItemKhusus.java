@@ -2,7 +2,9 @@ package id.go.kebumenkab.eletterkebumen.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DetailItemKhusus {
+import java.io.Serializable;
+
+public class DetailItemKhusus implements Serializable {
 
 	@SerializedName("label")
 	private String label;
