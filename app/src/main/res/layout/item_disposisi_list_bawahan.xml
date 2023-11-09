@@ -15,6 +15,7 @@
         <TextView
             android:id="@+id/nama"
             android:textSize="@dimen/text_size_nama"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -22,6 +23,7 @@
         <TextView
             android:id="@+id/jabatan"
             android:textSize="@dimen/text_size_jabatan_dialog"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""

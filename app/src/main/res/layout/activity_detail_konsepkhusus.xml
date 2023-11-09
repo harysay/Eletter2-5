@@ -35,7 +35,7 @@
             android:paddingRight="@dimen/timestamp">
 
             <TextView
-                android:id="@+id/subject"
+                android:id="@+id/name_app"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/msg_text_primary"
@@ -72,7 +72,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/from"
+                    android:id="@+id/txt_title1"
 
                     android:textColor="?android:attr/textColorPrimary"
                     android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_instansi"
+                    android:id="@+id/txt_title2"
                     android:textColor="?android:attr/textColorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,40 +91,11 @@
                     android:lines="1"
                     android:textSize="@dimen/msg_text_secondary" />
 
-                <TextView
-                    android:id="@+id/txt_tanggal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:textColor="@color/timestamp"
-                    android:textSize="@dimen/msg_text_secondary" />
-
             </LinearLayout>
 
 
 
         </RelativeLayout>
-
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="@dimen/text_subheading"-->
-<!--            android:text="@string/subheading_alasancuti"-->
-<!--            android:textColor="?android:attr/textColorPrimary"-->
-<!--            android:padding="@dimen/timestamp"/>-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/message"-->
-<!--            android:textColor="?android:attr/textColorPrimary"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingBottom="@dimen/padding_list_row"-->
-<!--            android:paddingLeft="@dimen/timestamp"-->
-<!--            android:paddingRight="@dimen/timestamp"-->
-<!--            android:textSize="@dimen/text_size_pesan" />-->
-        <!-- Inisiator -->
 
         <TextView
             android:layout_width="wrap_content"
@@ -141,6 +112,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/detailRecyclerViewKonsepKhusus"
                 android:layout_width="match_parent"
+                android:textColor="@color/timestamp"
                 android:layout_height="wrap_content" />
         </ScrollView>
 

@@ -681,15 +681,20 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                                 menuDispo.setVisible(true);
                                 menuTindakLanjuti.setVisible(true);
                             } else {
-                                if(jenisTujuan.equals(TAG_TEMBUSAN)){
-                                    logger.d("3balurSurat-jenisPenerima-jenisTujuan-jenisSurat", alurSurat+"/"+jenisPenerima+"/"+jenisTujuan+"/"+jenisSurat);
+                                getMenuInflater().inflate(R.menu.menu_action_telaah, myMenu);
+                                MenuItem menuTelaah = myMenu.findItem(R.id.action_telaah);
+                                menuTelaah.setVisible(false);
+                                //kata lukman meskipun tembusan agar bisa ada menu tindakan
 
-                                    getMenuInflater().inflate(R.menu.menu_action_arsiptembusan, menu);
-                                }else{
-                                    getMenuInflater().inflate(R.menu.menu_action_telaah, myMenu);
-                                    MenuItem menuTelaah = myMenu.findItem(R.id.action_telaah);
-                                    menuTelaah.setVisible(false);
-                                }
+//                                if(jenisTujuan.equals(TAG_TEMBUSAN)){
+//                                    logger.d("3balurSurat-jenisPenerima-jenisTujuan-jenisSurat", alurSurat+"/"+jenisPenerima+"/"+jenisTujuan+"/"+jenisSurat);
+//
+//                                    getMenuInflater().inflate(R.menu.menu_action_arsiptembusan, menu);
+//                                }else{
+//                                    getMenuInflater().inflate(R.menu.menu_action_telaah, myMenu);
+//                                    MenuItem menuTelaah = myMenu.findItem(R.id.action_telaah);
+//                                    menuTelaah.setVisible(false);
+//                                }
                             }
                         } else if (prefManager.getStatusJabatan().contains(JAB_SEKDA)) {
                             logger.d("4alurSurat-jenisPenerima-jenisTujuan-jenisSurat", alurSurat+"/"+jenisPenerima+"/"+jenisTujuan+"/"+jenisSurat);
@@ -706,17 +711,20 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                             logger.d("Ajudan", "Tidak ada menu");
                         }  else {
                             logger.d("5alurSurat-jenisPenerima-jenisTujuan-jenisSurat", alurSurat+"/"+jenisPenerima+"/"+jenisTujuan+"/"+jenisSurat);
-
-                            if(jenisTujuan.equals(TAG_TEMBUSAN)){
-                                logger.d("6alurSurat-jenisPenerima-jenisTujuan-jenisSurat", alurSurat+"/"+jenisPenerima+"/"+jenisTujuan+"/"+jenisSurat);
-                                getMenuInflater().inflate(R.menu.menu_action_arsiptembusan, menu);
-                            }else{
-                                logger.d("7alurSurat-jenisPenerima-jenisTujuan-jenisSurat", alurSurat+"/"+jenisPenerima+"/"+jenisTujuan+"/"+jenisSurat);
-
-                                getMenuInflater().inflate(R.menu.menu_action_telaah, myMenu);
-                                MenuItem menuTelaah = myMenu.findItem(R.id.action_telaah);
-                                menuTelaah.setVisible(false);
-                            }
+                            //kata lukman agar meskipun tembusan tetap ada menu tindakan
+                            getMenuInflater().inflate(R.menu.menu_action_telaah, myMenu);
+                            MenuItem menuTelaah = myMenu.findItem(R.id.action_telaah);
+                            menuTelaah.setVisible(false);
+//                            if(jenisTujuan.equals(TAG_TEMBUSAN)){
+//                                logger.d("6alurSurat-jenisPenerima-jenisTujuan-jenisSurat", alurSurat+"/"+jenisPenerima+"/"+jenisTujuan+"/"+jenisSurat);
+//                                getMenuInflater().inflate(R.menu.menu_action_arsiptembusan, menu);
+//                            }else{
+//                                logger.d("7alurSurat-jenisPenerima-jenisTujuan-jenisSurat", alurSurat+"/"+jenisPenerima+"/"+jenisTujuan+"/"+jenisSurat);
+//
+//                                getMenuInflater().inflate(R.menu.menu_action_telaah, myMenu);
+//                                MenuItem menuTelaah = myMenu.findItem(R.id.action_telaah);
+//                                menuTelaah.setVisible(false);
+//                            }
                         }
                     } else if (alurSurat.equalsIgnoreCase(TAG_PERMINTAANTANDATANGAN)) {
                         getMenuInflater().inflate(R.menu.menu_action_permintaan_tandatangan, menu);

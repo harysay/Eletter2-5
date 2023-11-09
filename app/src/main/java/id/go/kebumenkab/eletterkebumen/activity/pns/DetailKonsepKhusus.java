@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.EditText;
@@ -59,7 +60,7 @@ import retrofit2.Response;
 public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickListener{
     /** Variabel komponen layout dan variabel lainnya **/
     private LinearLayout btn_lihatcuti,btn_perubahan, btn_tandatangani,btn_tangguhkan,btn_lampiran,btn_tolakcuti;
-    private TextView tanggalcuti, instansi, pengirim, subjek, alasancuti, pesan_atas;
+    private TextView title2, title1, nameApp, alasancuti, pesan_atas;
     private TextView t_inisiator, t_nomor, t_tandatangan, t_tujuan, t_deskripsi, t_pesan;
     private String  idkonsepkhusus,idhistoricuti,namapemohoncuti,jabatanpemohon,unitkerjapemohon, masakerjapemohon,nohppemohon, jeniscuti,mulaicuit,selesaicuti, alamatcuti,lamaharicuti ;
     private String  jenisSurat;
@@ -135,10 +136,10 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
         detailAdapter = new DetailItemKhususAdapter(detailItems);
         detailRecyclerView.setAdapter(detailAdapter);
 
-        tanggalcuti             = (TextView)findViewById(R.id.txt_tanggal);
-        instansi            = (TextView)findViewById(R.id.txt_instansi);
-        pengirim            = (TextView)findViewById(R.id.from);
-        subjek              = (TextView)findViewById(R.id.subject);
+        nameApp              = (TextView)findViewById(R.id.name_app);
+        title1            = (TextView)findViewById(R.id.txt_title1);
+        title2            = (TextView)findViewById(R.id.txt_title2);
+
         alasancuti               = (TextView)findViewById(R.id.message);
         pesan_atas               = (TextView)findViewById(R.id.pesan_atas); // untuk menampilkan ada info lampiran
 
@@ -162,18 +163,24 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.aksi_menu_konsepkhusus, menu);
-        if (aksiItemKhususes != null && !aksiItemKhususes.isEmpty()){
-            // Menambahkan item menu sesuai dengan jumlah objek aksi
+        if (aksiItemKhususes != null && !aksiItemKhususes.isEmpty()) {
+            getMenuInflater().inflate(R.menu.aksi_menu_konsepkhusus, menu);
+            SubMenu subMenu = menu.findItem(R.id.menu_pilih_tindakan).getSubMenu();
             for (AksiItemKhusus aksi : aksiItemKhususes) {
-//                menu.add(Menu.NONE, aksi.getAksiId(), Menu.NONE, aksi.getLabel())
-//                        .setIcon(R.drawable.ic_concept_white)
-//                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-                MenuItem menuItem = menu.add(Menu.NONE, aksi.getAksiId(), Menu.NONE, aksi.getLabel());
-                menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                subMenu.add(0, aksi.getAksiId(), Menu.NONE, aksi.getLabel());
             }
         }
-        return super.onCreateOptionsMenu(menu);
+        return true;
+
+//        getMenuInflater().inflate(R.menu.aksi_menu_konsepkhusus, menu);
+//        if (aksiItemKhususes != null && !aksiItemKhususes.isEmpty()){
+//            // Menambahkan item menu sesuai dengan jumlah objek aksi
+//            for (AksiItemKhusus aksi : aksiItemKhususes) {
+//                MenuItem menuItem = menu.add(Menu.NONE, aksi.getAksiId(), Menu.NONE, aksi.getLabel());
+//                menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//            }
+//        }
+//        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -388,10 +395,9 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
                 if (result != null) {
                     konsepsKhusus = result;
                     List<DetailItemKhusus> todos = result.getDatadetailkhusus().getDetail();
-                    subjek.setText(getJenis(result.getDatadetailkhusus().getTitle()));
-                    instansi.setText(result.getDatadetailkhusus().getTitle2());
-                    pengirim.setText(getNama(result.getDatadetailkhusus().getTitle()));
-                    tanggalcuti.setText(getDate(result.getDatadetailkhusus().getTitle()));
+                    nameApp.setText(result.getDatadetailkhusus().getAppName());
+                    title1.setText(result.getDatadetailkhusus().getTitle());
+                    title2.setText(result.getDatadetailkhusus().getTitle2());
                     if(result.getDatadetailkhusus().getPreviewLampiran()!=null){
                         Log.d("Lampiran", result.getDatadetailkhusus().getPreviewLampiran());
                         strLampiran = result.getDatadetailkhusus().getPreviewLampiran().toString();
@@ -419,37 +425,37 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
         });
     }
 
-    private String getJenis(String lengkap){
-        // Mencari teks di dalam kurung [ ]
-        Pattern pattern1 = Pattern.compile("\\[(.*?)\\]");
-        Matcher matcher1 = pattern1.matcher(lengkap);
-        String textInSquareBrackets="";
-        while (matcher1.find()) {
-            textInSquareBrackets = matcher1.group(1);
-        }
-        return textInSquareBrackets;
-    }
-    private String getNama(String lengkap){
-        Pattern pattern = Pattern.compile("\\[(.*?)\\]\\s*(.*?)\\s*\\((.*?)\\)");
-        Matcher matcher = pattern.matcher(lengkap);
-        String textInSquareBrackets="",textInParentheses="",dateRange ="";
-        if (matcher.find()) {
-//            textInSquareBrackets = matcher.group(1); // Akan menghasilkan "Kalimat 1"
-            textInParentheses = matcher.group(2);   // Akan menghasilkan "Kalimat 2"
-//            dateRange = matcher.group(3);           // Akan menghasilkan "Kalimat 3"
-        }
-        return textInParentheses;
-    }
-    private String getDate(String lengkap){
-        // Mencari teks di dalam kurung ( )
-        Pattern pattern2 = Pattern.compile("\\((.*?)\\)");
-        Matcher matcher2 = pattern2.matcher(lengkap);
-        String textInRoundBrackets="";
-        while (matcher2.find()) {
-            textInRoundBrackets = matcher2.group(1);
-        }
-        return textInRoundBrackets;
-    }
+//    private String getJenis(String lengkap){
+//        // Mencari teks di dalam kurung [ ]
+//        Pattern pattern1 = Pattern.compile("\\[(.*?)\\]");
+//        Matcher matcher1 = pattern1.matcher(lengkap);
+//        String textInSquareBrackets="";
+//        while (matcher1.find()) {
+//            textInSquareBrackets = matcher1.group(1);
+//        }
+//        return textInSquareBrackets;
+//    }
+//    private String getNama(String lengkap){
+//        Pattern pattern = Pattern.compile("\\[(.*?)\\]\\s*(.*?)\\s*\\((.*?)\\)");
+//        Matcher matcher = pattern.matcher(lengkap);
+//        String textInSquareBrackets="",textInParentheses="",dateRange ="";
+//        if (matcher.find()) {
+////            textInSquareBrackets = matcher.group(1); // Akan menghasilkan "Kalimat 1"
+//            textInParentheses = matcher.group(2);   // Akan menghasilkan "Kalimat 2"
+////            dateRange = matcher.group(3);           // Akan menghasilkan "Kalimat 3"
+//        }
+//        return textInParentheses;
+//    }
+//    private String getDate(String lengkap){
+//        // Mencari teks di dalam kurung ( )
+//        Pattern pattern2 = Pattern.compile("\\((.*?)\\)");
+//        Matcher matcher2 = pattern2.matcher(lengkap);
+//        String textInRoundBrackets="";
+//        while (matcher2.find()) {
+//            textInRoundBrackets = matcher2.group(1);
+//        }
+//        return textInRoundBrackets;
+//    }
 
 
     /**  Fungsi memparsing tanggal */

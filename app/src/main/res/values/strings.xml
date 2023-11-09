@@ -339,14 +339,14 @@
     <string name="sign_button">Tanda Tangani Surat Ditandai</string>
 
     <string name="subheading_pengirim">Pengirim</string>
-    <string name="subheading_pemohoncuti">Pemohon</string>
+    <string name="subheading_pemohoncuti">Judul</string>
     <string name="subheading_identitas">Identitas</string>
     <string name="subheading_detailcuti">Detail</string>
     <string name="subheading_disposisi">Penerima</string>
     <string name="subheading_pesan">Pesan</string>
     <string name="subheading_alasancuti">Alasan Cuti</string>
     <string name="subheading_namasurat">Nama Surat</string>
-    <string name="subheading_jeniscuti">Jenis</string>
+    <string name="subheading_jeniscuti">Nama Aplikasi</string>
     <string name="subheading_arsip_suratmasuk">Surat Masuk</string>
     <string name="subheading_arsip_konsep">Konsep</string>
 
@@ -536,6 +536,10 @@
         <![CDATA[
         
         <h3>Riwayat Pengembangan</h3>
+        <p>2.4.08.B09112023 - Imanaji Hari Sayekti </p>
+        <ul>
+            <li> Perbaikan disposisi tidak terlihat saat dark mode, detail konsep khusus tidak tampil, menu tindakan surat tembusan dan konsep khusus</li>
+        </ul>
         <p>2.4.07.B25102023 - Imanaji Hari Sayekti </p>
         <ul>
             <li> Penambahan fitur ttd konsep khusus dari beberapa aplikasi masuk ke e-letter untuk pejabat penandatangan</li>
