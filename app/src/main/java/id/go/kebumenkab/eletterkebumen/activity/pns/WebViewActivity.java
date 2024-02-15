@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -16,6 +17,8 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AlertDialog;
 import android.os.Bundle;
@@ -888,32 +891,50 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
 
             String downloadUrl =  ELETTER_PDF+idSurat;
 
-//            try {
-//                Download(downloadUrl);
-//            } catch (MalformedURLException e) {
-//                e.printStackTrace();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                // Kode untuk Android 10 (atau versi di atasnya)
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WebViewActivity.this);
+                builder.setMessage("Pilih Cara Download");
+                builder.setPositiveButton("Gunakan Default Browser", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(downloadUrl)));
+                    }
+                });
+                builder.setNegativeButton("Gunakan Download Manager", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        downloadPdf(downloadUrl,"surat_"+idSurat);
+                    }
+                });
+                builder.show();
+            }
+//            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
+//                downloadPdfWithRedirect(WebViewActivity.this,downloadUrl,"surat_"+idSurat);
 //            }
+            else {
+                if (CheckForSDCard.isSDCardPresent()) {
 
-            if (CheckForSDCard.isSDCardPresent()) {
+                    String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE};
 
-                String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE};
+                    //check if app has permission to write to the external storage.
+                    if (EasyPermissions.hasPermissions(WebViewActivity.this, perms)) {
+                        try {
+                            Download(downloadUrl);
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
 
-                //check if app has permission to write to the external storage.
-                if (EasyPermissions.hasPermissions(WebViewActivity.this, perms)) {
-                    try {
-                        Download(downloadUrl);
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
+                    } else {
+
+                        EasyPermissions.requestPermissions(WebViewActivity.this, getString(R.string.message_writefile), WRITE_REQUEST_CODE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        EasyPermissions.requestPermissions(WebViewActivity.this, getString(R.string.message_writefile), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
                     }
 
                 } else {
-
-                    EasyPermissions.requestPermissions(WebViewActivity.this, getString(R.string.message_writefile), WRITE_REQUEST_CODE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                    EasyPermissions.requestPermissions(WebViewActivity.this, getString(R.string.message_writefile), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
+                    notifikasiDialog.showToast("SD Card not found");
                 }
-
-            } else {
-                notifikasiDialog.showToast("SD Card not found");
             }
 
         }
@@ -1619,12 +1640,11 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                 output.close();
 
                 input.close();
-                return "File surat disimpan di: " + externalCacheFile;
+                return "File disimpan sementara di cache";
 
             } catch (Exception e) {
                 logger.d("Error: ", e.getMessage());
             }
-
             return "Maaf, aplikasi tidak memiliki hak akses simpan file.";
         }
 
@@ -1648,6 +1668,33 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
         }
     }
 
+
+    private void downloadPdf(String url,String namaFile) {
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        request.setTitle("PDF "+namaFile+" Download");
+        request.setDescription("Downloading PDF file");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, namaFile+".pdf");
+        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
+    }
+    public void downloadPdfWithRedirect(Context context, String originalUrl, String fileName) {
+        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(originalUrl));
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle(fileName);
+        request.setDescription("Please wait...");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName + ".pdf";
+        request.setDestinationUri(Uri.fromFile(new File(filePath)));
+        if (downloadManager != null) {
+            downloadManager.enqueue(request);
+        }
+        // Show a toast message when download is started
+        Toast.makeText(context, "Downloading PDF...", Toast.LENGTH_SHORT).show();
+    }
     private void Download(String... downloadUrl) throws MalformedURLException {
 
         String url ="";

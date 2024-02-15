@@ -315,7 +315,9 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
                 else if (kode == 2)
                 {}
                 else if (kode == 3)
-                {}
+                {
+                    errorText.setText("response null");
+                }
                 else if (kode == 4)
                 {}
                 else if (kode == 5) {
@@ -350,7 +352,7 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
 
     private int getKonsep() {
         swipeRefreshLayout.setRefreshing(true);
-        tampilError(false, 0, "");
+//        tampilError(false, 0, "");
         recyclerView.setVisibility(View.GONE);
         recyclerViewCuti.setVisibility(View.GONE);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
@@ -449,7 +451,7 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
 
     private int getKonsepKhusus() {
         swipeRefreshLayout.setRefreshing(true);
-        tampilError(false, 0, "");
+//        tampilError(false, 0, "");
         recyclerViewCuti.setVisibility(View.GONE);
         ApiInterface apiServiceCuti = ApiClient.getDomainCuti().create(ApiInterface.class);
         String authorization = prefManager.getSessionToken();

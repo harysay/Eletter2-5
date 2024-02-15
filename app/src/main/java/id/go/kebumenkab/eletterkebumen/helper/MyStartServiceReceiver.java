@@ -186,8 +186,8 @@ public class MyStartServiceReceiver extends BroadcastReceiver {
         logger.d("Token Eletter Konsep", authorization);
 
         if(!authorization.isEmpty() && !idPerangkat.isEmpty()){
-
-            Call<ResultKonsepDesa> call = apiService.getKonsep(authorization, idPerangkat);
+            String useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36";
+            Call<ResultKonsepDesa> call = apiService.getKonsep(authorization,useragent, idPerangkat);
 
             call.enqueue(new Callback<ResultKonsepDesa>() {
                 @Override

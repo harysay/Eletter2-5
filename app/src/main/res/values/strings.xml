@@ -73,7 +73,7 @@
     <string name="action_ajukan">Ajukan</string>
     <string name="action_setuju">Setuju</string>
     <string name="action_arsip">Arsipkan</string>
-    <string name="action_kirim">Kirim</string>
+    <string name="action_kirim">TTE/Kirim</string>
     <string name="action_beritandatangan">Tanda Tangani</string>
     <string name="action_tutup">Tutup</string>
     <string name="action_telaah">Telaah</string>
@@ -536,6 +536,10 @@
         <![CDATA[
         
         <h3>Riwayat Pengembangan</h3>
+        <p>2.5.01.B15022024 - Imanaji Hari Sayekti </p>
+        <ul>
+            <li> Perbaikan tidak bisa download pdf pada android 13 ke atas, perbaikan header view pada konsep, mengatasi blok agent, tombol kirim jadi tte/kirim</li>
+        </ul>
         <p>2.4.08.B09112023 - Imanaji Hari Sayekti </p>
         <ul>
             <li> Perbaikan disposisi tidak terlihat saat dark mode, detail konsep khusus tidak tampil, menu tindakan surat tembusan dan konsep khusus</li>

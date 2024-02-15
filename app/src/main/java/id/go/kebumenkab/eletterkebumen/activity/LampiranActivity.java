@@ -250,7 +250,7 @@ public class LampiranActivity extends AppCompatActivity implements EasyPermissio
         try  {
             URL myUrl = new URL(downloadUrl[0]);
 
-            String   fileName = downloadUrl[0].substring(downloadUrl[0].lastIndexOf('/') + 1, downloadUrl[0].length())+".pdf";
+            String   fileName = downloadUrl[0].substring(downloadUrl[0].lastIndexOf('/') + 1, downloadUrl[0].length());
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url + ""));
             request.setTitle(fileName);
             request.setMimeType("application/pdf");

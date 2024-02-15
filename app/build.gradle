@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 33
+    compileSdk 34
     // buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "id.go.kebumenkab.eletterkebumen"
-        minSdkVersion 19 // sebelumnya 16, diupgrade karena kebutuhan Firebase
-        targetSdkVersion 33
+        minSdk 19 // sebelumnya 16, diupgrade karena kebutuhan Firebase
+        targetSdk 34
         multiDexEnabled true
-        versionCode 68
-        versionName '2.4.08.B09112023'
+        versionCode 69
+        versionName '2.5.01.B15022024'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
     }

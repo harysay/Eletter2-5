@@ -66,6 +66,7 @@ public interface ApiInterfaceDesa {
     // Untuk menampilkan surat yang belum diberi aksi
     @GET("surat_ajuan/{id_perangkat}")
     Call<ResultKonsepDesa> getKonsep(@Header("Authorization") String authorization,
+                                     @Header("User-Agent") String agent,
                                      @Path("id_perangkat") String id_perangkat);
 
     @GET("preview_surat_ajuan/{id_surat}")
