@@ -4,11 +4,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- for android badge -->
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" /> <!-- for Samsung badge -->
     <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
@@ -270,7 +269,7 @@
         <activity
             android:name=".activity.pns.Dashboard"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"
+            android:exported="true"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_dashboard"
             android:launchMode="singleTask"
@@ -286,7 +285,7 @@
         <activity
             android:name=".activity.operator.DashboardOperator"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"
+            android:exported="true"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_dashboard"
             android:launchMode="singleTask"
@@ -302,7 +301,7 @@
         <activity
             android:name=".activity.lurah.DashboardLurah"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"
+            android:exported="true"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_dashboard"
             android:launchMode="singleTask"
@@ -318,7 +317,7 @@
         <activity
             android:name=".activity.desa.Dashboard"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"
+            android:exported="true"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_dashboard"
             android:launchMode="singleTask"
@@ -334,7 +333,7 @@
         <activity
             android:name=".ajudan.Dashboard"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"
+            android:exported="true"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar">

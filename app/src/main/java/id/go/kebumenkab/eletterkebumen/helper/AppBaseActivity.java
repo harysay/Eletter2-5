@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class AppBaseActivity extends AppCompatActivity {
@@ -18,7 +20,12 @@ public abstract class AppBaseActivity extends AppCompatActivity {
     }
 
     protected void registerBaseActivityReceiver() {
-        registerReceiver(baseActivityReceiver, INTENT_FILTER);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(baseActivityReceiver, new IntentFilter(INTENT_FILTER), Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(baseActivityReceiver, INTENT_FILTER);
+//            requireActivity().registerReceiver(refreshUIReceiver, new IntentFilter("com.gt-broadcast-refresh"));
+        }
     }
 
     protected void unRegisterBaseActivityReceiver() {

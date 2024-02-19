@@ -9,7 +9,7 @@ android {
         targetSdk 34
         multiDexEnabled true
         versionCode 69
-        versionName '2.5.01.B15022024'
+        versionName '2.5.01.B19022024'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
     }
@@ -75,7 +75,7 @@ dependencies {
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
 
     //Easy permissions for handling Run time permissions
-    implementation 'pub.devrel:easypermissions:0.2.0'
+    implementation 'pub.devrel:easypermissions:3.0.0'
 
     // required to avoid crash on Android 12 API 31
     implementation 'androidx.work:work-runtime-ktx:2.7.1'

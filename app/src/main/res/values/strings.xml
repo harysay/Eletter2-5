@@ -536,9 +536,9 @@
         <![CDATA[
         
         <h3>Riwayat Pengembangan</h3>
-        <p>2.5.01.B15022024 - Imanaji Hari Sayekti </p>
+        <p>2.5.01.B19022024 - Imanaji Hari Sayekti </p>
         <ul>
-            <li> Perbaikan tidak bisa download pdf pada android 13 ke atas, perbaikan header view pada konsep, mengatasi blok agent, tombol kirim jadi tte/kirim</li>
+            <li> Perbaikan tidak bisa download pdf pada android 13 ke atas,error setelah login di android 14, perbaikan header view pada konsep, mengatasi blok agent, tombol kirim jadi tte/kirim</li>
         </ul>
         <p>2.4.08.B09112023 - Imanaji Hari Sayekti </p>
         <ul>

@@ -132,7 +132,7 @@ public class Dashboard extends AppBaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        registerBaseActivityReceiver();
+        registerBaseActivityReceiver(); //method ini bermasalah di android 14
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
