@@ -16,6 +16,7 @@
             android:padding="@dimen/appbar_padding_tag"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/text_button_detail_mail" />
         <TextView
             android:layout_width="wrap_content"
