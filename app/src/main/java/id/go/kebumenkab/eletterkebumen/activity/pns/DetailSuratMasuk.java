@@ -168,15 +168,19 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
         btn_lampiran.setOnClickListener(this);
         btn_disposisi.setOnClickListener(this);
 
+
         //Jika akun bupati dan wakil bupati menu disposisi muncul
         if(prefManager.getStatusJabatan().equalsIgnoreCase("bupati")||prefManager.getStatusJabatan().equalsIgnoreCase("wakilbupati")){
             btn_disposisi.setVisibility(View.VISIBLE);
         }
-
-        /** Bila  surat tersebut adalah tembusan maka tampilkan tombol arsip **/
-        if(jenisSurat.equalsIgnoreCase(Tag.TAG_TEMBUSAN)){
-            // btn_arsip.setVisibility(View.VISIBLE);
+        //sekdin disdik minta ada menu dispo khusus untuk sekdin disdik muncul
+        if(prefManager.getSessionUnit().equalsIgnoreCase("Dinas Pendidikan, Kepemudaan dan Olahraga") && prefManager.getStatusJabatan().equalsIgnoreCase("sekretaris")){
+            btn_disposisi.setVisibility(View.VISIBLE);
         }
+//        /** Bila  surat tersebut adalah tembusan maka tampilkan tombol arsip **/
+//        if(jenisSurat.equalsIgnoreCase(Tag.TAG_TEMBUSAN)){
+//            // btn_arsip.setVisibility(View.VISIBLE);
+//        }
 
         if(strArsip.equals(TAG_ARSIP)) {
             btn_riwayat.setVisibility(View.VISIBLE);

@@ -647,7 +647,12 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                             MenuItem menuRefresh = myMenu.findItem(R.id.action_reload);
 
                             menuArsip.setVisible(false);
-                            menuDispo.setVisible(false);
+                            //sekdin disdik minta ada menu dispo khusus untuk sekdin disdik muncul
+                            if(prefManager.getSessionUnit().equalsIgnoreCase("Dinas Pendidikan, Kepemudaan dan Olahraga") && prefManager.getStatusJabatan().equalsIgnoreCase("sekretaris")){
+                                menuDispo.setVisible(true);
+                            }else{
+                                menuDispo.setVisible(false);
+                            }
                             menuTindakLanjuti.setVisible(false);
 
 

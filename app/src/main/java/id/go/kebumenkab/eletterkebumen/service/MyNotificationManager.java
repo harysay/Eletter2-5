@@ -48,7 +48,7 @@ public class MyNotificationManager {
                         mCtx,
                         ID_SMALL_NOTIFICATION,
                         intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
                 );
 
 

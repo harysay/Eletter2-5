@@ -536,7 +536,15 @@
         <![CDATA[
         
         <h3>Riwayat Pengembangan</h3>
-        <p>2.5.01.B19022024 - Imanaji Hari Sayekti </p>
+        <p>2.5.03.B27082024 - Imanaji Hari Sayekti </p>
+        <ul
+            <li> Penambahan menu dispo khusus sekdin disdik</li>
+        </ul>
+        <p>2.5.02.B16082024 - Imanaji Hari Sayekti </p>
+        <ul
+            <li> Perbaikan logo kebumen yang salah</li>
+        </ul>
+        <p>2.5.01.B11072024 - Imanaji Hari Sayekti </p>
         <ul>
             <li> Perbaikan tidak bisa download pdf pada android 13 ke atas,error setelah login di android 14, perbaikan header view pada konsep, mengatasi blok agent, tombol kirim jadi tte/kirim</li>
         </ul>
