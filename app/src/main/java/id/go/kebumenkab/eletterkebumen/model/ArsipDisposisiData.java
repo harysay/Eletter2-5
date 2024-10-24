@@ -22,6 +22,9 @@ public class ArsipDisposisiData implements Serializable {
     @SerializedName("id_surat")
     @Expose
     private String idSurat;
+    @SerializedName("id_surat_internal_tujuan")
+    @Expose
+    private String idSuratTujuan;
     @SerializedName("id_history")
     @Expose
     private String idHistory;
@@ -79,6 +82,13 @@ public class ArsipDisposisiData implements Serializable {
 
     public void setIdSurat(String idSurat) {
         this.idSurat = idSurat;
+    }
+
+    public String getIdSuratTujuan() {
+        return idSuratTujuan;
+    }
+    public void setIdSuratTujuan(String idSuratTujuan) {
+        this.idSuratTujuan = idSuratTujuan;
     }
 
     public String getIdHistory() {

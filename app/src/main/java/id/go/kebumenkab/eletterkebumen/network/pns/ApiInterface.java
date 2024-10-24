@@ -213,10 +213,11 @@ public interface ApiInterface {
                                    @Path("id_surat") String id_surat);
 
     // Untuk menampilkan surat yang belum diberi aksi
-    @GET("index.php/suratinternalget/masukhistory/{id_surat}/{id_unit_kerja}/masukinternal")
+    @GET("index.php/suratinternalget/masukhistory/{id_surat}/{id_unit_kerja}/masukinternal/{id_surat_internal_tujuan}")
     Call<ResultHistory> getHistoriSuratMasuk(@Header("Authorization") String authorization,
                                    @Path("id_surat") String id_surat,
-                                             @Path("id_unit_kerja") String id_unit_kerja);
+                                   @Path("id_unit_kerja") String id_unit_kerja,
+                                   @Path("id_surat_internal_tujuan") String id_surat_tujuan);
 
     // Untuk ajukan surat
     // http://10.28.11.18/eletter2/api/suratinternalprocess/ajukan/36/149

@@ -49,6 +49,7 @@ public class Tag {
     public static String TAG_ARSIPLAIN      = "arsiplain";
 
     public static String TAG_ID_SURAT      = "id_surat";
+    public static String TAG_ID_SURAT_TUJUAN  = "id_surat_internal_tujuan";
     public static String TAG_ID_HISTORI    = "id_histori";
     public static String TAG_ID_HISTORI_CUTI    = "id_histori_cuti";
     public static String TAG_URL_PDF        =  "url";

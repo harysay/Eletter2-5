@@ -536,6 +536,10 @@
         <![CDATA[
         
         <h3>Riwayat Pengembangan</h3>
+        <p>2.5.04.B21102024 - Imanaji Hari Sayekti </p>
+        <ul
+            <li> Perbaikan history untuk surat dengan tujuan lebih dari satu</li>
+        </ul>
         <p>2.5.03.B27082024 - Imanaji Hari Sayekti </p>
         <ul
             <li> Penambahan menu dispo khusus sekdin disdik</li>

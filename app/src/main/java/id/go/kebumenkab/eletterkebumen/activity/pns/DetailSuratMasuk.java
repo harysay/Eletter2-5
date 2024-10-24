@@ -61,6 +61,7 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
     private TextView t_nomor, t_pesan, t_deskripsi;
 
     private String  idSurat;
+    private String  idSuratTujuan;
     private String  idHistori;
     private String  alurSurat;
     private String  pejabatTandaTangan;
@@ -233,6 +234,7 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
                 /**  **/
                 Intent intentRiwayat = new Intent(getApplicationContext(), HistoriActivity.class);
                 intentRiwayat.putExtra(Tag.TAG_ID_SURAT, idSurat );
+                intentRiwayat.putExtra(Tag.TAG_ID_SURAT_TUJUAN, idSuratTujuan );
                 intentRiwayat.putExtra(Tag.TAG_ID_HISTORI, idHistori );
                 intentRiwayat.putExtra(Tag.TAG_JENISSURAT, Tag.TAG_SURATMASUK );
 
@@ -283,6 +285,7 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
 
                             pejabatTandaTangan = detail.getPejabatTtd();
                             jenisSurat = detail.getJenisSurat();
+                            idSuratTujuan = detail.getIdSuratInternalTujuan();
 
                             t_nomor.setText("Nomor : " + detail.getNomorSurat());
 

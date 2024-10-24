@@ -70,6 +70,7 @@ public class ArsipDisposisiDetail extends AppBaseActivity implements View.OnClic
     private ImageView image_tick;
 
     private String  idSurat;
+    private String  idSuratTujuan;
     private String  idHistori;
     private String  alurSurat;
     private String  pejabatTandaTangan;
@@ -121,6 +122,7 @@ public class ArsipDisposisiDetail extends AppBaseActivity implements View.OnClic
         Intent intent = getIntent();
         data = (ArsipDisposisiData) intent.getSerializableExtra("object");
         idSurat         = data.getIdSurat();
+        idSuratTujuan   = data.getIdSuratTujuan();
         idHistori       = data.getIdHistory();
         alurSurat       = data.getStatus(); // telaah,  disposisi
         jenisSurat      = data.getJenisTujuan(); // tujuan , tembusan
@@ -155,7 +157,7 @@ public class ArsipDisposisiDetail extends AppBaseActivity implements View.OnClic
 
             if(!idHistori.isEmpty()){
                 getData(idHistori);
-                Toast.makeText(this, "Histori " +idHistori, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Histori " +idHistori, Toast.LENGTH_SHORT).show();
             }
         }else{
             notifikasiDialog.showDialogError(1, "");
@@ -251,6 +253,7 @@ public class ArsipDisposisiDetail extends AppBaseActivity implements View.OnClic
                 /**  **/
                 Intent intentRiwayat = new Intent(getApplicationContext(), HistoriActivity.class);
                 intentRiwayat.putExtra(Tag.TAG_ID_SURAT, idSurat );
+                intentRiwayat.putExtra(Tag.TAG_ID_SURAT_TUJUAN, idSuratTujuan );
                 intentRiwayat.putExtra(Tag.TAG_ID_HISTORI, idHistori );
                 intentRiwayat.putExtra(Tag.TAG_JENISSURAT, Tag.TAG_SURATMASUK );
 

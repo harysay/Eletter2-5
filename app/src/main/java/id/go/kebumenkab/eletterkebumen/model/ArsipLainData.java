@@ -16,6 +16,9 @@ public class ArsipLainData implements Serializable {
     @SerializedName("id_surat")
     @Expose
     private String idSurat;
+    @SerializedName("id_surat_internal_tujuan")
+    @Expose
+    private String idSuratTujuan;
     @SerializedName("nomor")
     @Expose
     private String nomor;
@@ -68,6 +71,13 @@ public class ArsipLainData implements Serializable {
 
     public String getIdSurat() {
         return idSurat;
+    }
+
+    public String getIdSuratTujuan() {
+        return idSuratTujuan;
+    }
+    public void setIdSuratTujuan(String idSuratTujuan) {
+        this.idSuratTujuan = idSuratTujuan;
     }
 
     public void setIdSurat(String idSurat) {

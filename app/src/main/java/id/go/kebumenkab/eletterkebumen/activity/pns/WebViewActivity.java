@@ -1170,7 +1170,7 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
 
                                         logger.d("debug", "proses Kirim "+" berlangsung");
 
-                                        postAksi(Tag.TAG_KIRIM, "", "");
+//                                        postAksi(Tag.TAG_KIRIM, "", "");
 
                                     }else{
                                         // Tutup halaman dan buka halaman utama

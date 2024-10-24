@@ -32,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_ID_SURAT;
+import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_ID_SURAT_TUJUAN;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_JENISSURAT;
 
 public class HistoriActivity extends AppCompatActivity  implements
@@ -44,6 +45,7 @@ public class HistoriActivity extends AppCompatActivity  implements
     private PrefManager prefManager;
     private String token;
     private String idSurat;
+    private String idSuratInternalTujuan;
     private String idUnitKerja;
     private String jenisSurat;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -93,6 +95,9 @@ public class HistoriActivity extends AppCompatActivity  implements
         if(getIntent().getStringExtra(TAG_ID_SURAT)!=null)
             idSurat     = getIntent().getStringExtra(Tag.TAG_ID_SURAT);
 
+        if(getIntent().getStringExtra(TAG_ID_SURAT_TUJUAN)!=null)
+            idSuratInternalTujuan = getIntent().getStringExtra(TAG_ID_SURAT_TUJUAN);
+
         if(getIntent().getStringExtra(TAG_ID_SURAT)!=null && getIntent().getStringExtra(TAG_JENISSURAT)!=null){
             if(isConnected){
                 swipeRefreshLayout.post(
@@ -140,11 +145,11 @@ public class HistoriActivity extends AppCompatActivity  implements
         else if(jenisSurat.equalsIgnoreCase(Tag.TAG_SETUJU))
             call = apiService.getHistori(token, idSurat);
         else if(jenisSurat.equalsIgnoreCase(Tag.TAG_SURATMASUK))
-            call = apiService.getHistoriSuratMasuk(token,idSurat,idUnitKerja);
+            call = apiService.getHistoriSuratMasuk(token,idSurat,idUnitKerja,idSuratInternalTujuan);
         else if(jenisSurat.equalsIgnoreCase(Tag.TAG_TELAAH))
-            call = apiService.getHistoriSuratMasuk(token,idSurat,idUnitKerja);
+            call = apiService.getHistoriSuratMasuk(token,idSurat,idUnitKerja,idSuratInternalTujuan);
         else if(jenisSurat.equalsIgnoreCase(Tag.TAG_DISPOSISI))
-            call = apiService.getHistoriSuratMasuk(token,idSurat,idUnitKerja);
+            call = apiService.getHistoriSuratMasuk(token,idSurat,idUnitKerja,idSuratInternalTujuan);
 
         if(call != null) {
 

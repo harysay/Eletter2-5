@@ -12,6 +12,9 @@ public class Detail {
     @SerializedName("id_surat")
     @Expose
     private String idSurat;
+    @SerializedName("id_surat_internal_tujuan")
+    @Expose
+    private String idSuratTujuan;
     @SerializedName("id_history")
     @Expose
     private String idHistory;
@@ -123,6 +126,14 @@ public class Detail {
 
     public void setIdSurat(String idSurat) {
         this.idSurat = idSurat;
+    }
+
+    public String getIdSuratInternalTujuan() {
+        return idSuratTujuan;
+    }
+
+    public void setIdSuratInternalTujuan(String idSuratTujuan) {
+        this.idSuratTujuan = idSuratTujuan;
     }
 
     public String getIdHistory() {
