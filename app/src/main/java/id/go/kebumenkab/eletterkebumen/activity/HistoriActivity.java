@@ -95,8 +95,11 @@ public class HistoriActivity extends AppCompatActivity  implements
         if(getIntent().getStringExtra(TAG_ID_SURAT)!=null)
             idSurat     = getIntent().getStringExtra(Tag.TAG_ID_SURAT);
 
-        if(getIntent().getStringExtra(TAG_ID_SURAT_TUJUAN)!=null)
+        if(getIntent().getStringExtra(TAG_ID_SURAT_TUJUAN)!=null) {
             idSuratInternalTujuan = getIntent().getStringExtra(TAG_ID_SURAT_TUJUAN);
+        }else {
+            idSuratInternalTujuan = "";
+        }
 
         if(getIntent().getStringExtra(TAG_ID_SURAT)!=null && getIntent().getStringExtra(TAG_JENISSURAT)!=null){
             if(isConnected){

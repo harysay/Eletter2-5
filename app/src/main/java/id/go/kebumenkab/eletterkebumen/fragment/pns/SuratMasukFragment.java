@@ -118,7 +118,7 @@ public class SuratMasukFragment extends Fragment implements
         prefManager = new PrefManager(getActivity());
         strJabatan  = prefManager.getStatusJabatan();
 
-        Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         // Inflate the layout for this fragment
@@ -189,7 +189,7 @@ public class SuratMasukFragment extends Fragment implements
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        boolean isConnected = NetworkUtil.cekInternet(Objects.requireNonNull(getActivity()));
+        boolean isConnected = NetworkUtil.cekInternet(requireActivity());
 
         strJabatan  = prefManager.getStatusJabatan();
 
@@ -269,13 +269,13 @@ public class SuratMasukFragment extends Fragment implements
 
             if(allowUpdateUI){
                 if(kode == 1)
-                    errorText.setText(Objects.requireNonNull(getActivity()).getString(R.string.error_api));
+                    errorText.setText(requireActivity().getString(R.string.error_api));
                 if(kode == 2)
-                    errorText.setText(Objects.requireNonNull(getActivity()).getString(R.string.error_api));
+                    errorText.setText(requireActivity().getString(R.string.error_api));
                 if(kode == 3)
-                    errorText.setText(Objects.requireNonNull(getActivity()).getString(R.string.error_api));
+                    errorText.setText(requireActivity().getString(R.string.error_api));
                 if(kode == 4)
-                    errorText.setText(Objects.requireNonNull(getActivity()).getString(R.string.error_api));
+                    errorText.setText(requireActivity().getString(R.string.error_api));
                 if(kode == 5)
                     errorText.setText(getActivity().getString(R.string.error_suratmasuk_empty));
                 else{
@@ -414,7 +414,7 @@ public class SuratMasukFragment extends Fragment implements
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) requireActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.action_search)
                 .getActionView();
         searchView.setSearchableInfo(searchManager

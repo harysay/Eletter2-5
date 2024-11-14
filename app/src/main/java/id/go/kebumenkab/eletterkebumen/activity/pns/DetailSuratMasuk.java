@@ -175,7 +175,7 @@ public class DetailSuratMasuk extends AppBaseActivity implements View.OnClickLis
             btn_disposisi.setVisibility(View.VISIBLE);
         }
         //sekdin disdik minta ada menu dispo khusus untuk sekdin disdik muncul
-        if(prefManager.getSessionUnit().equalsIgnoreCase("Dinas Pendidikan, Kepemudaan dan Olahraga") && prefManager.getStatusJabatan().equalsIgnoreCase("sekretaris")){
+        if(prefManager.getStatusJabatan().equalsIgnoreCase("sekretaris")){
             btn_disposisi.setVisibility(View.VISIBLE);
         }
 //        /** Bila  surat tersebut adalah tembusan maka tampilkan tombol arsip **/

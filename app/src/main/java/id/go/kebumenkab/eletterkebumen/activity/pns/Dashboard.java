@@ -1,5 +1,7 @@
 package id.go.kebumenkab.eletterkebumen.activity.pns;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,6 +12,8 @@ import android.os.SystemClock;
 
 //import com.android.volley.BuildConfig;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -24,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -131,6 +136,18 @@ public class Dashboard extends AppBaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        // Tangkap pesan dari Intent setelah tanda tangan
+        String successMessage = getIntent().getStringExtra("successMessage");
+        // Tampilkan pesan jika ada
+        if (successMessage != null) {
+            Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show();
+//            new AlertDialog.Builder(this) // 'this' merujuk ke context dari Activity
+//                    .setTitle("Berhasil")
+//                    .setMessage(successMessage)
+//                    .setPositiveButton("OK", null)
+//                    .show();
+        }
 
         registerBaseActivityReceiver(); //method ini bermasalah di android 14
 

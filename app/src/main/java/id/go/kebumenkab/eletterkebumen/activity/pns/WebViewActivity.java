@@ -647,8 +647,9 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                             MenuItem menuRefresh = myMenu.findItem(R.id.action_reload);
 
                             menuArsip.setVisible(false);
-                            //sekdin disdik minta ada menu dispo khusus untuk sekdin disdik muncul
-                            if(prefManager.getSessionUnit().equalsIgnoreCase("Dinas Pendidikan, Kepemudaan dan Olahraga") && prefManager.getStatusJabatan().equalsIgnoreCase("sekretaris")){
+                            //sekdin disdik minta ada menu dispo khusus untuk sekdin disdik muncul prefManager.getSessionUnit().equalsIgnoreCase("Dinas Pendidikan, Kepemudaan dan Olahraga") &&
+                            // terus sekarang minta semua sekdin bisa disposisi 13/11/2024
+                            if(prefManager.getStatusJabatan().equalsIgnoreCase("sekretaris")){
                                 menuDispo.setVisible(true);
                             }else{
                                 menuDispo.setVisible(false);
@@ -1157,37 +1158,50 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
                             if(data!=null){
                                 if(data.getStatus().equals(Tag.TAG_STATUS_SUKSES)){
 
-                                    hideDialog(1, 0,"");
+//                                    hideDialog(1, 0,"");
                                     /** Hasil sukses **/
                                     logger.d("debug_eletter", "proses "+ statusSurat+" Berhasil");
 
-                                    if(statusSurat.equalsIgnoreCase(Tag.TAG_SETUJU) &&
-                                            jenisSurat.equalsIgnoreCase(TAG_KELUARINTERNAL)){
+//                                    Intent i = new Intent(getApplicationContext(), Dashboard.class);
+//                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                    closeAllActivities();
+//                                    startActivity(i);
+                                    hideDialog(1, 100, data.getPesan());
+                                    Intent i = new Intent(getApplicationContext(), Dashboard.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    // Kirim data pesan sukses
+                                    i.putExtra("successMessage", data.getPesan());
+                                    startActivity(i);
+                                    finish();
 
-                                            /**  Jika statusnya adalah baru selesai disetujui
-                                              dan surat konsep keluar internal
-                                              maka setelah setujui kemudian dikirimkan **/
-
-                                        logger.d("debug", "proses Kirim "+" berlangsung");
-
-//                                        postAksi(Tag.TAG_KIRIM, "", "");
-
-                                    }else{
-                                        // Tutup halaman dan buka halaman utama
-                                        logger.d("debug WebView", " "+ statusSurat+" Selesai");
-
-                                        hideDialog(0, 9, "");
-
-                                        // Tutup halaman webview
-
-
-
-                                        Intent i = new Intent(getApplicationContext(), Dashboard.class);
-                                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        closeAllActivities();
-                                        startActivity(i);
-
-                                    }
+                                    //tadinya seperti di bawag ini
+//                                    if(statusSurat.equalsIgnoreCase(Tag.TAG_SETUJU) &&
+//                                            jenisSurat.equalsIgnoreCase(TAG_KELUARINTERNAL)){
+//
+//                                            /**  Jika statusnya adalah baru selesai disetujui
+//                                              dan surat konsep keluar internal
+//                                              maka setelah setujui kemudian dikirimkan **/
+//
+//                                        logger.d("debug", "proses Kirim "+" berlangsung");
+//
+////                                        postAksi(Tag.TAG_KIRIM, "", "");
+//
+//                                    }else{
+//                                        // Tutup halaman dan buka halaman utama
+//                                        logger.d("debug WebView", " "+ statusSurat+" Selesai");
+//
+//                                        hideDialog(0, 9, "");
+//
+//                                        // Tutup halaman webview
+//
+//
+//
+//                                        Intent i = new Intent(getApplicationContext(), Dashboard.class);
+//                                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                        closeAllActivities();
+//                                        startActivity(i);
+//
+//                                    }
 
                                     // keluar
 
@@ -1439,6 +1453,14 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
             public void onClick(DialogInterface dialog, int whichButton) {
                 /** Tutup dialog **/
                 dialog.cancel();
+
+                //skrip di bawah ini untuk ujicoba lempar paramater ke dashboard
+//                Intent i = new Intent(getApplicationContext(), Dashboard.class);
+//                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                // Kirim data pesan sukses
+//                i.putExtra("successMessage", "ini pesan dari Webview Activity");
+//                startActivity(i);
+//                finish();
             }
         });
         AlertDialog b = dialogBuilder.create();
