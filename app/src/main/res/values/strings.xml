@@ -536,6 +536,10 @@
         <![CDATA[
         
         <h3>Riwayat Pengembangan</h3>
+        <p>2.5.07.B18112024 - Imanaji Hari Sayekti </p>
+        <ul>
+            <li> Perbaikan tampilan draf tidak hilang ketika sudah TTE</li>
+        </ul>
         <p>2.5.06.B14112024 - Imanaji Hari Sayekti </p>
         <ul>
             <li> Penambahan fitur disposisi untuk semua opd</li>

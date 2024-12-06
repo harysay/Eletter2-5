@@ -310,6 +310,11 @@ public class DitandaiActivity extends AppBaseActivity implements
 
     }
 
+    @Override
+    public void onItemClicked(Konsep konsep,int position) {
+
+    }
+
     public void showDialogAksi() {
 
         /**  Membuat alert dialog untuk konfirmasi aksi sebelum dilanjutkan **/

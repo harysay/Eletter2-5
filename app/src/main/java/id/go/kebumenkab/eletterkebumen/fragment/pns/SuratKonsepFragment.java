@@ -1,11 +1,15 @@
 package id.go.kebumenkab.eletterkebumen.fragment.pns;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
@@ -19,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +34,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -110,7 +116,7 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         logger = new Logger();
-        logger.d("onCreate","SuratKonsepFragment  | allowUpdate UI "+  allowUpdateUI);
+        logger.d("onCreate","onCreate di SuratKonsepFragment dijalankan | allowUpdate UI "+  allowUpdateUI);
 
         if (getArguments() != null) {
 
@@ -123,7 +129,7 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
                              Bundle savedInstanceState) {
 
         allowUpdateUI = true;
-        logger.d("onCreateView","SuratKonsepFragment | allowUpdateUI "+ String.valueOf(allowUpdateUI));
+        logger.d("onCreateView","onCreateView di SuratKonsepFragment dijalankan "+ String.valueOf(allowUpdateUI));
 
 
         prefManager = new PrefManager(getActivity());
@@ -236,12 +242,35 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
             showDialogError(1);
         }
     }
+    public void refreshData() {
+        if (konseps != null || !konseps.isEmpty()) {
+            // Koleksi tidak kosong, lakukan sesuatu jika diperlukan
+//            Toast.makeText(getActivity(), "konseps ada isinya" + konseps.size(), Toast.LENGTH_LONG).show();
+            logger.d("isi konseps", "konseps ada isinya" + konseps.size());
+            konseps.clear(); // Kosongkan koleksi
+            // Muat ulang data
+            getKonsep();
+
+            // Beritahu RecyclerView Adapter jika ada perubahan
+            if (mAdapter != null) {
+                mAdapter.notifyDataSetChanged();
+            }
+
+        } else {
+            // Koleksi kosong atau null
+//            Toast.makeText(getActivity(), "Koleksi sudah kosong atau null " + konseps.size(), Toast.LENGTH_LONG).show();
+            logger.d("isi konseps", "Koleksi sudah kosong atau null " + konseps.size());
+            getKonsep();
+        }
+
+    }
 
     @Override
     public void onRefresh() {
         boolean isConnected = NetworkUtil.cekInternet(getActivity());
         if(isConnected){
         // show loader and fetch konseps
+            logger.d("KonsepFragment", " onRefresh dijalankan");
         swipeRefreshLayout.post(
                 new Runnable() {
                     @Override
@@ -267,16 +296,28 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
     }
     @Override
     public void onMessageRowClicked(int position) {
-            Konsep konsep = konseps.get(position);
-            Intent intentDetail = new Intent(SuratKonsepFragment.this.getContext(), DetailKonsep.class);
-            intentDetail.putExtra("object", konsep);
-            intentDetail.putExtra("position", position);
-            startActivity(intentDetail);
-            Dashboard.setRefresh(true);
+//            Konsep konsep = konseps.get(position);
+//            Log.d("KonsepFragment", "Posisi klik: " + position + ", Data: " + konsep.getSubject());
+//            Intent intentDetail = new Intent(SuratKonsepFragment.this.getContext(), DetailKonsep.class);
+//            intentDetail.putExtra("object", konsep);
+//            intentDetail.putExtra("position", position);
+//            startActivity(intentDetail);
+//            Dashboard.setRefresh(true);
     }
     @Override
     public void onRowLongClicked(int position) {
 
+    }
+
+    @Override
+    public void onItemClicked(Konsep konsep,int position) {
+        Log.d("KonsepFragment", "KonsepFragment | Posisi klik: " + konsep + ", Data: " + konsep.getSubject());
+//        Intent intentDetail = new Intent(SuratKonsepFragment.this.getContext(), DetailKonsep.class);
+//        intentDetail.putExtra("object", konsep);
+//        intentDetail.putExtra("position", position);
+//        startActivity(intentDetail);
+//        Dashboard.setRefresh(true);
+        openDetailKonsep(konsep,position);
     }
 
     //click listener untuk cuti
@@ -289,13 +330,14 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
 
     }
     @Override
-    public void onMessageRowClickedCuti(int position) {
-        DataItemKonsepKhusus konsepcuti = konsepsCuti.get(position);
-        Intent intentDetail = new Intent(SuratKonsepFragment.this.getContext(), DetailKonsepKhusus.class);
-        intentDetail.putExtra("object", konsepcuti);
-        intentDetail.putExtra("position", position);
-        startActivity(intentDetail);
-        Dashboard.setRefresh(true);
+    public void onMessageRowClickedCuti(DataItemKonsepKhusus konsep, int position) {
+//        DataItemKonsepKhusus konsepcuti = konsepsCuti.get(position);
+//        Intent intentDetail = new Intent(SuratKonsepFragment.this.getContext(), DetailKonsepKhusus.class);
+//        intentDetail.putExtra("object", konsepcuti);
+//        intentDetail.putExtra("position", position);
+//        startActivity(intentDetail);
+//        Dashboard.setRefresh(true);
+        openDetailKonsepKusus(konsep,position);
     }
 
     @Override
@@ -343,6 +385,48 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private final ActivityResultLauncher<Intent> detailKonsepLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    if (result.getData() != null) {
+                        String successMessage = result.getData().getStringExtra("successMessage");
+                        if (successMessage != null) {
+                            // Tampilkan pesan sukses, misalnya menggunakan Toast
+                            Toast.makeText(getContext(), successMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    refreshRecyclerView(); // Refresh RecyclerView
+                }
+            });
+
+    private final ActivityResultLauncher<Intent> detailKonsepKhususLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    if (result.getData() != null) {
+                        String successMessage = result.getData().getStringExtra("successMessage");
+                        if (successMessage != null) {
+                            // Tampilkan pesan sukses, misalnya menggunakan Toast
+                            Toast.makeText(getContext(), successMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    refreshRecyclerView(); // Refresh RecyclerView
+                }
+            });
+
+    private void openDetailKonsep(Konsep konsep, int position) {
+        Intent intent = new Intent(getContext(), DetailKonsep.class);
+        intent.putExtra("object", konsep);
+        intent.putExtra("position", position);
+        detailKonsepLauncher.launch(intent);
+    }
+
+    private void openDetailKonsepKusus(DataItemKonsepKhusus konsep, int position) {
+        Intent intent = new Intent(getContext(), DetailKonsepKhusus.class);
+        intent.putExtra("object", konsep);
+        intent.putExtra("position", position);
+        detailKonsepKhususLauncher.launch(intent);
     }
 
     private void refreshRecyclerView() {
@@ -395,10 +479,11 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
                                                 konseps.add(konsep);
                                             }
                                         }
+                                        logger.d("jumlahIsiKonsep", String.valueOf(konseps));
                                         if (jumlahDitandai > 0) btnLihatTandai.setVisibility(View.VISIBLE);
                                         else btnLihatTandai.setVisibility(View.GONE);
                                         mAdapter.ambilKonsepBelumDitandai();
-                                        mAdapter.notifyDataSetChanged();
+//                                        mAdapter.notifyDataSetChanged();
                                         listDataKonsep.setVisibility(View.VISIBLE);
 //                                        Dashboard.setBadge(0, String.valueOf(todos.size()));
 //                                        updateBadge();
@@ -487,7 +572,7 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
                                             btnLihatTandai.setVisibility(View.VISIBLE);
                                         else btnLihatTandai.setVisibility(View.GONE);
                                         mAdaptercuti.ambilKonsepBelumDitandai();
-                                        mAdaptercuti.notifyDataSetChanged();
+//                                        mAdaptercuti.notifyDataSetChanged();
                                         listDataCuti.setVisibility(View.VISIBLE);
 //                                        Dashboard.setBadge(0, String.valueOf(todos.size()));
                                         updateBadge();
@@ -597,21 +682,42 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
     @Override
     public void onResume() {
         super.onResume();
+        // Bersihkan list konseps sebelum memuat ulang data
+        konseps.clear();
+        // Periksa koneksi internet
+        boolean isConnected = NetworkUtil.cekInternet(getActivity());
+        if (isConnected) {
+            // Memanggil getKonsep untuk memperbarui data
+            swipeRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    getKonsep(); // Memuat ulang data yang terbaru
+                    refreshRecyclerView();
+//                    mAdapter.notifyDataSetChanged();  // Perbarui tampilan RecyclerView dengan data yang baru
+                }
+            });
+        } else {
+            showDialogError(1);
+        }
 
+//        refreshData();
+//        refreshRecyclerView();
+//        getKonsep();
+//      getKonsepCuti();
         allowUpdateUI = true;
 
-        getActivity().runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-
-                // Stuff that updates the UI
-                refreshRecyclerView();
-                getKonsep();
-//                getKonsepCuti();
-                // Toast.makeText(getActivity(), "Sedang mengambil data", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        getActivity().runOnUiThread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//
+//                // Stuff that updates the UI
+//                refreshRecyclerView();
+//                getKonsep();
+////                getKonsepCuti();
+//                // Toast.makeText(getActivity(), "Sedang mengambil data", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         deviceName =prefManager.getSessionDevice();
         logger.d("OnResume","SuratKonsepFragment | allowUpdateUI "+ String.valueOf(allowUpdateUI)+ " - " +  deviceName);

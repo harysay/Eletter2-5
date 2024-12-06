@@ -48,69 +48,13 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
     private SparseBooleanArray animationItemsIndex;
     private boolean reverseAllAnimations = false;
 
-    // index is used to animate only the selected row
-    // dirty fix, find a better solution
+
     private static int currentSelectedIndex = -1;
 
     public int getSize(){
         return konseps.size();
     }
 
-    public void getMessageByStatus(CharSequence charSequence){
-        String status = charSequence.toString().trim();
-
-        if(status.length() > 0){
-            List<Konsep> konsepCategorized = new ArrayList<Konsep>();
-
-            for(Konsep row : messagesMaster){
-                if (row.getStatus().toLowerCase().contains(status.toLowerCase()) ) {
-                    Log.e("Filter", row.getFrom()+"/"+ row.getStatus()+"/"+ status);
-                    konsepCategorized.add(row);
-                }
-            }
-
-            messagesFiltered = konsepCategorized;
-        }else{
-            messagesFiltered = messagesMaster;
-        }
-
-         konseps = messagesFiltered;
-         notifyDataSetChanged();
-    }
-
-    public void getMessageIsRead(){
-
-        List<Konsep> konsepCategorized = new ArrayList<Konsep>();
-
-        for(Konsep row : messagesMaster){
-            if (row.getIsRead().toLowerCase().contains("1") ) {
-                Log.e("Filter", row.getFrom()+"/"+ row.getStatus());
-                konsepCategorized.add(row);
-            }
-        }
-
-        messagesFiltered = konsepCategorized;
-
-        konseps = messagesFiltered;
-        notifyDataSetChanged();
-    }
-
-    public void getMessageUnRead(){
-
-        List<Konsep> konsepCategorized = new ArrayList<Konsep>();
-
-        for(Konsep row : messagesMaster){
-            if (row.getIsRead().toLowerCase().contains("0") ) {
-                Log.e("Filter", row.getFrom()+"/"+ row.getStatus());
-                konsepCategorized.add(row);
-            }
-        }
-
-        messagesFiltered = konsepCategorized;
-
-        konseps = messagesFiltered;
-        notifyDataSetChanged();
-    }
 
     public void ambilKonsepBelumDitandai(){
 
@@ -129,22 +73,6 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
         notifyDataSetChanged();
     }
 
-    public void ambilKonsepDitandai(){
-
-        List<Konsep> konsepCategorized = new ArrayList<Konsep>();
-
-        for(Konsep row : messagesMaster){
-            if (row.getTandai().toLowerCase().contains("1") ) {
-                Log.e("Filter", row.getFrom()+"/"+ row.getStatus());
-                konsepCategorized.add(row);
-            }
-        }
-
-        messagesFiltered = konsepCategorized;
-
-        konseps = messagesFiltered;
-        notifyDataSetChanged();
-    }
 
     @Override
     public Filter getFilter() {
@@ -174,7 +102,6 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
                             filteredList.add(row);
                         }
                     }
-
                     messagesFiltered = filteredList;
                 }
 
@@ -223,7 +150,6 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
         }
     }
 
-
     public KonsepAdapter(Context mContext, List<Konsep> konseps, MessageAdapterListener listener) {
 
         this.mContext = mContext;
@@ -246,7 +172,7 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Konsep konsep = konseps.get(position);
-
+        Log.d("KonsepFragmentAdapter", "Posisi klik: " + position + ", Data: " + konsep.getSubject());
         // displaying text view data
         holder.from.setText(properCase(konsep.getFrom()));
         holder.subject.setText(konsep.getStatus()+" : "+ konsep.getSubject());
@@ -267,71 +193,22 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
         // change the row state to activated
         holder.itemView.setActivated(selectedItems.get(position, false));
 
-        // change the font style depending on konsep read status
-        //applyReadStatus(holder, konsep);
-
-        // handle konsep star
-       // applyImportant(holder, konsep);
-
-        // handle icon animation
-        //applyIconAnimation(holder, position);
-
-        // display profile image
-        // applyProfilePicture(holder, konsep);
-
         // apply click events
         applyClickEvents(holder, position);
     }
 
     private void applyClickEvents(MyViewHolder holder, final int position) {
-        holder.iconContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onIconClicked(position);
-            }
-        });
-
-        holder.iconImp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onIconImportantClicked(position);
-            }
-        });
-
         holder.messageContainer.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                listener.onMessageRowClicked(position);
+            public void onClick(View v) {
+                int adapterPosition = holder.getAdapterPosition(); // Menghindari masalah posisi
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    Konsep konsep = konseps.get(adapterPosition);
+                    Log.d("KonsepFragmentClick", "KonsepFragmentAdapter | Item clicked: " + konsep.getSubject());
+                    listener.onItemClicked(konsep,position); // Kirim data langsung ke listener
+                }
             }
         });
-
-        holder.messageContainer.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                listener.onRowLongClicked(position);
-                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-                return true;
-            }
-        });
-    }
-
-    private void applyProfilePicture(MyViewHolder holder, Konsep konsep) {
-        if (!TextUtils.isEmpty(konsep.getPicture())) {
-
-            Glide.with(mContext).load(konsep.getPicture())
-                    .thumbnail(0.5f)
-                    .crossFade()
-                    .transform(new CircleTransform(mContext))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(holder.imgProfile);
-            holder.imgProfile.setColorFilter(null);
-            holder.iconText.setVisibility(View.GONE);
-
-        } else {
-            holder.imgProfile.setImageResource(R.drawable.bg_circle);
-            holder.imgProfile.setColorFilter(Color.parseColor("#039be5"));
-            holder.iconText.setVisibility(View.VISIBLE);
-        }
     }
 
     String properCase (String inputVal) {
@@ -341,39 +218,6 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
                 + inputVal.substring(1).toLowerCase();
     }
 
-        // As the views will be reused, sometimes the icon appears as
-    // flipped because older view is reused. Reset the Y-axis to 0
-    private void resetIconYAxis(View view) {
-        if (view.getRotationY() != 0) {
-            view.setRotationY(0);
-        }
-    }
-
-
-
-     private void applyImportant(MyViewHolder holder, Konsep konsep) {
-        if (konsep.isIsImportant()) {
-            holder.iconImp.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_star_black_24dp));
-            holder.iconImp.setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_selected));
-        } else {
-            holder.iconImp.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_star_border_white_24dp));
-            holder.iconImp.setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
-        }
-    }
-
-    private void applyReadStatus(MyViewHolder holder, Konsep konsep) {
-        if (konsep.getIsRead().equalsIgnoreCase("1")) {
-            holder.from.setTypeface(null, Typeface.NORMAL);
-            holder.subject.setTypeface(null, Typeface.NORMAL);
-            holder.from.setTextColor(ContextCompat.getColor(mContext, R.color.subject));
-            holder.subject.setTextColor(ContextCompat.getColor(mContext, R.color.konsep));
-        } else {
-            holder.from.setTypeface(null, Typeface.BOLD);
-            holder.subject.setTypeface(null, Typeface.BOLD);
-            holder.from.setTextColor(ContextCompat.getColor(mContext, R.color.from));
-            holder.subject.setTextColor(ContextCompat.getColor(mContext, R.color.subject));
-        }
-    }
 
     @Override
     public long getItemId(int position) {
@@ -400,13 +244,6 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
         notifyItemChanged(pos);
     }
 
-    public void clearSelections() {
-        reverseAllAnimations = true;
-        selectedItems.clear();
-        notifyDataSetChanged();
-    }
-
-
     public List<Integer> getSelectedItems() {
         List<Integer> items =
                 new ArrayList<>(selectedItems.size());
@@ -414,12 +251,6 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
             items.add(selectedItems.keyAt(i));
         }
         return items;
-    }
-
-
-
-    private void resetCurrentIndex() {
-        currentSelectedIndex = -1;
     }
 
     public interface MessageAdapterListener {
@@ -430,12 +261,8 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
         void onMessageRowClicked(int position);
 
         void onRowLongClicked(int position);
-    }
 
-    private long tampilkanWaktu (String timestamp){
-        long now = System.currentTimeMillis();
-        long monthsAgo      = timeStringtoMilis(timestamp);
-        return monthsAgo;
+        void onItemClicked(Konsep konsep,int position);
     }
 
     private long timeStringtoMilis(String time) {

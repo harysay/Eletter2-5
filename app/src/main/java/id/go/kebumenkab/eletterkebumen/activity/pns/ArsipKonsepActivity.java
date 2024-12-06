@@ -318,4 +318,9 @@ public class ArsipKonsepActivity extends AppCompatActivity  implements
     public void onRowLongClicked(int position) {
 
     }
+
+    @Override
+    public void onItemClicked(Konsep konsep,int position) {
+
+    }
 }

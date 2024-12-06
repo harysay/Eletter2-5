@@ -479,10 +479,15 @@ public class WebViewKonsepKhususActivity extends AppCompatActivity {
                                 logger.d("debug WebView", " "+ statusKhusus+" Selesai");
                                 // Tutup halaman webview
 
-                                Intent i = new Intent(getApplicationContext(), Dashboard.class);
-                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
-                                closeAllActivities();
-                                startActivity(i);
+//                                Intent i = new Intent(getApplicationContext(), Dashboard.class);
+//                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                closeAllActivities();
+//                                startActivity(i);
+                                Intent i = new Intent();
+                                i.putExtra("successMessage", data.getPesan());
+                                setResult(RESULT_OK, i);
+                                finish();
+                                overridePendingTransition(0, 0); // Tidak ada animasi keluar
                                 hideDialog(1, 100, data.getPesan());
                                 // keluar
                             }else{

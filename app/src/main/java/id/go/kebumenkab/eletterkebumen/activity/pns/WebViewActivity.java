@@ -1167,12 +1167,14 @@ public class WebViewActivity extends AppBaseActivity implements EasyPermissions.
 //                                    closeAllActivities();
 //                                    startActivity(i);
                                     hideDialog(1, 100, data.getPesan());
-                                    Intent i = new Intent(getApplicationContext(), Dashboard.class);
-                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    Intent i = new Intent();
+//                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     // Kirim data pesan sukses
                                     i.putExtra("successMessage", data.getPesan());
-                                    startActivity(i);
+//                                    startActivity(i);
+                                    setResult(RESULT_OK, i);
                                     finish();
+                                    overridePendingTransition(0, 0); // Tidak ada animasi keluar
 
                                     //tadinya seperti di bawag ini
 //                                    if(statusSurat.equalsIgnoreCase(Tag.TAG_SETUJU) &&

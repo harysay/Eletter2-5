@@ -2,6 +2,7 @@ package id.go.kebumenkab.eletterkebumen.activity.pns;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 
@@ -41,6 +42,9 @@ import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_JENISPENERIMA;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_JENISTUJUAN;
 import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_KOREKSILANGSUNG;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+
 public class DetailKonsep extends AppBaseActivity implements View.OnClickListener{
 
     /** Variabel komponen layout dan variabel lainnya **/
@@ -69,6 +73,8 @@ public class DetailKonsep extends AppBaseActivity implements View.OnClickListene
     private Logger logger;
     private NotifikasiDialog notifikasiDialog;
 
+    private ActivityResultLauncher<Intent> webViewLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,19 +97,44 @@ public class DetailKonsep extends AppBaseActivity implements View.OnClickListene
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.title_activity_detail));
 
+        /** inisialisasi untuk menutup activity dari WebViewActivity **/
+        webViewLauncher =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent resultIntent = new Intent();
+                        if (result.getData() != null) {
+                            String successMessage = result.getData().getStringExtra("successMessage");
+                            resultIntent.putExtra("successMessage", successMessage);
+                        }
+                        setResult(Activity.RESULT_OK, resultIntent);
+                        finish(); // Tutup DetailKonsep
+                        overridePendingTransition(0, 0); // Tidak ada animasi keluar
+                    }
+                });
+//        webViewLauncher = registerForActivityResult(
+//                new ActivityResultContracts.StartActivityForResult(),
+//                result -> {
+//                    if (result.getResultCode() == Activity.RESULT_OK) {
+//                        // Tutup DetailKonsep setelah WebViewActivity selesai
+//                        finish();
+//                    }
+//                }
+//        );
+
         /**  Inisiasi komponen tampilan **/
         setupView();
 
         /**  Menerima data dari activity lain **/
         Intent intent = getIntent();
         Konsep konsep = (Konsep)intent.getSerializableExtra("object");
+        int posisi = intent.getIntExtra("position", 0);
         idSurat = konsep.getIdSurat();
         idHistori = konsep.getIdHistory();
         alurSurat = konsep.getStatus();
-
+        String subjek = konsep.getSubject();
         strArsip        = intent.getStringExtra(TAG_ARSIP);
 
-        logger.d("PindahHalamanKonsep", idSurat+"/"+idHistori+"/"+alurSurat+"/"+strArsip);
+        logger.d("PindahHalamanKonsep", idSurat+"/"+idHistori+"/"+alurSurat+"/"+strArsip+"/"+subjek+"/posisi: "+posisi);
 
         /** Mengecek internet **/
         boolean isConnected = NetworkUtil.cekInternet(getApplicationContext());
@@ -148,6 +179,7 @@ public class DetailKonsep extends AppBaseActivity implements View.OnClickListene
 
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -181,7 +213,9 @@ public class DetailKonsep extends AppBaseActivity implements View.OnClickListene
                 intent.putExtra(TAG_JENISTUJUAN, "");
                 /**  Pindah halaman **/;
                 logger.d("Jenis Surat", jenisSurat);
-                startActivity(intent);
+                webViewLauncher.launch(intent);
+//                startActivity(intent);
+//                finish(); // Tutup DetailKonsep karena kalau tidak dia akan tetap ada di stack walaupun sudah dari WebViewActivity dikembalikan ke dashboard
                 break;
             case R.id.btn_lampiran:
                 /**  Dikirimkan ke WebView  Activity **/

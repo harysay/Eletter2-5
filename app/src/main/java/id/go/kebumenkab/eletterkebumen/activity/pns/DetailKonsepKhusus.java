@@ -5,6 +5,7 @@ import static id.go.kebumenkab.eletterkebumen.helper.Tag.TAG_TELAAH;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -82,6 +85,7 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
     ArrayList<DetailItemKhusus> detailItems = new ArrayList<>();
     List<AksiItemKhusus> aksiItemKhususes;
     KonsepKhususDetail konsepsKhusus;
+    private ActivityResultLauncher<Intent> webViewLauncherKhusus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +108,20 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.title_activity_detail));
 
+        /** inisialisasi untuk menutup activity dari WebViewActivity **/
+        webViewLauncherKhusus =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent resultIntent = new Intent();
+                        if (result.getData() != null) {
+                            String successMessage = result.getData().getStringExtra("successMessage");
+                            resultIntent.putExtra("successMessage", successMessage);
+                        }
+                        setResult(Activity.RESULT_OK, resultIntent);
+                        finish(); // Tutup DetailKonsep
+                        overridePendingTransition(0, 0); // Tidak ada animasi keluar
+                    }
+                });
 
         /**  Inisiasi komponen tampilan **/
         setupView();
@@ -219,7 +237,8 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
                 intent.putExtra("urlpreview", strUrlFile );
                 intent.putExtra("idkonsepkhusus", idkonsepkhusus );
                 /**  Pindah halaman **/;
-                startActivity(intent);
+//                startActivity(intent);
+                webViewLauncherKhusus.launch(intent);
                 break;
             case R.id.btn_tandatangani:
                 showDialogAksi(0,Tag.TAG_SETUJU);

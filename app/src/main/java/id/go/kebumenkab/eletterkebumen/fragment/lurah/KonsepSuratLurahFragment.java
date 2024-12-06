@@ -288,6 +288,11 @@ public class KonsepSuratLurahFragment extends Fragment implements
 
     }
 
+    @Override
+    public void onItemClicked(Konsep konsep,int position) {
+
+    }
+
 
     public void tampilError(boolean param, int kode, String pesan){
 

@@ -24,6 +24,7 @@ import java.util.List;
 
 import id.go.kebumenkab.eletterkebumen.R;
 import id.go.kebumenkab.eletterkebumen.model.DataItemKonsepKhusus;
+import id.go.kebumenkab.eletterkebumen.model.Konsep;
 
 /** **/
 
@@ -155,7 +156,7 @@ public class KonsepKhususAdapter extends RecyclerView.Adapter<KonsepKhususAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         DataItemKonsepKhusus konsep = konseps.get(position);
-
+        Log.d("KonsepFragmentAdapter", "Posisi klik konsepKhusus: " + position + ", Data: " + konsep.getTitle() + "/ " + konsep.getCreatedAt());
         // displaying text view data
         holder.from.setText(properCase(konsep.getAppName()));
         holder.subject.setText(konsep.getTitle());
@@ -177,35 +178,41 @@ public class KonsepKhususAdapter extends RecyclerView.Adapter<KonsepKhususAdapte
     }
 
     private void applyClickEvents(MyViewHolder holder, final int position) {
-        holder.iconContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onIconClickedCuti(position);
-            }
-        });
-
-        holder.iconImp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onIconImportantClickedCuti(position);
-            }
-        });
+//        holder.iconContainer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                listener.onIconClickedCuti(position);
+//            }
+//        });
+//
+//        holder.iconImp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                listener.onIconImportantClickedCuti(position);
+//            }
+//        });
 
         holder.messageContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onMessageRowClickedCuti(position);
+                int adapterPosition = holder.getAdapterPosition(); // Menghindari masalah posisi
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    DataItemKonsepKhusus konsep = konseps.get(adapterPosition);
+                    Log.d("KonsepFragmentClick", "KonsepFragmentAdapter | Item clicked: " + konsep.getTitle()+"/ " + konsep.getCreatedAt());
+                    listener.onMessageRowClickedCuti(konsep, position);
+                }
+
             }
         });
 
-        holder.messageContainer.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                listener.onRowLongClickedCuti(position);
-                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-                return true;
-            }
-        });
+//        holder.messageContainer.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//                listener.onRowLongClickedCuti(position);
+//                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+//                return true;
+//            }
+//        });
     }
 
     String properCase (String inputVal) {
@@ -275,7 +282,7 @@ public class KonsepKhususAdapter extends RecyclerView.Adapter<KonsepKhususAdapte
 
         void onIconImportantClickedCuti(int position);
 
-        void onMessageRowClickedCuti(int position);
+        void onMessageRowClickedCuti(DataItemKonsepKhusus konsep, int position);
 
         void onRowLongClickedCuti(int position);
     }

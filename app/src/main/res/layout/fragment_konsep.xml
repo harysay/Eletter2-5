@@ -55,6 +55,8 @@
                         android:id="@+id/recycler_view_konseppns"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:scrollbars="vertical" />
 
                 </androidx.core.widget.NestedScrollView>

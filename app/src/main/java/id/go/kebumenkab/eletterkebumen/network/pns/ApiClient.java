@@ -17,9 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static String DOMAIN = "https://eletter.kebumenkab.go.id";
-//     public static String DOMAIN = "http://10.28.11.26/eletter2"; //jika di lapotope lukman
-//    public static String DOMAIN = "http://103.147.218.90:8182/eletter"; //jika di development kemudian di ApiInterface.java tambahkan /eletter/ di depan api/konsepKhusus
+//    public static String DOMAIN = "https://eletter.kebumenkab.go.id";
+//     public static String DOMAIN = "http://10.28.11.19/eletter"; //jika di lapotope heri
+    public static String DOMAIN = "http://103.147.218.90:8182/eletter"; //jika di development kemudian di ApiInterface.java tambahkan /eletter/ di depan api/konsepKhusus
 //    public static final String ELETTER_CUTI = DOMAINCUTI + "/eletter/cutionline/index.php/surat/preview/"; //jika didevelopment
 
     public static final String ELETTER_URL = DOMAIN + "/api/";
@@ -115,7 +115,7 @@ public class ApiClient {
 
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(ELETTER_URL)// "http://10.32.10.22/eletter2/api/"
+                    .baseUrl(ELETTER_URL)// "http://10.28.11.19/eletter/api/"
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
