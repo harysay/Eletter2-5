@@ -75,27 +75,47 @@ public class ApiClient {
         return retrofit;
     }
 
-    public static Retrofit getDomainCuti() {
+//    public static Retrofit getDomainCuti() {
+//
+//        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+//                .connectTimeout(60, TimeUnit.SECONDS)
+//                .readTimeout(60, TimeUnit.SECONDS)
+//                .writeTimeout(60, TimeUnit.SECONDS)
+//                .build();
+//
+//        if (retrofit == null) {
+//
+//            Gson gson = new GsonBuilder()
+//                    .setLenient()
+//                    .create();
+//            retrofit = new Retrofit.Builder()
+//                    .baseUrl(DOMAIN)
+//                    .addConverterFactory(GsonConverterFactory.create(gson))
+//                    .client(okHttpClient)
+//                    .build();
+//        }
+//        return retrofit;
+//    }
 
-        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .build();
-
-        if (retrofit == null) {
-
-            Gson gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(DOMAIN)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(okHttpClient)
-                    .build();
-        }
-        return retrofit;
-    }
+    /** ini versi untuk menghindari singleton pattern pada objek Retrofit. Hapus deklarasi private static Retrofit retrofit = null;
+     * dan gunakan instance lokal di setiap metode. Dengan cara ini, setiap metode akan menghasilkan instance Retrofit baru. **/
+//    public static Retrofit getDomainCuti() {
+//        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+//                .connectTimeout(60, TimeUnit.SECONDS)
+//                .readTimeout(60, TimeUnit.SECONDS)
+//                .writeTimeout(60, TimeUnit.SECONDS)
+//                .build();
+//
+//        Gson gson = new GsonBuilder()
+//                .setLenient()
+//                .create();
+//
+//        return new Retrofit.Builder()
+//                .baseUrl(ELETTER_URL) // Gunakan ELETTER_URL
+//                .addConverterFactory(GsonConverterFactory.create(gson))
+//                .client(okHttpClient)
+//                .build();
+//    }
 
     public static Retrofit loginRequest(Context context) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

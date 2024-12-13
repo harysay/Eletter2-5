@@ -261,15 +261,15 @@ public class DitandaiActivity extends AppBaseActivity implements
     }
 
 
-    @Override
-    public void onIconClicked(int position) {
-
-    }
-
-    @Override
-    public void onIconImportantClicked(int position) {
-
-    }
+//    @Override
+//    public void onIconClicked(int position) {
+//
+//    }
+//
+//    @Override
+//    public void onIconImportantClicked(int position) {
+//
+//    }
 
     @Override
     public void onMessageRowClicked(int position) {
@@ -305,10 +305,10 @@ public class DitandaiActivity extends AppBaseActivity implements
         return 0;
     }
 
-    @Override
-    public void onRowLongClicked(int position) {
-
-    }
+//    @Override
+//    public void onRowLongClicked(int position) {
+//
+//    }
 
     @Override
     public void onItemClicked(Konsep konsep,int position) {

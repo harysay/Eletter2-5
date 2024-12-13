@@ -271,15 +271,15 @@ public class ArsipKonsepActivity extends AppCompatActivity  implements
         }
     }
 
-    @Override
-    public void onIconClicked(int position) {
-
-    }
-
-    @Override
-    public void onIconImportantClicked(int position) {
-
-    }
+//    @Override
+//    public void onIconClicked(int position) {
+//
+//    }
+//
+//    @Override
+//    public void onIconImportantClicked(int position) {
+//
+//    }
 
     @Override
     public void onMessageRowClicked(int position) {
@@ -314,10 +314,10 @@ public class ArsipKonsepActivity extends AppCompatActivity  implements
 
     }
 
-    @Override
-    public void onRowLongClicked(int position) {
-
-    }
+//    @Override
+//    public void onRowLongClicked(int position) {
+//
+//    }
 
     @Override
     public void onItemClicked(Konsep konsep,int position) {

@@ -261,14 +261,14 @@ public class KonsepSuratLurahFragment extends Fragment implements
         }
     }
 
-    @Override
-    public void onIconClicked(int position) {
-       //  toggleSelection(position);
-    }
-
-    @Override
-    public void onIconImportantClicked(int position) {
-    }
+//    @Override
+//    public void onIconClicked(int position) {
+//       //  toggleSelection(position);
+//    }
+//
+//    @Override
+//    public void onIconImportantClicked(int position) {
+//    }
 
     @Override
     public void onMessageRowClicked(int position) {
@@ -283,10 +283,10 @@ public class KonsepSuratLurahFragment extends Fragment implements
             Dashboard.setRefresh(true);
     }
 
-    @Override
-    public void onRowLongClicked(int position) {
-
-    }
+//    @Override
+//    public void onRowLongClicked(int position) {
+//
+//    }
 
     @Override
     public void onItemClicked(Konsep konsep,int position) {

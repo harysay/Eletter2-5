@@ -328,7 +328,7 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
         if(statusKhusus.length()==0 || statusKhusus.isEmpty()){
             // notifikasiDialog.showToast("Status surat kosong, "+ statusSurat);
         }else {
-            ApiInterface apiServiceCuti = ApiClient.getDomainCuti().create(ApiInterface.class);
+            ApiInterface apiServiceCuti = ApiClient.getClient().create(ApiInterface.class);
             Call<ResponStandar> call = null;
             logger.d("status_surat", statusKhusus+"/"+pesan+"/");
 
@@ -404,7 +404,7 @@ public class DetailKonsepKhusus extends AppBaseActivity implements View.OnClickL
     }
 
     private void getDetailItemKhusus(){
-        ApiInterface apiServiceKonsepKhusus = ApiClient.getDomainCuti().create(ApiInterface.class);
+        ApiInterface apiServiceKonsepKhusus = ApiClient.getClient().create(ApiInterface.class);
         Call<KonsepKhususDetail> callkonsepkhusus = apiServiceKonsepKhusus.getKonsepKhususDetail(token,idkonsepkhusus);
         callkonsepkhusus.enqueue(new Callback<KonsepKhususDetail>() {
             @Override

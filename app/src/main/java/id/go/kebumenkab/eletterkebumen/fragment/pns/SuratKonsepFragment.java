@@ -287,13 +287,13 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
 
 
     //clik listerner untuk konsep surat biasa
-    @Override
-    public void onIconClicked(int position) {
-       //  toggleSelection(position);
-    }
-    @Override
-    public void onIconImportantClicked(int position) {
-    }
+//    @Override
+//    public void onIconClicked(int position) {
+//       //  toggleSelection(position);
+//    }
+//    @Override
+//    public void onIconImportantClicked(int position) {
+//    }
     @Override
     public void onMessageRowClicked(int position) {
 //            Konsep konsep = konseps.get(position);
@@ -304,10 +304,10 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
 //            startActivity(intentDetail);
 //            Dashboard.setRefresh(true);
     }
-    @Override
-    public void onRowLongClicked(int position) {
-
-    }
+//    @Override
+//    public void onRowLongClicked(int position) {
+//
+//    }
 
     @Override
     public void onItemClicked(Konsep konsep,int position) {
@@ -387,6 +387,7 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
         void onFragmentInteraction(Uri uri);
     }
 
+    /** menampilkan pesan sukses ditandatangani dengan paramater dari WebviewActivity **/
     private final ActivityResultLauncher<Intent> detailKonsepLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -400,7 +401,7 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
                     refreshRecyclerView(); // Refresh RecyclerView
                 }
             });
-
+    /** menampilkan pesan sukses ditandatangani dengan paramater dari WebviewKonsepKhususActivity **/
     private final ActivityResultLauncher<Intent> detailKonsepKhususLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -538,7 +539,7 @@ public static List<DataItemKonsepKhusus> konsepsCuti = new ArrayList<>();
         swipeRefreshLayout.setRefreshing(true);
 //        tampilError(false, 0, "");
         recyclerViewCuti.setVisibility(View.GONE);
-        ApiInterface apiServiceCuti = ApiClient.getDomainCuti().create(ApiInterface.class);
+        ApiInterface apiServiceCuti = ApiClient.getClient().create(ApiInterface.class);
         String authorization = prefManager.getSessionToken();
         logger.d("Token Eletter Konsep", authorization);
         Call<KonsepKhusus> callkonsepkhusus = apiServiceCuti.getKonsepKhusus(authorization);

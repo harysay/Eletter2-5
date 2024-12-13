@@ -118,7 +118,7 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
         };
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView from, subject, message, iconText, timestamp, jumlah_koreksi;
         public ImageView iconImp, imgProfile;
         public LinearLayout messageContainer;
@@ -139,15 +139,15 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
             imgProfile = (ImageView) view.findViewById(R.id.icon_profile);
             messageContainer = (LinearLayout) view.findViewById(R.id.message_container);
             iconContainer = (RelativeLayout) view.findViewById(R.id.icon_container);
-            view.setOnLongClickListener(this);
+//            view.setOnLongClickListener(this);
         }
 
-        @Override
-        public boolean onLongClick(View view) {
-            listener.onRowLongClicked(getAdapterPosition());
-            view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-            return true;
-        }
+//        @Override
+//        public boolean onLongClick(View view) {
+//            listener.onRowLongClicked(getAdapterPosition());
+//            view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+//            return true;
+//        }
     }
 
     public KonsepAdapter(Context mContext, List<Konsep> konseps, MessageAdapterListener listener) {
@@ -254,13 +254,13 @@ public class KonsepAdapter extends RecyclerView.Adapter<KonsepAdapter.MyViewHold
     }
 
     public interface MessageAdapterListener {
-        void onIconClicked(int position);
-
-        void onIconImportantClicked(int position);
-
+//        void onIconClicked(int position);
+//
+//        void onIconImportantClicked(int position);
+//
         void onMessageRowClicked(int position);
-
-        void onRowLongClicked(int position);
+//
+//        void onRowLongClicked(int position);
 
         void onItemClicked(Konsep konsep,int position);
     }

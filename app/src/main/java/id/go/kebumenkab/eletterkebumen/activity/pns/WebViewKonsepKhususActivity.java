@@ -453,7 +453,7 @@ public class WebViewKonsepKhususActivity extends AppCompatActivity {
         if(statusKhusus.length()==0 || statusKhusus.isEmpty()){
             // notifikasiDialog.showToast("Status surat kosong, "+ statusSurat);
         }else {
-            ApiInterface apiServiceCuti = ApiClient.getDomainCuti().create(ApiInterface.class);
+            ApiInterface apiServiceCuti = ApiClient.getClient().create(ApiInterface.class);
             Call<ResponStandar> call = null;
             logger.d("status_surat", statusKhusus+"/"+pesan+"/");
             if (statusKhusus.equalsIgnoreCase(Tag.TAG_PERMINTAANTANDATANGAN)) {

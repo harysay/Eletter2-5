@@ -527,23 +527,6 @@ public class Dashboard extends AppBaseActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-
-        /*if(allowRefresh){
-
-            if(jabatan.equals("")){
-                getSupportFragmentManager().beginTransaction().detach(suratMasukFragment).attach(suratMasukFragment).commit();
-            }else{
-
-                if(suratMasukFragment.fragmentBolehDiperbarui()){
-                    suratMasukFragment.onResume();
-                }
-
-                getSupportFragmentManager().beginTransaction().detach(suratKonsepFragment).attach(suratKonsepFragment).commit();
-                getSupportFragmentManager().beginTransaction().detach(suratMasukFragment).attach(suratMasukFragment).commit();
-            }
-
-        }*/
-
         cekVersi();
     }
 
