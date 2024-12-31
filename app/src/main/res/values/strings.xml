@@ -536,6 +536,12 @@
         <![CDATA[
         
         <h3>Riwayat Pengembangan</h3>
+        <p>2.5.09.B24122024 - Imanaji Hari Sayekti </p>
+        <ul>
+            <li> Perubahan logo bsre</li>
+            <li> Perbaikan terkait ajuan konsep tidak bisa diklik oleh lurah</li>
+            <li> Perbaikan ajuan surat opd tidak bisa tampil saat ajuan layanan desa kosong</li>
+        </ul>
         <p>2.5.08.B10122024 - Imanaji Hari Sayekti </p>
         <ul>
             <li> Perbaikan halaman detail tidak tertutup sesaat setelah selesai ditandatangani untuk konsep biasa dan khusus</li>

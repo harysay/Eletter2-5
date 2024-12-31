@@ -91,6 +91,9 @@ public class KonsepSuratLurahFragment extends Fragment implements
 
     private Button btnLihatTandai;
 
+    private String isiSuratOpd;
+    private String isiSuratLurah;
+
     private String deviceName; // untuk mengecek device tertentu
 
     private int jumlahKonsepBelumDibuka = 0;
@@ -291,19 +294,35 @@ public class KonsepSuratLurahFragment extends Fragment implements
     @Override
     public void onItemClicked(Konsep konsep,int position) {
 
+        Intent intentDetail = new Intent(KonsepSuratLurahFragment.this.getContext(), DetailKonsep.class);
+        intentDetail.putExtra("object", konsep);
+        intentDetail.putExtra("position", position);
+        startActivity(intentDetail);
+
+        Dashboard.setRefresh(true);
+
     }
 
 
     public void tampilError(boolean param, int kode, String pesan){
 
         if(param == true){
-            recyclerViewKonsepOPD.setVisibility(GONE);
-            recyclerViewKonsepLurah.setVisibility(GONE);
+            if(pesan=="opdkosong"){
+                header1.setVisibility(GONE);
+                recyclerViewKonsepOPD.setVisibility(GONE);
+            } else if (pesan=="lurahkosong") {
+                header2.setVisibility(GONE);
+                recyclerViewKonsepLurah.setVisibility(GONE);
+            }
+//            recyclerViewKonsepOPD.setVisibility(GONE);
+//            recyclerViewKonsepLurah.setVisibility(GONE);
             errorMessage.setVisibility(View.VISIBLE);
 
             if(allowUpdateUI){
                 if (kode == 1)
-                {}
+                {
+                    errorMessage.setVisibility(GONE);
+                }
                 else if (kode == 2)
                 {}
                 else if (kode == 3)
@@ -382,12 +401,14 @@ public class KonsepSuratLurahFragment extends Fragment implements
                                 if (result.getStatus().equals(Tag.TAG_STATUS_SUKSES)) {
 
                                     List<Konsep> todos = result.getData();
-
+//                                    List<Konsep> todos = new ArrayList<>();
                                     if (todos.size() == 0) {
-                                        tampilError(true, 5, "");
+//                                        isiSuratOpd = "opdkosong";
+                                        tampilError(true, 5, "opdkosong");
                                         DashboardLurah.setBadge(0, String.valueOf(0));
-                                        header1.setVisibility(GONE);
+//                                        header1.setVisibility(GONE);
                                     } else {
+                                        isiSuratOpd = "opdisi";
                                         header1.setVisibility(View.VISIBLE);
                                         jumlahKonsepBelumDibuka += todos.size();
 
@@ -509,16 +530,23 @@ public class KonsepSuratLurahFragment extends Fragment implements
                                     if (result.getStatus().equals(Tag.TAG_STATUS_SUKSES)) {
 
                                         List<KonsepDesa> todos = result.getData();
+//                                        List<KonsepDesa> todos = new ArrayList<>();
                                         if (todos.size() == 0) {
-                                            tampilError(true, 5, "");
+//                                            isiSuratLurah = "kosong";
+                                            if(isiSuratOpd=="opdisi") {
+                                                tampilError(true, 1, "lurahkosong");
+                                            }else {
+                                                tampilError(true, 5, "lurahkosong");
+                                            }
 
-
-                                            header2.setVisibility(GONE);
+//                                            header2.setVisibility(GONE);
+//                                            recyclerViewKonsepLurah.setVisibility(GONE);
 
                                             DashboardLurah.setBadge(0, String.valueOf(jumlahKonsepBelumDibuka));
 
                                         } else {
                                             header2.setVisibility(View.VISIBLE);
+                                            recyclerViewKonsepLurah.setVisibility(View.VISIBLE);
                                             jumlahKonsepBelumDibuka += todos.size();
 
 
@@ -531,7 +559,7 @@ public class KonsepSuratLurahFragment extends Fragment implements
 
 
                                         }
-                                        recyclerViewKonsepLurah.setVisibility(View.VISIBLE);
+//                                        recyclerViewKonsepLurah.setVisibility(View.VISIBLE);
                                         swipeRefreshLayout.setRefreshing(false);
 
                                     } else {

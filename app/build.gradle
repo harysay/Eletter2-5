@@ -8,8 +8,8 @@ android {
         minSdk 19 // sebelumnya 16, diupgrade karena kebutuhan Firebase
         targetSdk 34
         multiDexEnabled true
-        versionCode 77
-        versionName '2.5.08.B10122024'
+        versionCode 78
+        versionName '2.5.09.B24122024'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
     }
